@@ -108,9 +108,9 @@
 ---
 
 #### L-1: ユーティリティ関数
-- [ ] `lib/utils/age.ts`: `calcAge(birthDate: Date, baseDate?: Date): number` を実装する（誕生日当日から新しい年齢を返す）
-- [ ] `lib/utils/prefectures.ts`: 47 都道府県の配列定数を定義する
-- [ ] `lib/utils/ikemen-types.ts`: 12 種のイケメンタイプ定数と「最小 display_order を選ぶ」ヘルパー関数を実装する
+- [x] `lib/utils/age.ts`: `calcAge(birthDate: Date, baseDate?: Date): number` を実装する（誕生日当日から新しい年齢を返す）
+- [x] `lib/utils/prefectures.ts`: 47 都道府県の配列定数を定義する
+- [x] `lib/utils/ikemen-types.ts`: 12 種のイケメンタイプ定数と「最小 display_order を選ぶ」ヘルパー関数を実装する
 
 **完了条件**: `calcAge` が誕生日前日・当日・翌日の境界値で正しい年齢を返す（手動確認）
 
