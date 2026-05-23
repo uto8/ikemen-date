@@ -172,10 +172,10 @@
 ---
 
 #### A-3: 確認メール送信済み画面
-- [ ] `app/(auth)/verify-email/page.tsx` を作成する
-- [ ] 「確認メールを再送信する」ボタンと 60 秒カウントダウンタイマーを実装する（Client Component）
-- [ ] `resendConfirmationEmail` Server Action を実装する（`supabase.auth.resend`）
-- [ ] 有効期限切れエラー（`/login?error=expired`）の場合はエラーバナーを表示する
+- [x] `app/(auth)/verify-email/page.tsx` を作成する
+- [x] 「確認メールを再送信する」ボタンと 60 秒カウントダウンタイマーを実装する（Client Component）
+- [x] `resendConfirmationEmail` Server Action を実装する（`supabase.auth.resend`）
+- [ ] 有効期限切れエラー（`/login?error=expired`）の場合はエラーバナーを表示する（A-4 ログインページで実装）
 
 **完了条件**: ボタンを押すと再送信される。60 秒以内の 2 回目の押下でボタンが非活性になり残り秒数が表示される
 
