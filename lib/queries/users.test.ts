@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { transformToUserCardData, transformToUserDetailData } from './users'
+import { transformToUserCardData, transformToUserDetailData, getNextCursor, USERS_PAGE_SIZE } from './users'
 
 vi.mock('../supabase/server', () => ({
   createServerSupabaseClient: vi.fn(),
@@ -58,6 +58,33 @@ const baseFemaleDetail = {
   bio: null,
   profile_ikemen_types: [],
 }
+
+describe('getNextCursor', () => {
+  const makeRows = (n: number) =>
+    Array.from({ length: n }, (_, i) => ({
+      created_at: `2024-01-${String(n - i).padStart(2, '0')}T00:00:00Z`,
+    }))
+
+  it('空配列は null を返す', () => {
+    expect(getNextCursor([], USERS_PAGE_SIZE)).toBeNull()
+  })
+
+  it('pageSize 未満の行数は null を返す', () => {
+    expect(getNextCursor(makeRows(USERS_PAGE_SIZE - 1), USERS_PAGE_SIZE)).toBeNull()
+  })
+
+  it('ちょうど pageSize の行数は最後の created_at を返す', () => {
+    const rows = makeRows(USERS_PAGE_SIZE)
+    const result = getNextCursor(rows, USERS_PAGE_SIZE)
+    expect(result).toBe(rows[USERS_PAGE_SIZE - 1].created_at)
+  })
+
+  it('pageSize より多い行数も最後の created_at を返す', () => {
+    const rows = makeRows(USERS_PAGE_SIZE + 5)
+    const result = getNextCursor(rows, USERS_PAGE_SIZE)
+    expect(result).toBe(rows[rows.length - 1].created_at)
+  })
+})
 
 describe('transformToUserCardData', () => {
   it('年齢を birth_date から正しく算出する', () => {

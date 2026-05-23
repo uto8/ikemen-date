@@ -185,13 +185,25 @@ export async function getMyProfile(userId: string): Promise<MyProfileData | null
   }
 }
 
+export const USERS_PAGE_SIZE = 20
+
+export type PaginatedUsers = {
+  users: UserCardData[]
+  nextCursor: string | null
+}
+
+export function getNextCursor(rows: Array<{ created_at: string }>, pageSize: number): string | null {
+  return rows.length >= pageSize ? rows[rows.length - 1].created_at : null
+}
+
 export async function getOppositeUsers(
   currentUserId: string,
-  currentGender: string
-): Promise<UserCardData[]> {
+  currentGender: string,
+  cursor?: string
+): Promise<PaginatedUsers> {
   const supabase = await createServerSupabaseClient()
 
-  const { data, error } = await supabase
+  let query = supabase
     .from('profiles')
     .select(
       `
@@ -211,8 +223,19 @@ export async function getOppositeUsers(
     .neq('id', currentUserId)
     .eq('is_onboarding_complete', true)
     .order('created_at', { ascending: false })
+    .limit(USERS_PAGE_SIZE)
 
-  if (error || !data) return []
+  if (cursor) {
+    query = query.lt('created_at', cursor)
+  }
 
-  return transformToUserCardData(data as ProfileRow[])
+  const { data, error } = await query
+
+  if (error || !data) return { users: [], nextCursor: null }
+
+  const rows = data as ProfileRow[]
+  return {
+    users: transformToUserCardData(rows),
+    nextCursor: getNextCursor(rows, USERS_PAGE_SIZE),
+  }
 }

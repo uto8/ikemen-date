@@ -492,8 +492,8 @@
 ### POST-2: ユーザー一覧のページネーション
 > 要件未確定（未決事項 #1）
 
-- [ ] 無限スクロール（`IntersectionObserver`）またはページ番号方式を選定する
-- [ ] `getOppositeUsers` に `cursor` または `page` パラメータを追加する
+- [x] 無限スクロール（`IntersectionObserver`）またはページ番号方式を選定する
+- [x] `getOppositeUsers` に `cursor` または `page` パラメータを追加する
 
 **完了条件**: 表示件数が増えても画面が重くならない
 
