@@ -66,10 +66,10 @@
 ---
 
 #### D-3: マッチング生成トリガー作成
-- [ ] `supabase/migrations/003_match_trigger.sql` を作成する
-- [ ] `create_match_if_mutual()` 関数を実装する（`SECURITY DEFINER`・`LEAST/GREATEST` による順序統一）
-- [ ] `on_like_inserted` トリガーを `likes` テーブルに設定する
-- [ ] SQL Editor で A→B、B→A の順にいいねを INSERT してマッチングが自動生成されることを確認する
+- [x] `supabase/migrations/003_match_trigger.sql` を作成する
+- [x] `create_match_if_mutual()` 関数を実装する（`SECURITY DEFINER`・`LEAST/GREATEST` による順序統一）
+- [x] `on_like_inserted` トリガーを `likes` テーブルに設定する
+- [x] SQL Editor で A→B、B→A の順にいいねを INSERT してマッチングが自動生成されることを確認する
 
 **完了条件**: 双方向 `likes` INSERT 後に `matches` レコードが 1 件生成される。同一ペアへの重複マッチングが ON CONFLICT で無視される
 
