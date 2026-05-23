@@ -1,5 +1,5 @@
 import { calcAge } from '../utils/age'
-import { pickPrimaryIkemenType } from '../utils/ikemen-types'
+import { IKEMEN_TYPES, pickPrimaryIkemenType } from '../utils/ikemen-types'
 import { createServerSupabaseClient } from '../supabase/server'
 
 export type UserCardData = {
@@ -43,6 +43,84 @@ export function transformToUserCardData(profiles: ProfileRow[]): UserCardData[] 
       primaryIkemenType,
     }
   })
+}
+
+export type UserDetailData = {
+  id: string
+  nickname: string
+  age: number
+  prefecture: string
+  avatar_url: string | null
+  gender: string
+  occupation: string | null
+  height: number | null
+  bio: string | null
+  ikemenTypes: string[]
+}
+
+type ProfileDetailRow = {
+  id: string
+  nickname: string
+  birth_date: string
+  prefecture: string
+  avatar_url: string | null
+  gender: string
+  occupation: string | null
+  height: number | null
+  bio: string | null
+  profile_ikemen_types: Array<{ ikemen_type_id: number }>
+}
+
+export function transformToUserDetailData(row: ProfileDetailRow): UserDetailData {
+  const [y, m, d] = row.birth_date.split('-').map(Number)
+  const age = calcAge(new Date(y, m - 1, d))
+
+  const ikemenTypes = IKEMEN_TYPES.filter((t) =>
+    row.profile_ikemen_types.some((pt) => pt.ikemen_type_id === t.id)
+  ).map((t) => t.name)
+
+  return {
+    id: row.id,
+    nickname: row.nickname,
+    age,
+    prefecture: row.prefecture,
+    avatar_url: row.avatar_url,
+    gender: row.gender,
+    occupation: row.occupation,
+    height: row.height,
+    bio: row.bio,
+    ikemenTypes,
+  }
+}
+
+export async function getUserById(id: string): Promise<UserDetailData | null> {
+  const supabase = await createServerSupabaseClient()
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select(
+      `
+      id,
+      nickname,
+      birth_date,
+      prefecture,
+      avatar_url,
+      gender,
+      occupation,
+      height,
+      bio,
+      profile_ikemen_types (
+        ikemen_type_id
+      )
+    `
+    )
+    .eq('id', id)
+    .eq('is_onboarding_complete', true)
+    .single()
+
+  if (error || !data) return null
+
+  return transformToUserDetailData(data as ProfileDetailRow)
 }
 
 export async function getOppositeUsers(

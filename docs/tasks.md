@@ -271,10 +271,10 @@
 ---
 
 #### U-1: ユーザー詳細画面
-- [ ] `lib/queries/users.ts` に `getUserById(id)` を実装する（全プロフィールフィールド取得・ikemen_types 全件 JOIN）
-- [ ] `app/(app)/users/[id]/page.tsx` を作成する（Server Component）
-- [ ] 性別に応じて表示項目を切り替える（男性: 職業・身長・自己紹介・全イケメンタイプ / 女性: 基本情報のみ）
-- [ ] 自分自身のページではいいねボタンを表示しない
+- [x] `lib/queries/users.ts` に `getUserById(id)` を実装する（全プロフィールフィールド取得・ikemen_types 全件 JOIN）
+- [x] `app/(app)/users/[id]/page.tsx` を作成する（Server Component）
+- [x] 性別に応じて表示項目を切り替える（男性: 職業・身長・自己紹介・全イケメンタイプ / 女性: 基本情報のみ）
+- [x] 自分自身のページではいいねボタンを表示しない
 
 **完了条件**: 男性詳細で全 `profile_ikemen_types` が表示される。`/users/[自分のID]` でいいねボタンが非表示になる
 

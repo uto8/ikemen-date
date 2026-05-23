@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { transformToUserCardData } from './users'
+import { transformToUserCardData, transformToUserDetailData } from './users'
 
 vi.mock('../supabase/server', () => ({
   createServerSupabaseClient: vi.fn(),
@@ -31,6 +31,32 @@ const baseMale = {
   gender: 'male',
   created_at: '2024-01-02T00:00:00Z',
   profile_ikemen_types: [{ ikemen_type_id: 3 }, { ikemen_type_id: 1 }],
+}
+
+const baseMaleDetail = {
+  id: 'm-1',
+  nickname: '太郎',
+  birth_date: birthDateYearsAgo(28),
+  prefecture: '大阪府',
+  avatar_url: 'https://example.com/avatar.jpg',
+  gender: 'male',
+  occupation: 'エンジニア',
+  height: 178,
+  bio: 'よろしくお願いします',
+  profile_ikemen_types: [{ ikemen_type_id: 3 }, { ikemen_type_id: 1 }],
+}
+
+const baseFemaleDetail = {
+  id: 'f-1',
+  nickname: '花子',
+  birth_date: birthDateYearsAgo(25),
+  prefecture: '東京都',
+  avatar_url: null,
+  gender: 'female',
+  occupation: null,
+  height: null,
+  bio: null,
+  profile_ikemen_types: [],
 }
 
 describe('transformToUserCardData', () => {
@@ -72,5 +98,38 @@ describe('transformToUserCardData', () => {
     expect(u.prefecture).toBe('東京都')
     expect(u.avatar_url).toBeNull()
     expect(u.gender).toBe('female')
+  })
+})
+
+describe('transformToUserDetailData', () => {
+  it('男性の全フィールドを正しく変換する', () => {
+    const result = transformToUserDetailData(baseMaleDetail)
+    expect(result.id).toBe('m-1')
+    expect(result.age).toBe(28)
+    expect(result.occupation).toBe('エンジニア')
+    expect(result.height).toBe(178)
+    expect(result.bio).toBe('よろしくお願いします')
+  })
+
+  it('ikemenTypes は display_order 順に返す', () => {
+    // id:1=王道アイドル系(order:1), id:3=犬系彼氏系(order:3)
+    const result = transformToUserDetailData(baseMaleDetail)
+    expect(result.ikemenTypes).toEqual(['王道アイドル系', '犬系彼氏系'])
+  })
+
+  it('profile_ikemen_types が空のとき ikemenTypes は空配列', () => {
+    const row = { ...baseMaleDetail, profile_ikemen_types: [] }
+    const result = transformToUserDetailData(row)
+    expect(result.ikemenTypes).toEqual([])
+  })
+
+  it('女性の基本フィールドを正しく変換する', () => {
+    const result = transformToUserDetailData(baseFemaleDetail)
+    expect(result.id).toBe('f-1')
+    expect(result.age).toBe(25)
+    expect(result.occupation).toBeNull()
+    expect(result.height).toBeNull()
+    expect(result.bio).toBeNull()
+    expect(result.ikemenTypes).toEqual([])
   })
 })
