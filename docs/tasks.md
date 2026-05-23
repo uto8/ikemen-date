@@ -456,9 +456,9 @@
 ---
 
 #### N-3: エラーページ・デフォルトアバター
-- [ ] `app/not-found.tsx` を作成する（404 ページ）
-- [ ] `app/error.tsx` を作成する（予期しないエラー）
-- [ ] デフォルトアバター画像を `public/default-avatar.png` に配置する
+- [x] `app/not-found.tsx` を作成する（404 ページ）
+- [x] `app/error.tsx` を作成する（予期しないエラー）
+- [x] デフォルトアバター画像を `public/default-avatar.png` に配置する
 
 **完了条件**: 存在しない URL にアクセスすると 404 ページが表示される
 
