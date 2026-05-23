@@ -11,18 +11,18 @@
 ---
 
 #### S-1: Supabase プロジェクト作成・環境変数設定
-- [ ] Supabase ダッシュボードでプロジェクトを作成する
-- [ ] `.env.local` に `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` を設定する
-- [ ] `.gitignore` に `.env.local` が含まれていることを確認する
+- [x] Supabase ダッシュボードでプロジェクトを作成する
+- [x] `.env.local` に `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` を設定する
+- [x] `.gitignore` に `.env.local` が含まれていることを確認する
 
 **完了条件**: `npm run dev` を起動したとき、環境変数が読み込まれてコンパイルエラーが出ない
 
 ---
 
 #### S-2: Supabase SDK インストール・クライアント作成
-- [ ] `npm install @supabase/ssr @supabase/supabase-js` を実行する
-- [ ] `lib/supabase/server.ts` に `createServerSupabaseClient()` を実装する（Cookie ベース・SSR 用）
-- [ ] `lib/supabase/client.ts` に `getSupabaseBrowserClient()` を実装する（シングルトン・ブラウザ用）
+- [x] `npm install @supabase/ssr @supabase/supabase-js` を実行する
+- [x] `lib/supabase/server.ts` に `createServerSupabaseClient()` を実装する（Cookie ベース・SSR 用）
+- [x] `lib/supabase/client.ts` に `getSupabaseBrowserClient()` を実装する（シングルトン・ブラウザ用）
 
 **完了条件**: `lib/supabase/server.ts` と `lib/supabase/client.ts` が型エラーなしでコンパイルされる
 
