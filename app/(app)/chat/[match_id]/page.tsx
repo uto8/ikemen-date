@@ -27,7 +27,7 @@ export default async function ChatPage({ params }: Props) {
   ])
 
   return (
-    <main className="flex h-screen flex-col">
+    <main className="flex h-[calc(100dvh-4rem)] flex-col">
       <ChatBadgeResetter matchId={match_id} />
       <ChatMessages
         matchId={match_id}
