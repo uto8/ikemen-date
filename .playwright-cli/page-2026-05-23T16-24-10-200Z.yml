@@ -1,0 +1,22 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: S09-onboarding-male-step5.html
+        - img [ref=e5]
+      - generic [ref=e7]: イケメンデート
+  - main [ref=e8]:
+    - generic [ref=e10]:
+      - generic [ref=e11]: ステップ 6 / 7
+      - generic [ref=e12]: 自己紹介
+    - generic [ref=e21]:
+      - heading "自己紹介を書いてください" [level=1] [ref=e22]
+      - paragraph [ref=e23]: プロフィールに表示されます。趣味や人柄を自由に書いてください。
+      - generic [ref=e24]:
+        - generic [ref=e25]: 自己紹介 *
+        - 'textbox "例: 週末はテニスをしています。穏やかで話しやすいとよく言われます。一緒においしいものを食べに行きたいです！" [active] [ref=e26]': 週末はテニスをしています。穏やかで話しやすいとよく言われます。一緒においしいものを食べに行ったり、映画を見たりするのが好きです。よろしくお願いします！
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: 1〜300文字
+          - paragraph [ref=e29]: 73 / 300文字
+    - link "次へ" [ref=e31] [cursor=pointer]:
+      - /url: S09-onboarding-male-step7.html

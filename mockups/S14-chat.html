@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — チャット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 500: '#00c1d4', 600: '#00a3b3' },
+            gray: { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' },
+            warning: { 50: '#fef3c7', 500: '#f59e0b' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans flex flex-col h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 flex-shrink-0 z-10">
+    <div class="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+      <a href="S13-matches.html" class="text-gray-500 hover:text-gray-900">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+        </svg>
+      </a>
+      <div class="w-9 h-9 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+        <img src="../public/sawayakasports.png" alt="翔太" class="w-full h-full object-cover object-top">
+      </div>
+      <div>
+        <p class="font-bold text-sm text-gray-900">翔太</p>
+        <p class="text-xs text-gray-400">24歳 · 東京都</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Messages -->
+  <main class="flex-1 overflow-y-auto max-w-2xl w-full mx-auto px-4 py-4 space-y-4">
+
+    <!-- Date divider -->
+    <div class="flex items-center gap-3 my-2">
+      <hr class="flex-1 border-gray-200">
+      <span class="text-xs text-gray-400 flex-shrink-0">2026年5月23日</span>
+      <hr class="flex-1 border-gray-200">
+    </div>
+
+    <!-- Other's message -->
+    <div class="flex items-end gap-2">
+      <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+        <img src="../public/sawayakasports.png" alt="翔太" class="w-full h-full object-cover object-top">
+      </div>
+      <div class="max-w-[72%]">
+        <div class="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+          <p class="text-sm text-gray-900 leading-relaxed">はじめまして！マッチングありがとうございます😊</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 ml-1">14:22</p>
+      </div>
+    </div>
+
+    <!-- My message -->
+    <div class="flex items-end justify-end gap-2">
+      <div class="max-w-[72%]">
+        <div class="bg-primary-500 rounded-2xl rounded-br-sm px-4 py-3 shadow-sm">
+          <p class="text-sm text-white leading-relaxed">こちらこそ、よろしくお願いします！プロフィール見て気になってました</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 text-right mr-1">14:25</p>
+      </div>
+    </div>
+
+    <!-- Other's message -->
+    <div class="flex items-end gap-2">
+      <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+        <img src="../public/sawayakasports.png" alt="翔太" class="w-full h-full object-cover object-top">
+      </div>
+      <div class="max-w-[72%]">
+        <div class="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+          <p class="text-sm text-gray-900 leading-relaxed">嬉しいです！趣味でカフェ巡りって書いてましたよね？おすすめのカフェとかありますか？</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 ml-1">14:28</p>
+      </div>
+    </div>
+
+    <!-- My message -->
+    <div class="flex items-end justify-end gap-2">
+      <div class="max-w-[72%]">
+        <div class="bg-primary-500 rounded-2xl rounded-br-sm px-4 py-3 shadow-sm">
+          <p class="text-sm text-white leading-relaxed">渋谷の「% Arabica」が最近のお気に入りです！翔太さんはどんな趣味がありますか？</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 text-right mr-1">14:31</p>
+      </div>
+    </div>
+
+    <!-- Date divider -->
+    <div class="flex items-center gap-3 my-2">
+      <hr class="flex-1 border-gray-200">
+      <span class="text-xs text-gray-400 flex-shrink-0">今日</span>
+      <hr class="flex-1 border-gray-200">
+    </div>
+
+    <!-- Other's message -->
+    <div class="flex items-end gap-2">
+      <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+        <img src="../public/sawayakasports.png" alt="翔太" class="w-full h-full object-cover object-top">
+      </div>
+      <div class="max-w-[72%]">
+        <div class="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+          <p class="text-sm text-gray-900 leading-relaxed">サッカーと映画鑑賞が好きです！一緒にカフェ行けたら嬉しいな☕</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 ml-1">09:15</p>
+      </div>
+    </div>
+
+    <!-- Retired user message example -->
+    <div class="flex items-end gap-2 opacity-60">
+      <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center">
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+        </svg>
+      </div>
+      <div class="max-w-[72%]">
+        <p class="text-xs text-gray-400 mb-1">退会済みユーザー</p>
+        <div class="bg-gray-100 rounded-2xl rounded-bl-sm px-4 py-3">
+          <p class="text-sm text-gray-500 leading-relaxed">ありがとうございます！</p>
+        </div>
+        <p class="text-xs text-gray-400 mt-1 ml-1">10:02</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Withdrawn banner (reference) -->
+  <div class="max-w-2xl w-full mx-auto px-4 py-2 flex-shrink-0">
+    <div class="bg-warning-50 border border-yellow-200 rounded-md px-4 py-2.5 text-xs text-warning-500 text-center">
+      相手が退会しました。このチャットは利用できません（表示例）
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="bg-white border-t border-gray-200 flex-shrink-0 sticky bottom-0">
+    <div class="max-w-2xl mx-auto px-4 py-3">
+      <div class="flex items-end gap-3">
+        <div class="flex-1">
+          <textarea
+            rows="1"
+            placeholder="メッセージを入力..."
+            class="w-full border border-gray-200 rounded-2xl px-4 py-2.5 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white resize-none leading-relaxed"
+            style="min-height:44px; max-height:120px;"
+          >ぜひ行きましょう！いつが空いてますか？</textarea>
+          <p class="text-xs text-gray-400 text-right mt-1">20 / 500</p>
+        </div>
+        <button class="w-10 h-10 bg-primary-500 hover:bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm transition-colors mb-0.5">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

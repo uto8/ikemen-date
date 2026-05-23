@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — プロフィール登録（男性）Step 7</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 500: '#00c1d4', 600: '#00a3b3' },
+            gray: { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' },
+            error: { 500: '#ef4444' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-gray-200 flex-shrink-0">
+    <div class="max-w-md mx-auto px-4 h-14 flex items-center gap-3">
+      <a href="S09-onboarding-male-step6.html" class="text-gray-400 hover:text-gray-700 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+        </svg>
+      </a>
+      <span class="text-primary-500 font-bold text-lg mx-auto pr-5">イケメンデート</span>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto w-full px-4 py-10 flex flex-col flex-1">
+
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs text-gray-500 font-semibold">ステップ 7 / 7</span>
+        <span class="text-xs text-gray-400">イケメンタイプ</span>
+      </div>
+      <div class="flex gap-1">
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col">
+      <h1 class="text-2xl font-bold text-gray-900 mb-1">あなたのイケメンタイプは？</h1>
+      <p class="text-gray-500 text-sm mb-2">当てはまるものをすべて選んでください（1つ以上）。</p>
+      <p class="text-xs text-gray-400 mb-6">女性が一覧を絞り込む際のフィルターになります。</p>
+
+      <!-- 2-col grid of ikemen type cards -->
+      <div class="grid grid-cols-2 gap-3 flex-1">
+
+        <!-- Selected state -->
+        <label class="relative cursor-pointer">
+          <input type="checkbox" checked class="sr-only peer">
+          <div class="border-2 border-primary-500 bg-primary-50 rounded-2xl overflow-hidden transition-colors peer-checked:border-primary-500 peer-checked:bg-primary-50">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/sawayakasports.png" alt="爽やかスポーツ" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-primary-500">爽やかスポーツ</span>
+              <svg class="w-4 h-4 text-primary-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <!-- Unselected state -->
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/siogaocool.png" alt="塩顔クール" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">塩顔クール</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/toshiueonisan.png" alt="年上お兄さん" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">年上お兄さん</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/inukeikareshi.png" alt="犬系彼氏" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">犬系彼氏</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/koreaidol.png" alt="韓国系アイドル" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">韓国系アイドル</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/odouidol.png" alt="踊れるアイドル" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">踊れるアイドル</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/tyuseibiyou.png" alt="中性美容系" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">中性美容系</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/numagaomistery.png" alt="沼顔ミステリー" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">沼顔ミステリー</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/kawaii.png" alt="かわいい系" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">かわいい系</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/charamote.png" alt="チャラモテ系" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">チャラモテ系</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/wildiroke.png" alt="ワイルドいろけ系" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">ワイルドいろけ系</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+        <label class="relative cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="border-2 border-gray-200 bg-white rounded-2xl overflow-hidden hover:border-primary-500 transition-colors">
+            <div class="aspect-square w-full overflow-hidden">
+              <img src="../public/youkyamoodmaker.png" alt="陽キャムードメーカー" class="w-full h-full object-cover object-top">
+            </div>
+            <div class="px-3 py-2 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gray-700">陽キャムードメーカー</span>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </label>
+
+      </div>
+
+      <!-- Error state (shown when none selected) -->
+      <p class="text-xs text-error-500 mt-3">1つ以上選択してください</p>
+    </div>
+
+    <div class="mt-6">
+      <a href="S10-gallery.html"
+         class="block w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-full py-4 text-base transition-colors shadow-sm text-center">
+        登録する
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>

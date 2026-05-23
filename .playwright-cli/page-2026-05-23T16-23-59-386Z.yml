@@ -1,0 +1,22 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: S09-onboarding-male-step4.html
+        - img [ref=e5]
+      - generic [ref=e7]: イケメンデート
+  - main [ref=e8]:
+    - generic [ref=e10]:
+      - generic [ref=e11]: ステップ 5 / 7
+      - generic [ref=e12]: 身長
+    - generic [ref=e21]:
+      - heading "身長を教えてください" [level=1] [ref=e22]
+      - paragraph [ref=e23]: プロフィールに表示されます。
+      - generic [ref=e24]:
+        - generic [ref=e25]: 身長 *
+        - generic [ref=e26]:
+          - spinbutton [active] [ref=e27]: "175"
+          - generic: cm
+        - paragraph [ref=e28]: 100〜250 の整数で入力してください
+    - link "次へ" [ref=e30] [cursor=pointer]:
+      - /url: S09-onboarding-male-step6.html

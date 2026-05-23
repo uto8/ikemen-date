@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — ユーザー詳細</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 100: '#b2ebf2', 500: '#00c1d4', 600: '#00a3b3' },
+            gray: { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans pb-28">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+      <a href="S10-gallery.html" class="text-gray-500 hover:text-gray-900">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+        </svg>
+      </a>
+      <span class="font-bold text-gray-900">プロフィール</span>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto">
+
+    <!-- Profile Image -->
+    <div class="w-full bg-gray-100" style="aspect-ratio:3/4; max-height:480px; overflow:hidden;">
+      <img src="../public/sawayakasports.png" alt="翔太" class="w-full h-full object-cover object-top">
+    </div>
+
+    <!-- Info -->
+    <div class="bg-white px-5 py-6 space-y-5">
+
+      <!-- Name & Basic -->
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">翔太</h1>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-gray-500 text-sm">
+          <span>24歳</span>
+          <span>東京都</span>
+          <span>ソフトウェアエンジニア</span>
+          <span>178cm</span>
+        </div>
+      </div>
+
+      <!-- Ikemen Type Badges -->
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-primary-50 text-primary-500 text-xs font-semibold px-3 py-1.5 rounded-full border border-primary-100">爽やかスポーツ系</span>
+        <span class="bg-primary-50 text-primary-500 text-xs font-semibold px-3 py-1.5 rounded-full border border-primary-100">かわいい系</span>
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-gray-100">
+
+      <!-- Bio -->
+      <div>
+        <h2 class="text-sm font-bold text-gray-900 mb-2">自己紹介</h2>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          はじめまして！東京でエンジニアをしている翔太です。休日はカフェ巡りや映画鑑賞が趣味です。
+          明るくフレンドリーな方とお話したいです。趣味が合う方と楽しい時間を過ごせたら嬉しいです😊
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Like Button Area (Fixed) -->
+  <div class="fixed bottom-20 left-0 right-0 z-20 px-4">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- State 1: Normal (unsent) -->
+      <button class="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-full py-4 text-base transition-colors shadow-lg flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+        </svg>
+        いいね
+      </button>
+
+    </div>
+  </div>
+
+  <!-- State examples panel -->
+  <div class="max-w-2xl mx-auto px-4 py-6 space-y-3">
+    <p class="text-xs text-gray-400 font-semibold">【いいねボタンの状態バリエーション】</p>
+
+    <!-- Sent state -->
+    <button disabled class="w-full bg-gray-100 text-gray-400 font-bold rounded-full py-4 text-base flex items-center justify-center gap-2 cursor-not-allowed border border-gray-200">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+      </svg>
+      いいね済み
+    </button>
+
+    <!-- Match modal trigger -->
+    <div class="bg-primary-50 border border-primary-100 rounded-2xl p-5 text-center">
+      <p class="text-lg font-bold text-gray-900 mb-1">✨ つながりました！</p>
+      <p class="text-sm text-gray-500 mb-4">メッセージを送ってみませんか？</p>
+      <a href="S14-chat.html" class="inline-block bg-primary-500 text-white font-semibold rounded-full px-8 py-3 text-sm">
+        チャットへ
+      </a>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-10">
+    <div class="max-w-2xl mx-auto flex">
+      <a href="S10-gallery.html" class="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-primary-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+        <span class="text-xs font-semibold">一覧</span>
+      </a>
+      <a href="S12-likes-received.html" class="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-gray-400">
+        <div class="relative">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg>
+          <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">3</span>
+        </div>
+        <span class="text-xs">いいね</span>
+      </a>
+      <a href="S13-matches.html" class="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-gray-400">
+        <div class="relative">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/></svg>
+          <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 leading-none">1</span>
+        </div>
+        <span class="text-xs">マッチング</span>
+      </a>
+      <a href="S15-mypage.html" class="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-gray-400">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+        <span class="text-xs">マイページ</span>
+      </a>
+    </div>
+  </nav>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — 新規登録</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 500: '#00c1d4', 600: '#00a3b3' },
+            gray: { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' },
+            error: { 50: '#fee2e2', 500: '#ef4444' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-md mx-auto px-4 h-14 flex items-center justify-center">
+      <span class="text-primary-500 font-bold text-lg">イケメンデート</span>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto px-4 py-10">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">新規登録</h1>
+    <p class="text-gray-500 text-sm mb-8">アカウントを作成して始めましょう</p>
+
+    <form class="space-y-6">
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-2">メールアドレス</label>
+        <input type="email" placeholder="example@mail.com" value="yamada.hana@gmail.com"
+               class="w-full border border-gray-200 rounded-md px-4 py-3 text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-400">
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-2">パスワード</label>
+        <div class="relative">
+          <input type="password" placeholder="8文字以上・英字と数字を含む" value="hana1234"
+                 class="w-full border border-gray-200 rounded-md px-4 py-3 text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-400 pr-12">
+          <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Error example -->
+        <p class="mt-1.5 text-xs text-error-500">パスワードは英字と数字をそれぞれ1文字以上含む8文字以上で入力してください</p>
+      </div>
+
+      <!-- Gender -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-3">性別</label>
+        <div class="flex gap-4">
+          <label class="flex-1 flex items-center justify-center gap-2 border-2 border-primary-500 bg-primary-50 rounded-md py-3 cursor-pointer">
+            <input type="radio" name="gender" value="female" checked class="accent-primary-500">
+            <span class="text-sm font-semibold text-primary-500">女性</span>
+          </label>
+          <label class="flex-1 flex items-center justify-center gap-2 border-2 border-gray-200 bg-white rounded-md py-3 cursor-pointer">
+            <input type="radio" name="gender" value="male" class="accent-primary-500">
+            <span class="text-sm text-gray-500">男性</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Birthday -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-2">生年月日</label>
+        <input type="date" value="2003-04-15"
+               class="w-full border border-gray-200 rounded-md px-4 py-3 text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900">
+        <p class="mt-1.5 text-xs text-gray-400">18歳以上の方のみご利用いただけます</p>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit"
+              class="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-full py-4 text-base transition-colors shadow-sm">
+        登録する
+      </button>
+
+    </form>
+
+    <p class="text-center mt-6 text-sm text-gray-500">
+      すでにアカウントをお持ちの方は
+      <a href="S04-login.html" class="text-primary-500 font-semibold">ログイン</a>
+    </p>
+  </main>
+
+</body>
+</html>

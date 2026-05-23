@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — プロフィール登録（男性）Step 5</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 500: '#00c1d4', 600: '#00a3b3' },
+            gray: { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' },
+            error: { 500: '#ef4444' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <header class="bg-white border-b border-gray-200 flex-shrink-0">
+    <div class="max-w-md mx-auto px-4 h-14 flex items-center gap-3">
+      <a href="S09-onboarding-male-step4.html" class="text-gray-400 hover:text-gray-700 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/>
+        </svg>
+      </a>
+      <span class="text-primary-500 font-bold text-lg mx-auto pr-5">イケメンデート</span>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto w-full px-4 py-10 flex flex-col flex-1">
+
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs text-gray-500 font-semibold">ステップ 5 / 7</span>
+        <span class="text-xs text-gray-400">身長</span>
+      </div>
+      <div class="flex gap-1">
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-primary-500"></div>
+        <div class="h-1 flex-1 rounded-full bg-gray-200"></div>
+        <div class="h-1 flex-1 rounded-full bg-gray-200"></div>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col">
+      <h1 class="text-2xl font-bold text-gray-900 mb-1">身長を教えてください</h1>
+      <p class="text-gray-500 text-sm mb-10">プロフィールに表示されます。</p>
+
+      <div class="flex-1">
+        <label class="block text-sm font-semibold text-gray-900 mb-2">
+          身長 <span class="text-error-500">*</span>
+        </label>
+        <div class="relative">
+          <input
+            type="number"
+            placeholder="例: 175"
+            value="175"
+            min="100"
+            max="250"
+            autofocus
+            class="w-full border border-gray-200 rounded-md px-4 py-3 pr-12 text-base bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-400"
+          >
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-semibold pointer-events-none">cm</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">100〜250 の整数で入力してください</p>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <a href="S09-onboarding-male-step6.html"
+         class="block w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-full py-4 text-base transition-colors shadow-sm text-center">
+        次へ
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>

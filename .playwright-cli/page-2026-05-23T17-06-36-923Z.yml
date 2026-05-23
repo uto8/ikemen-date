@@ -1,0 +1,48 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "マッチング" [level=1] [ref=e4]
+  - main [ref=e5]:
+    - link "翔太 翔太 24歳 · 東京都 昨日マッチング 3" [ref=e6] [cursor=pointer]:
+      - /url: S14-chat.html
+      - img "翔太" [ref=e9]
+      - generic [ref=e11]:
+        - paragraph [ref=e12]: 翔太
+        - paragraph [ref=e13]: 24歳 · 東京都
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: 昨日マッチング
+        - generic [ref=e16]: "3"
+    - link "颯 颯 22歳 · 神奈川県 3日前マッチング" [ref=e17] [cursor=pointer]:
+      - /url: S14-chat.html
+      - img "颯" [ref=e19]
+      - generic [ref=e20]:
+        - paragraph [ref=e21]: 颯
+        - paragraph [ref=e22]: 22歳 · 神奈川県
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: 3日前マッチング
+        - img [ref=e25]
+    - generic [ref=e27]:
+      - paragraph [ref=e28]: 【空の状態の表示例】
+      - generic [ref=e29]:
+        - img [ref=e30]
+        - paragraph [ref=e32]: まだマッチングしていません。
+        - paragraph [ref=e33]: いいねを送ってみましょう
+  - navigation [ref=e34]:
+    - generic [ref=e35]:
+      - link "一覧" [ref=e36] [cursor=pointer]:
+        - /url: S10-gallery.html
+        - img [ref=e37]
+        - generic [ref=e39]: 一覧
+      - link "3 いいね" [ref=e40] [cursor=pointer]:
+        - /url: S12-likes-received.html
+        - generic [ref=e41]:
+          - img [ref=e42]
+          - generic [ref=e44]: "3"
+        - generic [ref=e45]: いいね
+      - link "マッチング" [ref=e46] [cursor=pointer]:
+        - /url: S13-matches.html
+        - img [ref=e47]
+        - generic [ref=e49]: マッチング
+      - link "マイページ" [ref=e50] [cursor=pointer]:
+        - /url: S15-mypage.html
+        - img [ref=e51]
+        - generic [ref=e53]: マイページ

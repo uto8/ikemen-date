@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]: イケメンデート
+  - main [ref=e5]:
+    - generic [ref=e6]:
+      - link "翔太 爽やかスポーツ系 翔太 24歳 · 東京都" [ref=e7] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e8]:
+          - img "翔太" [ref=e9]
+          - generic [ref=e10]: 爽やかスポーツ系
+        - generic [ref=e11]:
+          - paragraph [ref=e12]: 翔太
+          - paragraph [ref=e13]: 24歳 · 東京都
+      - link "蓮 塩顔クール系 蓮 26歳 · 大阪府" [ref=e14] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e15]:
+          - img "蓮" [ref=e16]
+          - generic [ref=e17]: 塩顔クール系
+        - generic [ref=e18]:
+          - paragraph [ref=e19]: 蓮
+          - paragraph [ref=e20]: 26歳 · 大阪府
+      - link "颯 犬系彼氏系 颯 22歳 · 神奈川県" [ref=e21] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e22]:
+          - img "颯" [ref=e23]
+          - generic [ref=e24]: 犬系彼氏系
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: 颯
+          - paragraph [ref=e27]: 22歳 · 神奈川県
+      - link "ラン 韓国アイドル系 ラン 23歳 · 福岡県" [ref=e28] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e29]:
+          - img "ラン" [ref=e30]
+          - generic [ref=e31]: 韓国アイドル系
+        - generic [ref=e32]:
+          - paragraph [ref=e33]: ラン
+          - paragraph [ref=e34]: 23歳 · 福岡県
+      - link "陸 ワイルド色気系 陸 28歳 · 愛知県" [ref=e35] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e36]:
+          - img "陸" [ref=e37]
+          - generic [ref=e38]: ワイルド色気系
+        - generic [ref=e39]:
+          - paragraph [ref=e40]: 陸
+          - paragraph [ref=e41]: 28歳 · 愛知県
+      - link "健 中性美容系 健 25歳 · 千葉県" [ref=e42] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e43]:
+          - img "健" [ref=e44]
+          - generic [ref=e45]: 中性美容系
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: 健
+          - paragraph [ref=e48]: 25歳 · 千葉県
+      - link "凛 沼系ミステリアス系 凛 27歳 · 京都府" [ref=e49] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e50]:
+          - img "凛" [ref=e51]
+          - generic [ref=e52]: 沼系ミステリアス系
+        - generic [ref=e53]:
+          - paragraph [ref=e54]: 凛
+          - paragraph [ref=e55]: 27歳 · 京都府
+      - link "風真 陽キャムードメーカー系 風真 21歳 · 埼玉県" [ref=e56] [cursor=pointer]:
+        - /url: S11-user-detail.html
+        - generic [ref=e57]:
+          - img "風真" [ref=e58]
+          - generic [ref=e59]: 陽キャムードメーカー系
+        - generic [ref=e60]:
+          - paragraph [ref=e61]: 風真
+          - paragraph [ref=e62]: 21歳 · 埼玉県
+  - navigation [ref=e63]:
+    - generic [ref=e64]:
+      - link "一覧" [ref=e65] [cursor=pointer]:
+        - /url: S10-gallery.html
+        - img [ref=e66]
+        - generic [ref=e68]: 一覧
+      - link "3 いいね" [ref=e69] [cursor=pointer]:
+        - /url: S12-likes-received.html
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e73]: "3"
+        - generic [ref=e74]: いいね
+      - link "1 マッチング" [ref=e75] [cursor=pointer]:
+        - /url: S13-matches.html
+        - generic [ref=e76]:
+          - img [ref=e77]
+          - generic [ref=e79]: "1"
+        - generic [ref=e80]: マッチング
+      - link "マイページ" [ref=e81] [cursor=pointer]:
+        - /url: S15-mypage.html
+        - img [ref=e82]
+        - generic [ref=e84]: マイページ

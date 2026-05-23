@@ -1,0 +1,14 @@
+[      69ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/sawayakasports.png:0
+[      70ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/siogaocool.png:0
+[      71ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/toshiueonisan.png:0
+[      72ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/inukeikareshi.png:0
+[      73ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/koreaidol.png:0
+[     556ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/odouidol.png:0
+[     558ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/tyuseibiyou.png:0
+[     560ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/numagaomistery.png:0
+[     562ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/kawaii.png:0
+[     563ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/charamote.png:0
+[     565ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/wildiroke.png:0
+[     566ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/public/youkyamoodmaker.png:0
+[     625ms] [WARNING] cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation @ https://cdn.tailwindcss.com/:63
+[    1184ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4444/favicon.ico:0

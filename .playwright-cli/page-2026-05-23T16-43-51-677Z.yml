@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "もらったいいね" [level=1] [ref=e4]
+  - main [ref=e5]:
+    - link "翔太 翔太 24歳 · 東京都 12分前" [ref=e6] [cursor=pointer]:
+      - /url: S11-user-detail.html
+      - img "翔太" [ref=e8]
+      - generic [ref=e9]:
+        - paragraph [ref=e10]: 翔太
+        - paragraph [ref=e11]: 24歳 · 東京都
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: 12分前
+        - img [ref=e14]
+    - link "蓮 蓮 26歳 · 大阪府 2時間前" [ref=e16] [cursor=pointer]:
+      - /url: S11-user-detail.html
+      - img "蓮" [ref=e18]
+      - generic [ref=e19]:
+        - paragraph [ref=e20]: 蓮
+        - paragraph [ref=e21]: 26歳 · 大阪府
+      - generic [ref=e22]:
+        - paragraph [ref=e23]: 2時間前
+        - img [ref=e24]
+    - link "ラン ラン 23歳 · 福岡県 昨日" [ref=e26] [cursor=pointer]:
+      - /url: S11-user-detail.html
+      - img "ラン" [ref=e28]
+      - generic [ref=e29]:
+        - paragraph [ref=e30]: ラン
+        - paragraph [ref=e31]: 23歳 · 福岡県
+      - generic [ref=e32]:
+        - paragraph [ref=e33]: 昨日
+        - img [ref=e34]
+    - generic [ref=e36]:
+      - paragraph [ref=e37]: 【空の状態の表示例】
+      - generic [ref=e38]:
+        - img [ref=e39]
+        - paragraph [ref=e41]: まだいいねをもらっていません。
+        - paragraph [ref=e42]: もう少し待ってみましょう
+  - navigation [ref=e43]:
+    - generic [ref=e44]:
+      - link "一覧" [ref=e45] [cursor=pointer]:
+        - /url: S10-gallery.html
+        - img [ref=e46]
+        - generic [ref=e48]: 一覧
+      - link "いいね" [ref=e49] [cursor=pointer]:
+        - /url: S12-likes-received.html
+        - img [ref=e50]
+        - generic [ref=e52]: いいね
+      - link "1 マッチング" [ref=e53] [cursor=pointer]:
+        - /url: S13-matches.html
+        - generic [ref=e54]:
+          - img [ref=e55]
+          - generic [ref=e57]: "1"
+        - generic [ref=e58]: マッチング
+      - link "マイページ" [ref=e59] [cursor=pointer]:
+        - /url: S15-mypage.html
+        - img [ref=e60]
+        - generic [ref=e62]: マイページ

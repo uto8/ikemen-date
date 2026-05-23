@@ -1,0 +1,103 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: S09-onboarding-male-step6.html
+        - img [ref=e5]
+      - generic [ref=e7]: イケメンデート
+  - main [ref=e8]:
+    - generic [ref=e10]:
+      - generic [ref=e11]: ステップ 7 / 7
+      - generic [ref=e12]: イケメンタイプ
+    - generic [ref=e21]:
+      - heading "あなたのイケメンタイプは？" [level=1] [ref=e22]
+      - paragraph [ref=e23]: 当てはまるものをすべて選んでください（1つ以上）。
+      - paragraph [ref=e24]: 女性が一覧を絞り込む際のフィルターになります。
+      - generic [ref=e25]:
+        - generic [ref=e26] [cursor=pointer]:
+          - checkbox "爽やかスポーツ 爽やかスポーツ" [checked] [ref=e27]
+          - generic [ref=e28]:
+            - img "爽やかスポーツ" [ref=e30]
+            - generic [ref=e31]:
+              - generic [ref=e32]: 爽やかスポーツ
+              - img [ref=e33]
+        - generic [ref=e35] [cursor=pointer]:
+          - checkbox "塩顔クール 塩顔クール" [ref=e36]
+          - generic [ref=e37]:
+            - img "塩顔クール" [ref=e39]
+            - generic [ref=e40]:
+              - generic [ref=e41]: 塩顔クール
+              - img [ref=e42]
+        - generic [ref=e44] [cursor=pointer]:
+          - checkbox "年上お兄さん 年上お兄さん" [ref=e45]
+          - generic [ref=e46]:
+            - img "年上お兄さん" [ref=e48]
+            - generic [ref=e49]:
+              - generic [ref=e50]: 年上お兄さん
+              - img [ref=e51]
+        - generic [ref=e53] [cursor=pointer]:
+          - checkbox "犬系彼氏 犬系彼氏" [ref=e54]
+          - generic [ref=e55]:
+            - img "犬系彼氏" [ref=e57]
+            - generic [ref=e58]:
+              - generic [ref=e59]: 犬系彼氏
+              - img [ref=e60]
+        - generic [ref=e62] [cursor=pointer]:
+          - checkbox "韓国系アイドル 韓国系アイドル" [ref=e63]
+          - generic [ref=e64]:
+            - img "韓国系アイドル" [ref=e66]
+            - generic [ref=e67]:
+              - generic [ref=e68]: 韓国系アイドル
+              - img [ref=e69]
+        - generic [ref=e71] [cursor=pointer]:
+          - checkbox "踊れるアイドル 踊れるアイドル" [ref=e72]
+          - generic [ref=e73]:
+            - img "踊れるアイドル" [ref=e75]
+            - generic [ref=e76]:
+              - generic [ref=e77]: 踊れるアイドル
+              - img [ref=e78]
+        - generic [ref=e80] [cursor=pointer]:
+          - checkbox "中性美容系 中性美容系" [ref=e81]
+          - generic [ref=e82]:
+            - img "中性美容系" [ref=e84]
+            - generic [ref=e85]:
+              - generic [ref=e86]: 中性美容系
+              - img [ref=e87]
+        - generic [ref=e89] [cursor=pointer]:
+          - checkbox "沼顔ミステリー 沼顔ミステリー" [ref=e90]
+          - generic [ref=e91]:
+            - img "沼顔ミステリー" [ref=e93]
+            - generic [ref=e94]:
+              - generic [ref=e95]: 沼顔ミステリー
+              - img [ref=e96]
+        - generic [ref=e98] [cursor=pointer]:
+          - checkbox "かわいい系 かわいい系" [ref=e99]
+          - generic [ref=e100]:
+            - img "かわいい系" [ref=e102]
+            - generic [ref=e103]:
+              - generic [ref=e104]: かわいい系
+              - img [ref=e105]
+        - generic [ref=e107] [cursor=pointer]:
+          - checkbox "チャラモテ系 チャラモテ系" [ref=e108]
+          - generic [ref=e109]:
+            - img "チャラモテ系" [ref=e111]
+            - generic [ref=e112]:
+              - generic [ref=e113]: チャラモテ系
+              - img [ref=e114]
+        - generic [ref=e116] [cursor=pointer]:
+          - checkbox "ワイルドいろけ系 ワイルドいろけ系" [ref=e117]
+          - generic [ref=e118]:
+            - img "ワイルドいろけ系" [ref=e120]
+            - generic [ref=e121]:
+              - generic [ref=e122]: ワイルドいろけ系
+              - img [ref=e123]
+        - generic [ref=e125] [cursor=pointer]:
+          - checkbox "陽キャムードメーカー 陽キャムードメーカー" [ref=e126]
+          - generic [ref=e127]:
+            - img "陽キャムードメーカー" [ref=e129]
+            - generic [ref=e130]:
+              - generic [ref=e131]: 陽キャムードメーカー
+              - img [ref=e132]
+      - paragraph [ref=e134]: 1つ以上選択してください
+    - link "登録する" [ref=e136] [cursor=pointer]:
+      - /url: S10-gallery.html
