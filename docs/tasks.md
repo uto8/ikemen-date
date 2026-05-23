@@ -244,13 +244,13 @@
 ---
 
 #### G-1: ユーザー一覧クエリ + 画面
-- [ ] `lib/queries/users.ts` に `getOppositeUsers(currentUserId, currentGender)` を実装する
+- [x] `lib/queries/users.ts` に `getOppositeUsers(currentUserId, currentGender)` を実装する
   - `gender != currentGender` でフィルタリング
   - `created_at DESC`（新着順）でソート
   - 男性の場合は `profile_ikemen_types` を JOIN して `display_order` 最小のタイプ名を付与する
   - `birth_date` から年齢を算出して返す
-- [ ] `app/(app)/users/page.tsx` を作成する（Server Component）
-- [ ] 2 カラムカードグリッドでユーザーを表示する
+- [x] `app/(app)/users/page.tsx` を作成する（Server Component）
+- [x] 2 カラムカードグリッドでユーザーを表示する
 
 **完了条件**: ログイン中のユーザーと異性のユーザーのみが表示される。自分自身は一覧に含まれない
 
