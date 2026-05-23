@@ -29,8 +29,8 @@
 ---
 
 #### S-3: Supabase 型生成
-- [ ] `package.json` に `"db:types": "supabase gen types typescript --project-id <ID> > lib/supabase/types.ts"` スクリプトを追加する
-- [ ] `npm run db:types` を実行して `lib/supabase/types.ts` を生成する
+- [x] `package.json` に `"db:types": "supabase gen types typescript --project-id <ID> > lib/supabase/types.ts"` スクリプトを追加する
+- [x] `npm run db:types` を実行して `lib/supabase/types.ts` を生成する
 
 **完了条件**: `lib/supabase/types.ts` が生成されており、`Database` 型がエクスポートされている
 
