@@ -200,10 +200,10 @@
 ---
 
 #### O-1: オンボーディング画面の骨格 + ルート保護
-- [ ] `app/(app)/layout.tsx` を作成する
-- [ ] セッション未取得の場合は `/login` にリダイレクトする
-- [ ] `is_onboarding_complete = true` かつ `/onboarding` へアクセスした場合は `/users` にリダイレクトする
-- [ ] `app/(app)/onboarding/page.tsx` を作成し、セッションの `gender` で `FemaleOnboardingForm` / `MaleOnboardingForm` を出し分ける
+- [x] `app/(app)/layout.tsx` を作成する
+- [x] セッション未取得の場合は `/login` にリダイレクトする
+- [x] `is_onboarding_complete = true` かつ `/onboarding` へアクセスした場合は `/users` にリダイレクトする
+- [x] `app/(app)/onboarding/page.tsx` を作成し、セッションの `gender` で `FemaleOnboardingForm` / `MaleOnboardingForm` を出し分ける
 
 **完了条件**: 未ログインで `/users` にアクセスすると `/login` にリダイレクトされる
 
