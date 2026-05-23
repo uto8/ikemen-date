@@ -133,6 +133,40 @@ CONSTRAINT profiles_male_fields_required CHECK (
 **削除ポリシー**
 - `auth.users` 削除時に CASCADE DELETE
 
+**プロフィール自動生成トリガー**
+
+`auth.users` INSERT 時に `profiles` レコードを自動生成する。Server Action は Supabase Admin API の `createUser({ user_metadata: { gender, birth_date } })` で `gender` と `birth_date` を `raw_user_meta_data` に埋め込み、トリガーがこれを取り出す。
+
+```sql
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS trigger AS $$
+BEGIN
+  INSERT INTO public.profiles (id, gender, birth_date)
+  VALUES (
+    NEW.id,
+    NEW.raw_user_meta_data ->> 'gender',
+    (NEW.raw_user_meta_data ->> 'birth_date')::date
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION handle_new_user();
+```
+
+メール確認前の段階で `profiles(id, gender, birth_date)` が生成される。`nickname` / `prefecture` などオンボーディング入力項目は NULL のまま残り、`is_onboarding_complete = false` の状態でオンボーディング完了時の一括 UPDATE を待つ。
+
+**ユーザー一覧（ギャラリー）クエリの必須条件**
+
+```sql
+WHERE gender               != :my_gender
+  AND is_onboarding_complete = true      -- 未完了ユーザーを除外（漏らすと NULL プロフィールが表示される）
+  AND id                   != :my_profile_id
+ORDER BY created_at DESC;
+```
+
 ---
 
 ### `public.ikemen_types`
@@ -214,6 +248,35 @@ CREATE TRIGGER enforce_male_ikemen_types
 **制約**
 - `UNIQUE (sender_id, receiver_id)` — 同一ペアへの重複送信を防止
 - `CHECK (sender_id != receiver_id)` — 自分自身へのいいねを防止
+
+**マッチング生成トリガー**
+
+`likes` INSERT 時に逆方向のいいねが存在する場合、`matches` レコードを自動生成する。SECURITY DEFINER で実行することで RLS の INSERT 制限を回避する。
+
+```sql
+CREATE OR REPLACE FUNCTION create_match_if_mutual()
+RETURNS trigger AS $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM likes
+    WHERE sender_id   = NEW.receiver_id
+      AND receiver_id = NEW.sender_id
+  ) THEN
+    INSERT INTO public.matches (user1_id, user2_id)
+    VALUES (
+      LEAST(NEW.sender_id, NEW.receiver_id),
+      GREATEST(NEW.sender_id, NEW.receiver_id)
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_like_inserted
+  AFTER INSERT ON likes
+  FOR EACH ROW EXECUTE FUNCTION create_match_if_mutual();
+```
 
 ---
 
@@ -349,6 +412,34 @@ GROUP  BY m.match_id;
 
 ---
 
+## RLS ポリシー
+
+テーブルごとの行アクセス制御方針。`auth.uid()` は Supabase が提供するログイン中ユーザーの UUID を返す関数。`handle_new_user` と `create_match_if_mutual` は SECURITY DEFINER のため RLS をバイパスする。
+
+| テーブル | 操作 | 許可条件 |
+|---|---|---|
+| `profiles` | SELECT | 認証済みユーザー全員（ギャラリー表示のため） |
+| `profiles` | INSERT | 不可（`handle_new_user` トリガーが SECURITY DEFINER で実行） |
+| `profiles` | UPDATE | `id = auth.uid()`（自分のレコードのみ） |
+| `profiles` | DELETE | 不可（`auth.users` 削除による CASCADE で自動削除） |
+| `profile_ikemen_types` | SELECT | 認証済みユーザー全員 |
+| `profile_ikemen_types` | INSERT | `profile_id = auth.uid()` |
+| `profile_ikemen_types` | DELETE | `profile_id = auth.uid()` |
+| `ikemen_types` | SELECT | 認証済みユーザー全員 |
+| `ikemen_types` | INSERT / UPDATE / DELETE | 不可（seed データのみ） |
+| `likes` | SELECT | `sender_id = auth.uid()` または `receiver_id = auth.uid()` |
+| `likes` | INSERT | `sender_id = auth.uid()` |
+| `likes` | UPDATE / DELETE | 不可 |
+| `matches` | SELECT | `user1_id = auth.uid()` または `user2_id = auth.uid()` |
+| `matches` | INSERT | 不可（`create_match_if_mutual` トリガーが SECURITY DEFINER で実行） |
+| `matches` | UPDATE / DELETE | 不可 |
+| `messages` | SELECT | `match_id` が自分の参加するマッチング（`matches` のサブクエリで確認） |
+| `messages` | INSERT | `sender_id = auth.uid()` かつ `match_id` が自分の参加するマッチング |
+| `messages` | UPDATE | `is_read = true` への更新のみ。`sender_id != auth.uid()` かつ `match_id` が自分の参加するマッチング |
+| `messages` | DELETE | 不可 |
+
+---
+
 ## データ削除フロー
 
 ### 退会時（profiles 削除）
@@ -388,7 +479,7 @@ matches の削除は退会処理では発生しない。将来マッチング解
 |---|---|---|
 | U-1 | avatar_url の保存形式 | ファイルパスのみ保存。URL は `getPublicUrl()` で生成 |
 | U-2 | 男性専用フィールドの DB 制約 | CHECK 制約で担保（`gender='female' OR 全フィールド NOT NULL`） |
-| U-3 | 退会時の FK 挙動 | matches・messages の FK は ON DELETE SET NULL。レコード保持 |
+| U-3 | 退会時の FK 挙動 | matches・messages の FK は ON DELETE SET NULL でレコード保持。likes は ON DELETE CASCADE で削除（意図的な非対称設計）。いいね記録が消えた後もマッチング・チャット履歴が残る状態は発生するが、チャット履歴保持の要件を優先した結果 |
 | U-4 | is_onboarding_complete のリセット | 一度 true にしたら false には戻さない |
 | U-5 | バッジ未読カウントの管理方式 | いいねタブ: `profiles.likes_last_read_at` カーソル方式。マッチングタブ: `messages.is_read` 集計方式。タブごとに最適な方式を採用 |
 | U-6 | bio・content の文字数制限 | アプリレイヤーのみでなく DB レベルの CHECK 制約でも担保する（bio: 1〜300、content: 1〜500） |
