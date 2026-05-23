@@ -408,11 +408,11 @@
 ---
 
 #### B-1: いいねバッジ（Realtime）
-- [ ] `app/(app)/layout.tsx` で初期の未読いいね数を取得する（`SELECT COUNT(*) FROM likes WHERE receiver_id = 自分 AND created_at > likes_last_read_at`）
-- [ ] `likes` テーブルの `receiver_id = 自分` フィルタで INSERT イベントをサブスクライブし、バッジカウントを +1 する（Client Component または Context）
-- [ ] いいね一覧ページ（S12）を開いたときにカウントをゼロにリセットする
-- [ ] いいね一覧ページ表示中はバッジを非表示にする
-- [ ] 99 件超は「99+」と表示する
+- [x] `app/(app)/layout.tsx` で初期の未読いいね数を取得する（`SELECT COUNT(*) FROM likes WHERE receiver_id = 自分 AND created_at > likes_last_read_at`）
+- [x] `likes` テーブルの `receiver_id = 自分` フィルタで INSERT イベントをサブスクライブし、バッジカウントを +1 する（Client Component または Context）
+- [x] いいね一覧ページ（S12）を開いたときにカウントをゼロにリセットする
+- [x] いいね一覧ページ表示中はバッジを非表示にする
+- [x] 99 件超は「99+」と表示する
 
 **完了条件**: 別タブからいいねを送ると BottomNav のバッジカウントがリアルタイムで増加する。いいね一覧を開くとバッジが非表示になる
 

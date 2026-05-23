@@ -72,6 +72,31 @@ export async function getReceivedLikes(currentUserId: string): Promise<ReceivedL
   return transformToReceivedLikes(data as unknown as ReceivedLikeRow[])
 }
 
+export async function getUnreadLikeCount(currentUserId: string): Promise<number> {
+  const supabase = await createServerSupabaseClient()
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('likes_last_read_at')
+    .eq('id', currentUserId)
+    .single()
+
+  const lastRead = (profile as { likes_last_read_at: string | null } | null)
+    ?.likes_last_read_at
+
+  let query = supabase
+    .from('likes')
+    .select('*', { count: 'exact', head: true })
+    .eq('receiver_id', currentUserId)
+
+  if (lastRead) {
+    query = query.gt('created_at', lastRead)
+  }
+
+  const { count } = await query
+  return count ?? 0
+}
+
 export async function getLikeStatus(
   currentUserId: string,
   targetUserId: string

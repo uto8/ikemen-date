@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getReceivedLikes } from '@/lib/queries/likes'
 import { updateLikesLastRead } from '@/lib/actions/like'
+import LikeBadgeResetter from '@/components/navigation/LikeBadgeResetter'
 
 export default async function LikesPage() {
   const supabase = await createServerSupabaseClient()
@@ -18,6 +19,7 @@ export default async function LikesPage() {
 
   return (
     <main className="px-4 py-6">
+      <LikeBadgeResetter />
       <h1 className="mb-6 text-xl font-bold">もらったいいね</h1>
       {likes.length === 0 ? (
         <p className="text-center text-sm text-gray-400">まだいいねをもらっていません</p>
