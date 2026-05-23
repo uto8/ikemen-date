@@ -87,9 +87,9 @@
 ---
 
 #### D-5: RLS ポリシー設定（likes・matches・messages）
-- [ ] `likes`: 自分が `sender_id` または `receiver_id` のレコードのみ SELECT 可・自分が `sender_id` のみ INSERT 可
-- [ ] `matches`: 自分が `user1_id` または `user2_id` のレコードのみ SELECT 可・INSERT / UPDATE / DELETE 禁止
-- [ ] `messages`: 自分が含まれる `match_id` のメッセージのみ SELECT 可・自分が `sender_id` のみ INSERT 可・`is_read = true` への UPDATE は `sender_id != auth.uid()` かつ自分が含まれる `match_id` のみ可（既読処理用）
+- [x] `likes`: 自分が `sender_id` または `receiver_id` のレコードのみ SELECT 可・自分が `sender_id` のみ INSERT 可
+- [x] `matches`: 自分が `user1_id` または `user2_id` のレコードのみ SELECT 可・INSERT / UPDATE / DELETE 禁止
+- [x] `messages`: 自分が含まれる `match_id` のメッセージのみ SELECT 可・自分が `sender_id` のみ INSERT 可・`is_read = true` への UPDATE は `sender_id != auth.uid()` かつ自分が含まれる `match_id` のみ可（既読処理用）
 
 **完了条件**: マッチングしていない相手の `messages` を SELECT しようとすると 0 件返る。自分が送ったメッセージの `is_read` を UPDATE しようとすると 0 件更新になる
 
