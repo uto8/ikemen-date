@@ -210,9 +210,9 @@
 ---
 
 #### O-2: 女性オンボーディングフォーム
-- [ ] `components/profile/FemaleOnboardingForm.tsx` を実装する
-- [ ] nickname（テキスト）・prefecture（セレクト）・avatar（ファイル選択・任意）の入力 UI を作成する
-- [ ] バリデーションエラーをインラインで表示する
+- [x] `components/profile/FemaleOnboardingForm.tsx` を実装する
+- [x] nickname（テキスト）・prefecture（セレクト）・avatar（ファイル選択・任意）の入力 UI を作成する
+- [x] バリデーションエラーをインラインで表示する
 
 **完了条件**: 必須項目を空で送信したとき「必須項目です」が表示される。プレビュー画像が選択直後に表示される
 
