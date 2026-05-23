@@ -137,10 +137,10 @@
 ---
 
 #### L-4: Auth コールバックルート
-- [ ] `app/auth/callback/route.ts` を作成する
-- [ ] Supabase の `code` パラメータを `exchangeCodeForSession` でセッションに交換する
-- [ ] 交換成功後に `/onboarding` へリダイレクトする
-- [ ] 有効期限切れの場合は `/login?error=expired` へリダイレクトする
+- [x] `app/auth/callback/route.ts` を作成する
+- [x] Supabase の `code` パラメータを `exchangeCodeForSession` でセッションに交換する
+- [x] 交換成功後に `/onboarding` へリダイレクトする
+- [x] 有効期限切れの場合は `/login?error=expired` へリダイレクトする
 
 **完了条件**: Supabase から届いた確認メールのリンクをクリックしたとき `/onboarding` に遷移する
 
