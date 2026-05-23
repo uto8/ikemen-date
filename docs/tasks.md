@@ -369,11 +369,11 @@
 ---
 
 #### C-3: ChatInput コンポーネント + sendMessage Action
-- [ ] `components/chat/ChatInput.tsx` を実装する（Client Component）
-- [ ] 入力欄が空・スペースのみのとき送信ボタンを非活性にする
-- [ ] 500 文字を超える入力を受け付けない（`maxLength={500}`）
-- [ ] 入力欄下部に「N / 500 文字」を表示する（450 文字超で警告色に変える）
-- [ ] `lib/actions/chat.ts` に `sendMessage(matchId, content)` を実装する（自分がマッチング参加者か確認してから INSERT）
+- [x] `components/chat/ChatInput.tsx` を実装する（Client Component）
+- [x] 入力欄が空・スペースのみのとき送信ボタンを非活性にする
+- [x] 500 文字を超える入力を受け付けない（`maxLength={500}`）
+- [x] 入力欄下部に「N / 500 文字」を表示する（450 文字超で警告色に変える）
+- [x] `lib/actions/chat.ts` に `sendMessage(matchId, content)` を実装する（自分がマッチング参加者か確認してから INSERT）
 
 **完了条件**: 空送信でメッセージが送られない。501 文字目が入力できない。送信後にメッセージが画面右側に即座に表示される
 
