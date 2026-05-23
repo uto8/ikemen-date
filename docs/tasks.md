@@ -76,11 +76,11 @@
 ---
 
 #### D-4: RLS ポリシー設定（profiles・ikemen_types 系）
-- [ ] `supabase/migrations/004_rls.sql` を作成する
-- [ ] 全テーブルの RLS を有効化する
-- [ ] `profiles`: SELECT はログインユーザー全員可・UPDATE は `id = auth.uid()` のみ可・INSERT は禁止（`handle_new_user` トリガーが SECURITY DEFINER で実行）・DELETE は禁止（`auth.users` 削除による CASCADE で自動実行）
-- [ ] `ikemen_types`: ログインユーザーは SELECT のみ可
-- [ ] `profile_ikemen_types`: ログインユーザーは全件 SELECT 可・自分の `profile_id` のみ INSERT / DELETE 可
+- [x] `supabase/migrations/004_rls.sql` を作成する
+- [x] 全テーブルの RLS を有効化する
+- [x] `profiles`: SELECT はログインユーザー全員可・UPDATE は `id = auth.uid()` のみ可・INSERT は禁止（`handle_new_user` トリガーが SECURITY DEFINER で実行）・DELETE は禁止（`auth.users` 削除による CASCADE で自動実行）
+- [x] `ikemen_types`: ログインユーザーは SELECT のみ可
+- [x] `profile_ikemen_types`: ログインユーザーは全件 SELECT 可・自分の `profile_id` のみ INSERT / DELETE 可
 
 **完了条件**: SQL Editor で別ユーザーの JWT を使って他人の `profiles` を UPDATE しようとすると 0 件更新になる
 
