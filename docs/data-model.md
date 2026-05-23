@@ -37,7 +37,6 @@ erDiagram
         text bio
         boolean is_onboarding_complete
         timestamptz likes_last_read_at
-        timestamptz matches_last_read_at
         timestamptz created_at
         timestamptz updated_at
     }
@@ -72,6 +71,7 @@ erDiagram
         uuid match_id FK
         uuid sender_id "NULLABLE FK"
         text content
+        boolean is_read
         timestamptz created_at
     }
 ```
@@ -110,7 +110,6 @@ Supabase Auth が内部管理するテーブル。アプリ側では直接作成
 | bio | text | NULLABLE, CHECK (bio IS NULL OR char_length(bio) BETWEEN 1 AND 300) | 男性のみ使用。女性レコードは NULL |
 | is_onboarding_complete | boolean | NOT NULL DEFAULT false | オンボーディング完了後に true に設定。一度 true になったら false には戻さない |
 | likes_last_read_at | timestamptz | NULLABLE DEFAULT NULL | いいね一覧（S12）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
-| matches_last_read_at | timestamptz | NULLABLE DEFAULT NULL | マッチング一覧（S13）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
 | created_at | timestamptz | NOT NULL DEFAULT now() | |
 | updated_at | timestamptz | NOT NULL DEFAULT now() | |
 
@@ -259,16 +258,23 @@ user2_id = GREATEST(A.id, B.id)
 | match_id | uuid | NOT NULL, FK → matches.id ON DELETE CASCADE | 所属するマッチング |
 | sender_id | uuid | **NULLABLE**, FK → profiles.id **ON DELETE SET NULL** | 退会時に NULL 化される。NULL の場合は「退会済みユーザー」として表示する |
 | content | text | NOT NULL, CHECK (char_length(content) BETWEEN 1 AND 500) | 本文 |
+| is_read | boolean | NOT NULL DEFAULT false | 受信者が既読かどうか。チャット画面（S14）を開いた瞬間に、そのマッチングで `sender_id != 自分` かつ `sender_id IS NOT NULL` の未読レコードをまとめて `true` に更新する |
 | created_at | timestamptz | NOT NULL DEFAULT now() | 送信日時 |
 
 **インデックス**
 - `(match_id, created_at ASC)` — チャット履歴の時系列取得で使用
+- `(match_id, is_read)` — マッチングカード単位の未読件数集計で使用
 
 ---
 
 ### 通知バッジの未読カウント
 
-BottomNav に表示する未読バッジ数は、`profiles` に追加した **読み既済カーソル（timestamptz）** を基準にして算出する。カーソルを別テーブルに分離せず `profiles` 内に置くことで、JOIN なしに単一レコードで参照・更新できる。
+BottomNav に表示する未読バッジ数の管理方式はタブごとに異なる。
+
+| タブ | 管理方式 | 根拠 |
+|---|---|---|
+| いいね | `profiles.likes_last_read_at` カーソル | いいね受信は行の挿入のみ。既読状態をタイムスタンプで一括管理できる |
+| マッチング | `messages.is_read` の集計 | チャットは相手ごとに個別に既読化するため、行レベル管理が必要 |
 
 **バッジ数クエリ**
 
@@ -283,17 +289,28 @@ WHERE  likes.receiver_id = :my_profile_id
     OR likes.created_at > profiles.likes_last_read_at
   );
 
--- マッチング未読数（自分が user1 または user2）
+-- マッチングタブ未読数（全マッチングの未読メッセージ合計）
 SELECT COUNT(*)
-FROM   matches
-JOIN   profiles ON profiles.id = :my_profile_id
-WHERE  (matches.user1_id = :my_profile_id OR matches.user2_id = :my_profile_id)
-  AND  matches.user1_id IS NOT NULL
-  AND  matches.user2_id IS NOT NULL
-  AND  (
-    profiles.matches_last_read_at IS NULL
-    OR matches.created_at > profiles.matches_last_read_at
-  );
+FROM   messages m
+JOIN   matches mt ON mt.id = m.match_id
+WHERE  m.is_read = false
+  AND  m.sender_id IS NOT NULL           -- 退会済みユーザーのメッセージを除外
+  AND  m.sender_id != :my_profile_id    -- 自分が送ったメッセージを除外
+  AND  mt.user1_id IS NOT NULL           -- 退会済みが関与するマッチングを除外
+  AND  mt.user2_id IS NOT NULL
+  AND  (mt.user1_id = :my_profile_id OR mt.user2_id = :my_profile_id);
+
+-- マッチングカード単位の未読数（S13 カードバッジ用）
+SELECT m.match_id, COUNT(*) AS unread_count
+FROM   messages m
+JOIN   matches mt ON mt.id = m.match_id
+WHERE  m.is_read = false
+  AND  m.sender_id IS NOT NULL
+  AND  m.sender_id != :my_profile_id
+  AND  mt.user1_id IS NOT NULL
+  AND  mt.user2_id IS NOT NULL
+  AND  (mt.user1_id = :my_profile_id OR mt.user2_id = :my_profile_id)
+GROUP  BY m.match_id;
 ```
 
 **クリア操作（Server Action）**
@@ -301,16 +318,16 @@ WHERE  (matches.user1_id = :my_profile_id OR matches.user2_id = :my_profile_id)
 | 操作 | 実行内容 |
 |---|---|
 | S12（いいね一覧）を開く | `UPDATE profiles SET likes_last_read_at = now() WHERE id = :my_profile_id` |
-| S13（マッチング一覧）を開く | `UPDATE profiles SET matches_last_read_at = now() WHERE id = :my_profile_id` |
+| S14（チャット画面）を開く | `UPDATE messages SET is_read = true WHERE match_id = :match_id AND sender_id != :my_profile_id AND sender_id IS NOT NULL AND is_read = false` |
 
 **Realtime サブスクリプション**
 
 | イベント | テーブル | フィルタ | 挙動 |
 |---|---|---|---|
 | いいね受信 | `likes` INSERT | `receiver_id=eq.:my_profile_id` | ローカルのいいねバッジカウントを +1 |
-| マッチング成立 | `matches` INSERT | `user1_id=eq.:me` と `user2_id=eq.:me` の**2チャンネル**に分けてサブスクライブする | どちらかのチャンネルでイベントを受信したらマッチングバッジカウントを +1 |
+| メッセージ受信 | `messages` INSERT | 自分が関与する各マッチングの `match_id=eq.{match_id}` でチャンネルをサブスクライブ | `sender_id` が自分でなく `sender_id IS NOT NULL` の場合のみマッチングバッジカウントを +1。チャット画面を開いている間はそのマッチングの INSERT で即時 `is_read = true` を UPDATE しバッジを増やさない |
 
-> **実装メモ（matches の2チャンネル方式）**: Supabase Realtime の `filter` は単一カラムの等値比較のみ対応しているため、`user1_id = me OR user2_id = me` を1つのサブスクリプションで表現できない。`channel('matches-as-user1').on('INSERT', { filter: 'user1_id=eq.{me}' }, ...)` と `channel('matches-as-user2').on('INSERT', { filter: 'user2_id=eq.{me}' }, ...)` の2チャンネルを同時に張ることで OR 条件を実現する。
+> **実装メモ（messages の Realtime）**: 自分が関与するマッチング数だけチャンネルを張る。`channel('messages-{match_id}').on('INSERT', { filter: 'match_id=eq.{match_id}' }, ...)` の形式で、マッチング一覧取得後にサブスクライブを開始する。matches への Realtime サブスクリプション（旧2チャンネル方式）は不要になった。
 
 ---
 
@@ -355,8 +372,9 @@ matches の削除は退会処理では発生しない。将来マッチング解
 | U-2 | 男性専用フィールドの DB 制約 | CHECK 制約で担保（`gender='female' OR 全フィールド NOT NULL`） |
 | U-3 | 退会時の FK 挙動 | matches・messages の FK は ON DELETE SET NULL。レコード保持 |
 | U-4 | is_onboarding_complete のリセット | 一度 true にしたら false には戻さない |
-| U-5 | バッジ未読カウントの管理方式 | 読み既済カーソル（timestamp）を profiles に持たせる方式を採用。別テーブルを作らずに JOIN なしで参照・更新できる |
+| U-5 | バッジ未読カウントの管理方式 | いいねタブ: `profiles.likes_last_read_at` カーソル方式。マッチングタブ: `messages.is_read` 集計方式。タブごとに最適な方式を採用 |
 | U-6 | bio・content の文字数制限 | アプリレイヤーのみでなく DB レベルの CHECK 制約でも担保する（bio: 1〜300、content: 1〜500） |
 | U-7 | ikemen_type 1件以上の担保 | `is_onboarding_complete = true` への更新時に発火するトリガーで DB レベルでも保証する |
-| U-8 | matches Realtime サブスクリプション方式 | `user1_id` と `user2_id` それぞれ別チャンネルの2サブスクリプションで OR 条件を実現する |
+| U-8 | messages の Realtime サブスクリプション方式 | 自分が関与するマッチングごとに `match_id` フィルタでチャンネルをサブスクライブ。matches INSERT の監視は不要（バッジがメッセージ未読数に変わったため） |
 | M-1 | 退会とチャット履歴の矛盾 | Approach A 採用。メッセージ保持・sender_id を NULL 化 |
+| M-2 | マッチングタブバッジの仕様変更 | マッチング成立数→チャット未読メッセージ数に変更。`messages.is_read` カラム追加。`profiles.matches_last_read_at` カラム削除 |
