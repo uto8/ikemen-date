@@ -55,11 +55,11 @@
 ---
 
 #### D-2: いいね・マッチング・メッセージテーブル作成
-- [ ] `supabase/migrations/002_social.sql` を作成する
-- [ ] `likes` テーブルを作成する（UNIQUE・CHECK 制約含む）
-- [ ] `matches` テーブルを作成する（NULLABLE FK・UNIQUE・CHECK 含む）
-- [ ] `messages` テーブルを作成する（`is_read boolean NOT NULL DEFAULT false`・`content` CHECK 制約（1〜500 文字）・`(match_id, created_at ASC)` インデックス・`(match_id, is_read)` インデックス含む）
-- [ ] マイグレーションを適用する
+- [x] `supabase/migrations/002_social.sql` を作成する
+- [x] `likes` テーブルを作成する（UNIQUE・CHECK 制約含む）
+- [x] `matches` テーブルを作成する（NULLABLE FK・UNIQUE・CHECK 含む）
+- [x] `messages` テーブルを作成する（`is_read boolean NOT NULL DEFAULT false`・`content` CHECK 制約（1〜500 文字）・`(match_id, created_at ASC)` インデックス・`(match_id, is_read)` インデックス含む）
+- [x] マイグレーションを適用する
 
 **完了条件**: 4 テーブルが確認できる。`likes.sender_id = receiver_id` の INSERT が CHECK 制約で弾かれることを確認できる。`messages.content` が 500 文字超で CHECK 制約違反になる
 
