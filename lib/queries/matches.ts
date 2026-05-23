@@ -74,6 +74,41 @@ export function transformToMatchWithPartner(
   }
 }
 
+export type MatchParticipants = {
+  isParticipant: boolean
+  isPartnerActive: boolean
+}
+
+export function resolveParticipants(
+  user1_id: string | null,
+  user2_id: string | null,
+  currentUserId: string
+): MatchParticipants {
+  const isParticipant = user1_id === currentUserId || user2_id === currentUserId
+  if (!isParticipant) return { isParticipant: false, isPartnerActive: false }
+
+  const partnerId = user1_id === currentUserId ? user2_id : user1_id
+  return { isParticipant: true, isPartnerActive: partnerId !== null }
+}
+
+export async function getMatchParticipants(
+  matchId: string,
+  currentUserId: string
+): Promise<MatchParticipants> {
+  const supabase = await createServerSupabaseClient()
+
+  const { data, error } = await supabase
+    .from('matches')
+    .select('user1_id, user2_id')
+    .eq('id', matchId)
+    .single()
+
+  if (error || !data) return { isParticipant: false, isPartnerActive: false }
+
+  const row = data as { user1_id: string | null; user2_id: string | null }
+  return resolveParticipants(row.user1_id, row.user2_id, currentUserId)
+}
+
 export async function getMyMatches(currentUserId: string): Promise<MatchWithPartner[]> {
   const supabase = await createServerSupabaseClient()
 

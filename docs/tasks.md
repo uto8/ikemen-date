@@ -343,13 +343,13 @@
 ---
 
 #### C-1: チャット初期表示（Server Component）
-- [ ] `lib/queries/messages.ts` に `getMessages(matchId, currentUserId)` を実装する
-- [ ] `lib/queries/matches.ts` に `getMatchParticipants(matchId, currentUserId)` を実装する（自分が含まれるか確認・パートナーの退会状態を返す）
-- [ ] `lib/actions/chat.ts` に `markMessagesAsRead(matchId)` Server Action を実装する（`sender_id != 自分` かつ `sender_id IS NOT NULL` かつ `is_read = false` のメッセージを一括 `is_read = true` に UPDATE）
-- [ ] `app/(app)/chat/[match_id]/page.tsx` を作成する（Server Component）
-- [ ] 自分が含まれないマッチング ID の場合は `/matches` にリダイレクトする
-- [ ] ページ表示時に `markMessagesAsRead(matchId)` を呼び出す
-- [ ] `initialMessages` と `isPartnerActive` を Client Component に渡す
+- [x] `lib/queries/messages.ts` に `getMessages(matchId, currentUserId)` を実装する
+- [x] `lib/queries/matches.ts` に `getMatchParticipants(matchId, currentUserId)` を実装する（自分が含まれるか確認・パートナーの退会状態を返す）
+- [x] `lib/actions/chat.ts` に `markMessagesAsRead(matchId)` Server Action を実装する（`sender_id != 自分` かつ `sender_id IS NOT NULL` かつ `is_read = false` のメッセージを一括 `is_read = true` に UPDATE）
+- [x] `app/(app)/chat/[match_id]/page.tsx` を作成する（Server Component）
+- [x] 自分が含まれないマッチング ID の場合は `/matches` にリダイレクトする
+- [x] ページ表示時に `markMessagesAsRead(matchId)` を呼び出す
+- [x] `initialMessages` と `isPartnerActive` を Client Component に渡す
 
 **完了条件**: マッチングしていない相手の chat URL に直接アクセスすると `/matches` にリダイレクトされる。チャットページを開くと相手からの未読メッセージが `is_read = true` になる
 

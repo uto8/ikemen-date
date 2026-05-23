@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { transformToMatchWithPartner } from './matches'
+import { transformToMatchWithPartner, resolveParticipants } from './matches'
 
 vi.mock('../supabase/server', () => ({
   createServerSupabaseClient: vi.fn(),
@@ -117,5 +117,31 @@ describe('transformToMatchWithPartner', () => {
     }
     const result = transformToMatchWithPartner(match, 'user-1')
     expect(result.unreadCount).toBe(0)
+  })
+})
+
+describe('resolveParticipants', () => {
+  it('currentUser が user1 のとき isParticipant=true・partner=user2', () => {
+    const result = resolveParticipants('user-1', 'user-2', 'user-1')
+    expect(result.isParticipant).toBe(true)
+    expect(result.isPartnerActive).toBe(true)
+  })
+
+  it('currentUser が user2 のとき isParticipant=true・partner=user1', () => {
+    const result = resolveParticipants('user-1', 'user-2', 'user-2')
+    expect(result.isParticipant).toBe(true)
+    expect(result.isPartnerActive).toBe(true)
+  })
+
+  it('currentUser が含まれない場合 isParticipant=false', () => {
+    const result = resolveParticipants('user-1', 'user-2', 'user-3')
+    expect(result.isParticipant).toBe(false)
+    expect(result.isPartnerActive).toBe(false)
+  })
+
+  it('パートナーが退会済み（null）のとき isPartnerActive=false', () => {
+    const result = resolveParticipants('user-1', null, 'user-1')
+    expect(result.isParticipant).toBe(true)
+    expect(result.isPartnerActive).toBe(false)
   })
 })
