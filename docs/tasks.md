@@ -501,10 +501,10 @@
 
 ### POST-3: 単体テスト（Vitest）
 
-- [ ] `npm install -D vitest @vitest/ui` を実行する
-- [ ] `lib/utils/age.ts` の境界値テストを作成する（誕生日前日・当日・翌日）
-- [ ] `lib/validations/auth.ts` のテストを作成する（17 歳・18 歳・パスワードパターン）
-- [ ] `lib/validations/profile.ts` のテストを作成する（男女別の必須フィールド）
+- [x] `npm install -D vitest @vitest/ui` を実行する
+- [x] `lib/utils/age.ts` の境界値テストを作成する（誕生日前日・当日・翌日）
+- [x] `lib/validations/auth.ts` のテストを作成する（17 歳・18 歳・パスワードパターン）
+- [x] `lib/validations/profile.ts` のテストを作成する（男女別の必須フィールド）
 
 **完了条件**: `npx vitest` がすべて PASS する
 
