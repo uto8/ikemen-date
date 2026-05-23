@@ -524,8 +524,8 @@
 ### POST-5: OGP・メタ情報
 > 要件未確定（未決事項 #5）
 
-- [ ] `app/layout.tsx` の `metadata` に `title` / `description` / `openGraph` を設定する
-- [ ] OGP 画像を作成して `public/` に配置する
+- [x] `app/layout.tsx` の `metadata` に `title` / `description` / `openGraph` を設定する
+- [x] OGP 画像を作成して `public/` に配置する
 
 **完了条件**: SNS にシェアしたときにタイトル・説明・サムネが表示される
 
