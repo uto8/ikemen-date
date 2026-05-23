@@ -36,6 +36,8 @@ erDiagram
         smallint height
         text bio
         boolean is_onboarding_complete
+        timestamptz likes_last_read_at
+        timestamptz matches_last_read_at
         timestamptz created_at
         timestamptz updated_at
     }
@@ -107,6 +109,8 @@ Supabase Auth が内部管理するテーブル。アプリ側では直接作成
 | height | smallint | NULLABLE, CHECK 100〜250 | 男性のみ使用。女性レコードは NULL |
 | bio | text | NULLABLE | 男性のみ使用（最大 300 文字はアプリレイヤーで担保）。女性レコードは NULL |
 | is_onboarding_complete | boolean | NOT NULL DEFAULT false | オンボーディング完了後に true に設定。一度 true になったら false には戻さない |
+| likes_last_read_at | timestamptz | NULLABLE DEFAULT NULL | いいね一覧（S12）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
+| matches_last_read_at | timestamptz | NULLABLE DEFAULT NULL | マッチング一覧（S13）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
 | created_at | timestamptz | NOT NULL DEFAULT now() | |
 | updated_at | timestamptz | NOT NULL DEFAULT now() | |
 
@@ -204,6 +208,8 @@ CONSTRAINT profiles_male_fields_required CHECK (
 - `UNIQUE (user1_id, user2_id)` — 同一ペアの重複マッチングを防止
 - `CHECK (user1_id < user2_id)` — レコードの向き統一（逆順レコードの混在を防止）
 
+> **注意（UNIQUE と NULL の挙動）**: PostgreSQL の UNIQUE 制約は NULL を互いに異なる値として扱う。そのため、両者が退会して `(NULL, NULL)` になったレコードが複数あっても制約違反にはならない。ただし挿入時（どちらの user_id も NOT NULL の状態）は確実に重複を防止できるため、実運用上の問題はない。
+
 **マッチング一覧クエリの条件**
 ```sql
 WHERE user1_id IS NOT NULL AND user2_id IS NOT NULL
@@ -232,6 +238,54 @@ user2_id = GREATEST(A.id, B.id)
 
 **インデックス**
 - `(match_id, created_at ASC)` — チャット履歴の時系列取得で使用
+
+---
+
+### 通知バッジの未読カウント
+
+BottomNav に表示する未読バッジ数は、`profiles` に追加した **読み既済カーソル（timestamptz）** を基準にして算出する。カーソルを別テーブルに分離せず `profiles` 内に置くことで、JOIN なしに単一レコードで参照・更新できる。
+
+**バッジ数クエリ**
+
+```sql
+-- いいね未読数（receiver = 自分）
+SELECT COUNT(*)
+FROM   likes
+JOIN   profiles ON profiles.id = :my_profile_id
+WHERE  likes.receiver_id = :my_profile_id
+  AND  (
+    profiles.likes_last_read_at IS NULL
+    OR likes.created_at > profiles.likes_last_read_at
+  );
+
+-- マッチング未読数（自分が user1 または user2）
+SELECT COUNT(*)
+FROM   matches
+JOIN   profiles ON profiles.id = :my_profile_id
+WHERE  (matches.user1_id = :my_profile_id OR matches.user2_id = :my_profile_id)
+  AND  matches.user1_id IS NOT NULL
+  AND  matches.user2_id IS NOT NULL
+  AND  (
+    profiles.matches_last_read_at IS NULL
+    OR matches.created_at > profiles.matches_last_read_at
+  );
+```
+
+**クリア操作（Server Action）**
+
+| 操作 | 実行内容 |
+|---|---|
+| S12（いいね一覧）を開く | `UPDATE profiles SET likes_last_read_at = now() WHERE id = :my_profile_id` |
+| S13（マッチング一覧）を開く | `UPDATE profiles SET matches_last_read_at = now() WHERE id = :my_profile_id` |
+
+**Realtime サブスクリプション**
+
+| イベント | テーブル | フィルタ | 挙動 |
+|---|---|---|---|
+| いいね受信 | `likes` INSERT | `receiver_id=eq.:my_profile_id` | ローカルのいいねバッジカウントを +1 |
+| マッチング成立 | `matches` INSERT | フィルタ不可（OR 条件のため、全 INSERT を受信） | クライアントで `user1_id` / `user2_id` が自分と一致するか判定し、合致すればマッチングバッジカウントを +1 |
+
+> **実装上の注意（matches の Realtime フィルタ）**: Supabase Realtime の `filter` オプションは単一カラムの等値比較のみ対応している。`user1_id = me OR user2_id = me` という OR 条件はフィルタで指定できないため、INSERT イベントを全件受信してクライアント側で判定する。RLS の Realtime ポリシーで「自分が関与する matches のみ取得できる」ように設定しておくこと。
 
 ---
 
@@ -276,4 +330,5 @@ matches の削除は退会処理では発生しない。将来マッチング解
 | U-2 | 男性専用フィールドの DB 制約 | CHECK 制約で担保（`gender='female' OR 全フィールド NOT NULL`） |
 | U-3 | 退会時の FK 挙動 | matches・messages の FK は ON DELETE SET NULL。レコード保持 |
 | U-4 | is_onboarding_complete のリセット | 一度 true にしたら false には戻さない |
+| U-5 | バッジ未読カウントの管理方式 | 読み既済カーソル（timestamp）を profiles に持たせる方式を採用。別テーブルを作らずに JOIN なしで参照・更新できる |
 | M-1 | 退会とチャット履歴の矛盾 | Approach A 採用。メッセージ保持・sender_id を NULL 化 |
