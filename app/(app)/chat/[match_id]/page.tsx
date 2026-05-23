@@ -5,6 +5,7 @@ import { getMessages } from '@/lib/queries/messages'
 import { markMessagesAsRead } from '@/lib/actions/chat'
 import ChatMessages from '@/components/chat/ChatMessages'
 import ChatInput from '@/components/chat/ChatInput'
+import ChatBadgeResetter from '@/components/navigation/ChatBadgeResetter'
 
 type Props = { params: Promise<{ match_id: string }> }
 
@@ -27,6 +28,7 @@ export default async function ChatPage({ params }: Props) {
 
   return (
     <main className="flex h-screen flex-col">
+      <ChatBadgeResetter matchId={match_id} />
       <ChatMessages
         matchId={match_id}
         currentUserId={user.id}

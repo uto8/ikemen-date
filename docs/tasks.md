@@ -419,12 +419,12 @@
 ---
 
 #### B-2: マッチング（メッセージ）バッジ（Realtime）
-- [ ] `app/(app)/layout.tsx` で自分が関与する全マッチングの初期未読メッセージ数を取得する（`messages.is_read = false AND sender_id != 自分 AND sender_id IS NOT NULL`）
-- [ ] 自分が関与する各マッチングの `messages` INSERT イベントをサブスクライブする（`match_id` フィルタ別チャンネル）
-- [ ] `sender_id != 自分` かつ `sender_id IS NOT NULL` のメッセージのみバッジカウントを +1 する
-- [ ] チャット画面を開いたときにそのマッチング分のカウントを減らす（`markMessagesAsRead` 後にローカル state を更新）
-- [ ] マッチング一覧ページ（S13）表示中はバッジを非表示にする（クリアはしない）
-- [ ] 99 件超は「99+」と表示する
+- [x] `app/(app)/layout.tsx` で自分が関与する全マッチングの初期未読メッセージ数を取得する（`messages.is_read = false AND sender_id != 自分 AND sender_id IS NOT NULL`）
+- [x] 自分が関与する各マッチングの `messages` INSERT イベントをサブスクライブする（`match_id` フィルタ別チャンネル）
+- [x] `sender_id != 自分` かつ `sender_id IS NOT NULL` のメッセージのみバッジカウントを +1 する
+- [x] チャット画面を開いたときにそのマッチング分のカウントを減らす（`markMessagesAsRead` 後にローカル state を更新）
+- [x] マッチング一覧ページ（S13）表示中はバッジを非表示にする（クリアはしない）
+- [x] 99 件超は「99+」と表示する
 
 **完了条件**: 別タブからメッセージを送るとバッジカウントが増加する。チャット画面を開くとそのマッチング分のバッジが減少し、他のマッチングの未読は継続して表示される
 

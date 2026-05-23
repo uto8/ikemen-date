@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLikeBadge } from './LikeBadgeProvider'
+import { useMessageBadge } from './MessageBadgeProvider'
 import { formatBadgeCount } from '@/lib/utils/badge'
 
 const tabs = [
@@ -46,15 +47,22 @@ const tabs = [
 
 export default function BottomNav() {
   const pathname = usePathname()
-  const { count } = useLikeBadge()
+  const { count: likeCount } = useLikeBadge()
+  const { count: msgCount } = useMessageBadge()
+
   const onLikesPage = pathname === '/likes'
+  const onMatchesPage = pathname === '/matches'
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-100 bg-white">
       <ul className="flex">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href)
-          const showLikeBadge = tab.href === '/likes' && !onLikesPage && count > 0
+
+          const showLikeBadge = tab.href === '/likes' && !onLikesPage && likeCount > 0
+          const showMsgBadge = tab.href === '/matches' && !onMatchesPage && msgCount > 0
+          const badgeCount = showLikeBadge ? likeCount : showMsgBadge ? msgCount : 0
+          const showBadge = showLikeBadge || showMsgBadge
 
           return (
             <li key={tab.href} className="flex-1">
@@ -66,9 +74,9 @@ export default function BottomNav() {
               >
                 <span className="relative">
                   {tab.icon}
-                  {showLikeBadge && (
+                  {showBadge && (
                     <span className="absolute -right-2 -top-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white leading-none">
-                      {formatBadgeCount(count)}
+                      {formatBadgeCount(badgeCount)}
                     </span>
                   )}
                 </span>

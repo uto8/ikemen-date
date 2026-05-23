@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { transformMessages } from './messages'
+import { transformMessages, buildUnreadMap, toMatchUnreadInfos } from './messages'
 
 vi.mock('../supabase/server', () => ({
   createServerSupabaseClient: vi.fn(),
@@ -44,5 +44,46 @@ describe('transformMessages', () => {
 
   it('空配列を渡すと空配列を返す', () => {
     expect(transformMessages([])).toEqual([])
+  })
+})
+
+describe('buildUnreadMap', () => {
+  it('空配列のとき空オブジェクトを返す', () => {
+    expect(buildUnreadMap([])).toEqual({})
+  })
+
+  it('同じ match_id の行をまとめてカウントする', () => {
+    const rows = [
+      { match_id: 'match-1' },
+      { match_id: 'match-1' },
+      { match_id: 'match-2' },
+    ]
+    expect(buildUnreadMap(rows)).toEqual({ 'match-1': 2, 'match-2': 1 })
+  })
+
+  it('全て異なる match_id のとき各カウントが 1', () => {
+    const rows = [{ match_id: 'a' }, { match_id: 'b' }, { match_id: 'c' }]
+    expect(buildUnreadMap(rows)).toEqual({ a: 1, b: 1, c: 1 })
+  })
+})
+
+describe('toMatchUnreadInfos', () => {
+  it('matchIds の全てを含む配列を返す', () => {
+    const result = toMatchUnreadInfos(['match-1', 'match-2'], { 'match-1': 3 })
+    expect(result).toHaveLength(2)
+  })
+
+  it('unreadMap に存在する matchId は unreadCount をセットする', () => {
+    const result = toMatchUnreadInfos(['match-1'], { 'match-1': 5 })
+    expect(result[0]).toEqual({ matchId: 'match-1', unreadCount: 5 })
+  })
+
+  it('unreadMap に存在しない matchId は unreadCount=0', () => {
+    const result = toMatchUnreadInfos(['match-99'], {})
+    expect(result[0]).toEqual({ matchId: 'match-99', unreadCount: 0 })
+  })
+
+  it('matchIds が空のとき空配列を返す', () => {
+    expect(toMatchUnreadInfos([], { 'match-1': 3 })).toEqual([])
   })
 })
