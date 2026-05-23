@@ -481,9 +481,9 @@
 ### POST-1: プロフィール編集
 > 要件未確定（未決事項 #2）
 
-- [ ] `lib/actions/profile.ts` に `updateProfile(formData: FormData)` を実装する
-- [ ] `app/(app)/settings/profile/page.tsx` を作成する
-- [ ] 画像の差し替え時は旧ファイルを Storage から削除する
+- [x] `lib/actions/profile.ts` に `updateProfile(formData: FormData)` を実装する
+- [x] `app/(app)/settings/profile/page.tsx` を作成する
+- [x] 画像の差し替え時は旧ファイルを Storage から削除する
 
 **完了条件**: プロフィール編集後に一覧・詳細に変更が反映される
 

@@ -123,6 +123,68 @@ export async function getUserById(id: string): Promise<UserDetailData | null> {
   return transformToUserDetailData(data as ProfileDetailRow)
 }
 
+export type MyProfileData = {
+  id: string
+  gender: string
+  nickname: string
+  prefecture: string
+  avatar_url: string | null
+  occupation: string | null
+  height: number | null
+  bio: string | null
+  ikemenTypeIds: number[]
+}
+
+export async function getMyProfile(userId: string): Promise<MyProfileData | null> {
+  const supabase = await createServerSupabaseClient()
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select(
+      `
+      id,
+      gender,
+      nickname,
+      prefecture,
+      avatar_url,
+      occupation,
+      height,
+      bio,
+      profile_ikemen_types (
+        ikemen_type_id
+      )
+    `
+    )
+    .eq('id', userId)
+    .single()
+
+  if (error || !data) return null
+
+  const row = data as {
+    id: string
+    gender: string
+    nickname: string
+    prefecture: string
+    avatar_url: string | null
+    occupation: string | null
+    height: number | null
+    bio: string | null
+    profile_ikemen_types: Array<{ ikemen_type_id: number }>
+  }
+
+  return {
+    id: row.id,
+    gender: row.gender,
+    nickname: row.nickname,
+    prefecture: row.prefecture,
+    avatar_url: row.avatar_url,
+    occupation: row.occupation,
+    height: row.height,
+    bio: row.bio,
+    ikemenTypeIds: row.profile_ikemen_types.map((pt) => pt.ikemen_type_id),
+  }
+}
+
 export async function getOppositeUsers(
   currentUserId: string,
   currentGender: string
