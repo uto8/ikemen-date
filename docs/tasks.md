@@ -228,12 +228,12 @@
 ---
 
 #### O-4: Server Action: completeOnboarding
-- [ ] `lib/actions/profile.ts` に `completeOnboarding(formData: FormData)` を実装する
-- [ ] 性別に応じた Zod スキーマでバリデーションする
-- [ ] 画像が含まれる場合: Storage `avatars/{userId}.{ext}` にアップロードし、ファイルパスを `avatar_url` に設定する
-- [ ] `profiles` を UPDATE する（性別に応じたフィールド）
-- [ ] 男性の場合: `profile_ikemen_types` を一括 INSERT する
-- [ ] `is_onboarding_complete = true` に更新して `/users` にリダイレクトする
+- [x] `lib/actions/profile.ts` に `completeOnboarding(formData: FormData)` を実装する
+- [x] 性別に応じた Zod スキーマでバリデーションする
+- [x] 画像が含まれる場合: Storage `avatars/{userId}.{ext}` にアップロードし、ファイルパスを `avatar_url` に設定する
+- [x] `profiles` を UPDATE する（性別に応じたフィールド）
+- [x] 男性の場合: `profile_ikemen_types` を一括 INSERT する
+- [x] `is_onboarding_complete = true` に更新して `/users` にリダイレクトする
 
 **完了条件**: 男性で画像・全必須項目・イケメンタイプを入力して送信すると `profiles` と `profile_ikemen_types` が更新される。Storage に画像が保存される
 
