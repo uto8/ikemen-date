@@ -356,13 +356,13 @@
 ---
 
 #### C-2: ChatMessages コンポーネント（Realtime）
-- [ ] `components/chat/ChatMessages.tsx` を実装する（Client Component）
-- [ ] マウント時に `supabase.channel()` で `messages` テーブルをサブスクライブする（`match_id = matchId` フィルタ）
-- [ ] 新着メッセージをローカル state に追加する
-- [ ] 自分のメッセージを右寄せ・相手を左寄せで表示する
-- [ ] `sender_id = null`（退会済み）は「退会済みユーザー」として表示する
-- [ ] `isPartnerActive = false` のときは退会バナーを表示する
-- [ ] アンマウント時に `supabase.removeChannel()` でサブスクライブ解除する
+- [x] `components/chat/ChatMessages.tsx` を実装する（Client Component）
+- [x] マウント時に `supabase.channel()` で `messages` テーブルをサブスクライブする（`match_id = matchId` フィルタ）
+- [x] 新着メッセージをローカル state に追加する
+- [x] 自分のメッセージを右寄せ・相手を左寄せで表示する
+- [x] `sender_id = null`（退会済み）は「退会済みユーザー」として表示する
+- [x] `isPartnerActive = false` のときは退会バナーを表示する
+- [x] アンマウント時に `supabase.removeChannel()` でサブスクライブ解除する
 
 **完了条件**: チャット画面を開いたまま相手がメッセージを送ると、リロードなしで画面左側にメッセージが表示される
 
