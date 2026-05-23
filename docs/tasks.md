@@ -293,10 +293,10 @@
 ---
 
 #### U-3: Server Action: sendLike
-- [ ] `lib/actions/like.ts` に `sendLike(receiverId: string)` を実装する
-- [ ] セッションから `senderId` を取得する
-- [ ] `likes` テーブルに INSERT する（重複の場合は Supabase の一意制約エラーを `{ error }` に変換する）
-- [ ] `revalidatePath('/users/[id]')` で詳細ページを再検証する
+- [x] `lib/actions/like.ts` に `sendLike(receiverId: string)` を実装する
+- [x] セッションから `senderId` を取得する
+- [x] `likes` テーブルに INSERT する（重複の場合は Supabase の一意制約エラーを `{ error }` に変換する）
+- [x] `revalidatePath('/users/[id]')` で詳細ページを再検証する
 
 **完了条件**: いいねボタンを押すと `likes` レコードが作成される。双方向いいね後に `matches` レコードが自動生成される（トリガーによる）
 
