@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { registerSchema, passwordSchema } from './auth'
+import { loginSchema, registerSchema, passwordSchema } from './auth'
 
 // テスト基準日を固定するために birthDate を動的に計算する
 function ageAgo(years: number, offsetDays = 0): string {
@@ -82,6 +82,29 @@ describe('registerSchema', () => {
       const result = registerSchema.safeParse({ ...validBase, birthDate: ageAgo(18, 1) })
       expect(result.success).toBe(true)
     })
+  })
+})
+
+describe('loginSchema', () => {
+  const validLogin = { email: 'test@example.com', password: 'Password1' }
+
+  it('正常: 有効な認証情報', () => {
+    expect(loginSchema.safeParse(validLogin).success).toBe(true)
+  })
+
+  it('エラー: メール形式でない', () => {
+    const result = loginSchema.safeParse({ ...validLogin, email: 'not-email' })
+    expect(result.success).toBe(false)
+  })
+
+  it('エラー: パスワード空', () => {
+    const result = loginSchema.safeParse({ ...validLogin, password: '' })
+    expect(result.success).toBe(false)
+  })
+
+  it('正常: パスワードは1文字以上あれば通過（複雑さ要件なし）', () => {
+    const result = loginSchema.safeParse({ ...validLogin, password: 'a' })
+    expect(result.success).toBe(true)
   })
 })
 

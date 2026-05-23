@@ -11,6 +11,11 @@ export const passwordSchema = z.object({
   password: passwordRules,
 })
 
+export const loginSchema = z.object({
+  email: z.string().email('メールアドレスの形式が正しくありません'),
+  password: z.string().min(1, 'パスワードを入力してください'),
+})
+
 export const registerSchema = z.object({
   email: z.string().email('メールアドレスの形式が正しくありません'),
   password: passwordRules,

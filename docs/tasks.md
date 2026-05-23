@@ -175,21 +175,21 @@
 - [x] `app/(auth)/verify-email/page.tsx` を作成する
 - [x] 「確認メールを再送信する」ボタンと 60 秒カウントダウンタイマーを実装する（Client Component）
 - [x] `resendConfirmationEmail` Server Action を実装する（`supabase.auth.resend`）
-- [ ] 有効期限切れエラー（`/login?error=expired`）の場合はエラーバナーを表示する（A-4 ログインページで実装）
+- [x] 有効期限切れエラー（`/login?error=expired`）の場合はエラーバナーを表示する（A-4 ログインページで実装）
 
 **完了条件**: ボタンを押すと再送信される。60 秒以内の 2 回目の押下でボタンが非活性になり残り秒数が表示される
 
 ---
 
 #### A-4: ログインフォーム UI + Server Action
-- [ ] `app/(auth)/login/page.tsx` を作成する
-- [ ] `components/auth/LoginForm.tsx` を実装する
-- [ ] `lib/actions/auth.ts` に `loginUser(formData: FormData)` を実装する
+- [x] `app/(auth)/login/page.tsx` を作成する
+- [x] `components/auth/LoginForm.tsx` を実装する
+- [x] `lib/actions/auth.ts` に `loginUser(formData: FormData)` を実装する
   - `supabase.auth.signInWithPassword` でセッション生成
   - メール未確認: `/verify-email` にリダイレクト
   - プロフィール未完了（`is_onboarding_complete = false`）: `/onboarding` にリダイレクト
   - 完了済み: `/users` にリダイレクト
-- [ ] 認証エラー: `{ error: "メールアドレスまたはパスワードが正しくありません" }` を返す
+- [x] 認証エラー: `{ error: "メールアドレスまたはパスワードが正しくありません" }` を返す
 
 **完了条件**: 正しい認証情報でログインして `/users` または `/onboarding` に遷移する。誤認証でエラーメッセージが表示される
 
