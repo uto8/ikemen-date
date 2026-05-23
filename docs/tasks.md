@@ -117,12 +117,12 @@
 ---
 
 #### L-2: Zod バリデーションスキーマ（認証）
-- [ ] `lib/validations/auth.ts` に `registerSchema` を定義する
+- [x] `lib/validations/auth.ts` に `registerSchema` を定義する
   - `email`: メール形式
   - `password`: 英字・数字を各 1 文字以上含む 8 文字以上
   - `gender`: `'male' | 'female'`
   - `birthDate`: 登録日時点で 18 歳以上
-- [ ] `lib/validations/auth.ts` に `passwordSchema`（リセット用・同一ルール）を定義する
+- [x] `lib/validations/auth.ts` に `passwordSchema`（リセット用・同一ルール）を定義する
 
 **完了条件**: Zod の `safeParse` で 17 歳・英字のみパスワード・性別未選択がそれぞれエラーになる
 
