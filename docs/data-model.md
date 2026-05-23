@@ -1,6 +1,6 @@
 # イケメンデート データモデル
 
-最終更新: 2026-05-24
+最終更新: 2026-05-24（4.7 ソート順変更を反映）
 
 ---
 
@@ -245,6 +245,24 @@ WHERE user1_id IS NOT NULL AND user2_id IS NOT NULL
 user1_id = LEAST(A.id, B.id)
 user2_id = GREATEST(A.id, B.id)
 ```
+
+**マッチング一覧ソートクエリ（要件 4.7）**
+
+要件 4.7 では「最終メッセージの送受信が新しい順、メッセージ未送受信はマッチング成立日時で比較」を定義している。`matches.created_at` では足りないため `messages` との LEFT JOIN 集計が必要になる。
+
+```sql
+SELECT m.*,
+       COALESCE(MAX(msg.created_at), m.created_at) AS sort_at
+FROM   matches m
+LEFT JOIN messages msg ON msg.match_id = m.id
+WHERE  (m.user1_id = :my_profile_id OR m.user2_id = :my_profile_id)
+  AND  m.user1_id IS NOT NULL
+  AND  m.user2_id IS NOT NULL
+GROUP  BY m.id
+ORDER  BY sort_at DESC;
+```
+
+`COALESCE(MAX(msg.created_at), m.created_at)` によりメッセージ0件のマッチングはマッチング成立日時を基準に並べる。既存の `messages(match_id, created_at ASC)` インデックスは逆スキャンで MAX 取得にも使用できるが、100ユーザー規模を超える場合は `(match_id, created_at DESC)` の追加を検討する。
 
 ---
 
