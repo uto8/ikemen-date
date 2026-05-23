@@ -77,6 +77,7 @@ export function transformToMatchWithPartner(
 export type MatchParticipants = {
   isParticipant: boolean
   isPartnerActive: boolean
+  partnerId: string | null
 }
 
 export function resolveParticipants(
@@ -85,10 +86,10 @@ export function resolveParticipants(
   currentUserId: string
 ): MatchParticipants {
   const isParticipant = user1_id === currentUserId || user2_id === currentUserId
-  if (!isParticipant) return { isParticipant: false, isPartnerActive: false }
+  if (!isParticipant) return { isParticipant: false, isPartnerActive: false, partnerId: null }
 
   const partnerId = user1_id === currentUserId ? user2_id : user1_id
-  return { isParticipant: true, isPartnerActive: partnerId !== null }
+  return { isParticipant: true, isPartnerActive: partnerId !== null, partnerId }
 }
 
 export async function getMatchParticipants(
@@ -103,7 +104,7 @@ export async function getMatchParticipants(
     .eq('id', matchId)
     .single()
 
-  if (error || !data) return { isParticipant: false, isPartnerActive: false }
+  if (error || !data) return { isParticipant: false, isPartnerActive: false, partnerId: null }
 
   const row = data as { user1_id: string | null; user2_id: string | null }
   return resolveParticipants(row.user1_id, row.user2_id, currentUserId)

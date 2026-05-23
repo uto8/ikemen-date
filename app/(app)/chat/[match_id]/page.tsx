@@ -32,6 +32,7 @@ export default async function ChatPage({ params }: Props) {
         currentUserId={user.id}
         initialMessages={messages}
         isPartnerActive={participants.isPartnerActive}
+        partnerId={participants.partnerId}
       />
       <ChatInput matchId={match_id} />
     </main>

@@ -9,6 +9,7 @@ type Props = {
   currentUserId: string
   initialMessages: Message[]
   isPartnerActive: boolean
+  partnerId: string | null
 }
 
 export default function ChatMessages({
@@ -16,8 +17,10 @@ export default function ChatMessages({
   currentUserId,
   initialMessages,
   isPartnerActive,
+  partnerId,
 }: Props) {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const [partnerActive, setPartnerActive] = useState(isPartnerActive)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   // 新着メッセージで最下部にスクロール
@@ -25,7 +28,7 @@ export default function ChatMessages({
     bottomRef.current?.scrollIntoView()
   }, [messages])
 
-  // Realtime サブスクライブ
+  // メッセージ Realtime サブスクライブ
   useEffect(() => {
     const supabase = getSupabaseBrowserClient()
 
@@ -66,9 +69,36 @@ export default function ChatMessages({
     }
   }, [matchId])
 
+  // パートナー退会 Realtime サブスクライブ
+  useEffect(() => {
+    if (!partnerId) return
+
+    const supabase = getSupabaseBrowserClient()
+
+    const channel = supabase
+      .channel(`partner-withdraw-${matchId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${partnerId}`,
+        },
+        () => {
+          setPartnerActive(false)
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [matchId, partnerId])
+
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      {!isPartnerActive && (
+      {!partnerActive && (
         <div className="bg-amber-50 px-4 py-2 text-center text-sm text-amber-700">
           相手のアカウントは退会済みです
         </div>

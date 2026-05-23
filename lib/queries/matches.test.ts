@@ -121,27 +121,31 @@ describe('transformToMatchWithPartner', () => {
 })
 
 describe('resolveParticipants', () => {
-  it('currentUser が user1 のとき isParticipant=true・partner=user2', () => {
+  it('currentUser が user1 のとき isParticipant=true・partnerId=user2', () => {
     const result = resolveParticipants('user-1', 'user-2', 'user-1')
     expect(result.isParticipant).toBe(true)
     expect(result.isPartnerActive).toBe(true)
+    expect(result.partnerId).toBe('user-2')
   })
 
-  it('currentUser が user2 のとき isParticipant=true・partner=user1', () => {
+  it('currentUser が user2 のとき isParticipant=true・partnerId=user1', () => {
     const result = resolveParticipants('user-1', 'user-2', 'user-2')
     expect(result.isParticipant).toBe(true)
     expect(result.isPartnerActive).toBe(true)
+    expect(result.partnerId).toBe('user-1')
   })
 
-  it('currentUser が含まれない場合 isParticipant=false', () => {
+  it('currentUser が含まれない場合 isParticipant=false・partnerId=null', () => {
     const result = resolveParticipants('user-1', 'user-2', 'user-3')
     expect(result.isParticipant).toBe(false)
     expect(result.isPartnerActive).toBe(false)
+    expect(result.partnerId).toBeNull()
   })
 
-  it('パートナーが退会済み（null）のとき isPartnerActive=false', () => {
+  it('パートナーが退会済み（null）のとき isPartnerActive=false・partnerId=null', () => {
     const result = resolveParticipants('user-1', null, 'user-1')
     expect(result.isParticipant).toBe(true)
     expect(result.isPartnerActive).toBe(false)
+    expect(result.partnerId).toBeNull()
   })
 })
