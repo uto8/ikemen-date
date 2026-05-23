@@ -96,8 +96,8 @@
 ---
 
 #### D-6: ikemen_types シードデータ投入
-- [ ] `supabase/seed.sql` に 12 件の `ikemen_types` レコードを INSERT 文で記述する
-- [ ] Supabase SQL Editor でシードを実行する
+- [x] `supabase/seed.sql` に 12 件の `ikemen_types` レコードを INSERT 文で記述する
+- [x] Supabase SQL Editor でシードを実行する
 
 **完了条件**: `SELECT * FROM ikemen_types ORDER BY display_order` で 12 件が正しい順序で返る
 
