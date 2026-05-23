@@ -307,13 +307,13 @@
 ---
 
 #### LK-1: もらったいいね一覧
-- [ ] `lib/queries/likes.ts` に `getReceivedLikes(currentUserId)` を実装する（送ってきたユーザーの基本情報を JOIN・`likes.created_at DESC` でソート）
-- [ ] `lib/actions/like.ts` に `updateLikesLastRead()` Server Action を実装する（`profiles.likes_last_read_at = now()` を UPDATE）
-- [ ] `app/(app)/likes/page.tsx` を作成する（Server Component）
-- [ ] ページを開いた直後に `updateLikesLastRead()` を呼び出す
-- [ ] リスト形式（1 カラム）でカードを表示する
-- [ ] 0 件のとき「まだいいねをもらっていません」を表示する
-- [ ] 各カードをタップすると `/users/[id]` に遷移する
+- [x] `lib/queries/likes.ts` に `getReceivedLikes(currentUserId)` を実装する（送ってきたユーザーの基本情報を JOIN・`likes.created_at DESC` でソート）
+- [x] `lib/actions/like.ts` に `updateLikesLastRead()` Server Action を実装する（`profiles.likes_last_read_at = now()` を UPDATE）
+- [x] `app/(app)/likes/page.tsx` を作成する（Server Component）
+- [x] ページを開いた直後に `updateLikesLastRead()` を呼び出す
+- [x] リスト形式（1 カラム）でカードを表示する
+- [x] 0 件のとき「まだいいねをもらっていません」を表示する
+- [x] 各カードをタップすると `/users/[id]` に遷移する
 
 **完了条件**: 他ユーザーからいいねを受信した後、自分のいいね一覧ページに相手が表示される。ページを開くと `profiles.likes_last_read_at` が更新される
 

@@ -3,6 +3,19 @@
 import { revalidatePath } from 'next/cache'
 import { createServerSupabaseClient } from '../supabase/server'
 
+export async function updateLikesLastRead(): Promise<void> {
+  const supabase = await createServerSupabaseClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return
+
+  await supabase
+    .from('profiles')
+    .update({ likes_last_read_at: new Date().toISOString() })
+    .eq('id', user.id)
+}
+
 export async function sendLike(receiverId: string): Promise<{ error?: string }> {
   const supabase = await createServerSupabaseClient()
   const {
