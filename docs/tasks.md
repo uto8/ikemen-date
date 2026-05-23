@@ -384,7 +384,7 @@
 ---
 
 #### W-1: 退会 Server Action
-- [ ] `lib/actions/user.ts` に `withdrawUser()` を実装する
+- [x] `lib/actions/user.ts` に `withdrawUser()` を実装する
   1. セッションから `userId` を取得する
   2. Storage から `avatars/{userId}.*` を削除する
   3. `supabaseAdmin.auth.admin.deleteUser(userId)` を実行する（CASCADE で `profiles` → `likes` → `profile_ikemen_types` が削除される）
