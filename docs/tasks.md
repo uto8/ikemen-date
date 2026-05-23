@@ -446,10 +446,10 @@
 ---
 
 #### N-2: パスワードリセットフロー
-- [ ] `app/(auth)/forgot-password/page.tsx` + `forgotPassword` Server Action を実装する
-- [ ] `app/(auth)/reset-password/page.tsx` + `resetPassword` Server Action を実装する
-- [ ] ログイン画面に「パスワードをお忘れの方はこちら」リンクを追加する
-- [ ] 未登録メールへの送信でも成功メッセージを表示する（列挙攻撃対策）
+- [x] `app/(auth)/forgot-password/page.tsx` + `forgotPassword` Server Action を実装する
+- [x] `app/(auth)/reset-password/page.tsx` + `resetPassword` Server Action を実装する
+- [x] ログイン画面に「パスワードをお忘れの方はこちら」リンクを追加する
+- [x] 未登録メールへの送信でも成功メッセージを表示する（列挙攻撃対策）
 
 **完了条件**: 登録済みメールに対してリセットメールが届き、リンクから新パスワードを設定してログインできる
 

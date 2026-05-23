@@ -16,5 +16,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/login?error=expired`)
   }
 
-  return NextResponse.redirect(`${origin}/onboarding`)
+  const next = searchParams.get('next') ?? '/onboarding'
+  return NextResponse.redirect(`${origin}${next}`)
 }

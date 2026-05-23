@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useTransition } from 'react'
 import { loginUser } from '@/lib/actions/auth'
 
@@ -72,6 +73,13 @@ export default function LoginForm({ errorParam }: Props) {
       >
         {isPending ? 'ログイン中…' : 'ログインする'}
       </button>
+
+      <Link
+        href="/forgot-password"
+        className="text-center text-sm text-gray-400 hover:underline"
+      >
+        パスワードをお忘れの方はこちら
+      </Link>
     </form>
   )
 }
