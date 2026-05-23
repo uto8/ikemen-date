@@ -41,14 +41,14 @@
 ---
 
 #### D-1: プロフィール関連テーブル作成
-- [ ] `supabase/migrations/001_profiles.sql` を作成する
-- [ ] `profiles` テーブルを DDL 通りに作成する（`likes_last_read_at`・`bio` CHECK 制約・`profiles_male_fields_required` CHECK 制約・インデックス含む）
-- [ ] `ikemen_types` テーブルを作成する
-- [ ] `profile_ikemen_types` 中間テーブルを作成する
-- [ ] `handle_new_user()` 関数を実装する（`NEW.raw_user_meta_data` から `gender`・`birth_date` を取り出して `profiles` に INSERT）
-- [ ] `on_auth_user_created` トリガーを `auth.users` に設定する
-- [ ] `check_male_ikemen_types()` 関数と `enforce_male_ikemen_types` トリガーを実装する（`is_onboarding_complete = true` への UPDATE 時に `profile_ikemen_types` が 1 件以上存在することを検証）
-- [ ] マイグレーションを Supabase に適用する
+- [x] `supabase/migrations/001_profiles.sql` を作成する
+- [x] `profiles` テーブルを DDL 通りに作成する（`likes_last_read_at`・`bio` CHECK 制約・`profiles_male_fields_required` CHECK 制約・インデックス含む）
+- [x] `ikemen_types` テーブルを作成する
+- [x] `profile_ikemen_types` 中間テーブルを作成する
+- [x] `handle_new_user()` 関数を実装する（`NEW.raw_user_meta_data` から `gender`・`birth_date` を取り出して `profiles` に INSERT）
+- [x] `on_auth_user_created` トリガーを `auth.users` に設定する
+- [x] `check_male_ikemen_types()` 関数と `enforce_male_ikemen_types` トリガーを実装する（`is_onboarding_complete = true` への UPDATE 時に `profile_ikemen_types` が 1 件以上存在することを検証）
+- [x] マイグレーションを Supabase に適用する
 
 **完了条件**: Supabase ダッシュボードの Table Editor で 3 テーブルが確認できる。`profiles` の CHECK 制約が機能することを SQL Editor で確認できる。`auth.users` に INSERT すると `profiles` レコードが自動生成される
 

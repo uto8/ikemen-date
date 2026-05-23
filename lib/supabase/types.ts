@@ -14,7 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ikemen_types: {
+        Row: {
+          display_order: number
+          id: number
+          name: string
+        }
+        Insert: {
+          display_order: number
+          id: number
+          name: string
+        }
+        Update: {
+          display_order?: number
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      profile_ikemen_types: {
+        Row: {
+          ikemen_type_id: number
+          profile_id: string
+        }
+        Insert: {
+          ikemen_type_id: number
+          profile_id: string
+        }
+        Update: {
+          ikemen_type_id?: number
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_ikemen_types_ikemen_type_id_fkey"
+            columns: ["ikemen_type_id"]
+            isOneToOne: false
+            referencedRelation: "ikemen_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_ikemen_types_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          birth_date: string
+          created_at: string
+          gender: string
+          height: number | null
+          id: string
+          is_onboarding_complete: boolean
+          likes_last_read_at: string | null
+          nickname: string
+          occupation: string | null
+          prefecture: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          birth_date: string
+          created_at?: string
+          gender: string
+          height?: number | null
+          id: string
+          is_onboarding_complete?: boolean
+          likes_last_read_at?: string | null
+          nickname?: string
+          occupation?: string | null
+          prefecture?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          birth_date?: string
+          created_at?: string
+          gender?: string
+          height?: number | null
+          id?: string
+          is_onboarding_complete?: boolean
+          likes_last_read_at?: string | null
+          nickname?: string
+          occupation?: string | null
+          prefecture?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
