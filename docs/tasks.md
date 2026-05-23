@@ -281,8 +281,8 @@
 ---
 
 #### U-2: いいね状態クエリ + LikeButton コンポーネント
-- [ ] `lib/queries/likes.ts` に `getLikeStatus(currentUserId, targetUserId): Promise<LikeStatus>` を実装する
-- [ ] `components/like-button/LikeButton.tsx` を実装する（Client Component）
+- [x] `lib/queries/likes.ts` に `getLikeStatus(currentUserId, targetUserId): Promise<LikeStatus>` を実装する
+- [x] `components/like-button/LikeButton.tsx` を実装する（Client Component）
   - `initialStatus: 'none' | 'sent' | 'received'` を受け取る
   - `sent` の場合はボタンを非活性・「いいね済み」表示にする
   - 押下時に `sendLike` Server Action を `useTransition` で呼び出す

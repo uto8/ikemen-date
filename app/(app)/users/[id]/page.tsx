@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getUserById } from '@/lib/queries/users'
+import { getLikeStatus } from '@/lib/queries/likes'
+import LikeButton from '@/components/like-button/LikeButton'
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -17,6 +19,10 @@ export default async function UserDetailPage({ params }: Props) {
 
   const isSelf = user?.id === id
   const isMale = profile.gender === 'male'
+
+  const likeStatus = !isSelf && user
+    ? await getLikeStatus(user.id, id)
+    : 'none'
 
   return (
     <main className="px-4 pb-32 pt-6">
@@ -82,11 +88,10 @@ export default async function UserDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* like button area — U-2 で LikeButton を配置する */}
       {!isSelf && (
         <div className="fixed bottom-20 left-0 right-0 flex justify-center px-4">
           <div className="w-full max-w-sm">
-            {/* LikeButton placeholder */}
+            <LikeButton targetUserId={id} initialStatus={likeStatus} />
           </div>
         </div>
       )}
