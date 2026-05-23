@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { registerSchema } from '@/lib/validations/auth'
+import { registerUser } from '@/lib/actions/auth'
 import type { z } from 'zod'
 
 type FieldErrors = Partial<Record<keyof z.infer<typeof registerSchema>, string>>
@@ -9,11 +10,6 @@ type FieldErrors = Partial<Record<keyof z.infer<typeof registerSchema>, string>>
 type FormState = {
   errors: FieldErrors
   serverError?: string
-}
-
-// A-2 で実装する registerUser の暫定 stub
-async function registerUser(_formData: FormData): Promise<{ error?: string }> {
-  return {}
 }
 
 export default function RegisterForm() {

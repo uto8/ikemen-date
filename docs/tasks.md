@@ -161,11 +161,11 @@
 ---
 
 #### A-2: Server Action: registerUser
-- [ ] `lib/actions/auth.ts` に `registerUser(formData: FormData)` を実装する
-- [ ] Zod で全フィールドをサーバーサイドバリデーションする
-- [ ] `supabaseAdmin.auth.admin.createUser({ user_metadata: { gender, birth_date } })` でアカウントを作成する（`profiles` への INSERT は `handle_new_user` トリガーが自動実行するため直接 INSERT しない）
-- [ ] 成功時: `/verify-email?email=<email>` にリダイレクトする
-- [ ] 重複メール: `{ error: "このメールアドレスはすでに使用されています" }` を返す
+- [x] `lib/actions/auth.ts` に `registerUser(formData: FormData)` を実装する
+- [x] Zod で全フィールドをサーバーサイドバリデーションする
+- [x] `supabaseAdmin.auth.admin.createUser({ user_metadata: { gender, birth_date } })` でアカウントを作成する（`profiles` への INSERT は `handle_new_user` トリガーが自動実行するため直接 INSERT しない）
+- [x] 成功時: `/verify-email?email=<email>` にリダイレクトする
+- [x] 重複メール: `{ error: "このメールアドレスはすでに使用されています" }` を返す
 
 **完了条件**: 有効な入力でアカウントが作成され、Supabase Auth に新ユーザーが表示される。17 歳の birthDate でアカウントが作成されない
 
