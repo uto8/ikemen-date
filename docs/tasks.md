@@ -129,8 +129,8 @@
 ---
 
 #### L-3: Zod バリデーションスキーマ（プロフィール）
-- [ ] `lib/validations/profile.ts` に `femaleOnboardingSchema` を定義する（nickname・prefecture 必須、avatar 任意）
-- [ ] `lib/validations/profile.ts` に `maleOnboardingSchema` を定義する（全フィールド必須・ikemen_type_ids 1 件以上）
+- [x] `lib/validations/profile.ts` に `femaleOnboardingSchema` を定義する（nickname・prefecture 必須、avatar 任意）
+- [x] `lib/validations/profile.ts` に `maleOnboardingSchema` を定義する（全フィールド必須・ikemen_type_ids 1 件以上）
 
 **完了条件**: 男性スキーマで `ikemen_type_ids: []` が `min(1)` エラーになる
 
