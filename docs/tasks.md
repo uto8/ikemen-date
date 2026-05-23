@@ -151,10 +151,10 @@
 ---
 
 #### A-1: 新規登録フォーム UI
-- [ ] `app/(auth)/register/page.tsx` を作成する
-- [ ] `components/auth/RegisterForm.tsx` を実装する（email・password・gender ラジオ・birthDate 入力）
-- [ ] バリデーションエラーをフォーム下部にインラインで表示する
-- [ ] 「登録する」ボタンのローディング状態（`useTransition`）を実装する
+- [x] `app/(auth)/register/page.tsx` を作成する
+- [x] `components/auth/RegisterForm.tsx` を実装する（email・password・gender ラジオ・birthDate 入力）
+- [x] バリデーションエラーをフォーム下部にインラインで表示する
+- [x] 「登録する」ボタンのローディング状態（`useTransition`）を実装する
 
 **完了条件**: 各フィールドに不正値を入力して送信したとき、対応するエラーメッセージが表示される
 
