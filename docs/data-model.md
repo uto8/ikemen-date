@@ -107,7 +107,7 @@ Supabase Auth が内部管理するテーブル。アプリ側では直接作成
 | avatar_url | text | NULLABLE | Supabase Storage の**ファイルパス**のみ保存（例: `avatars/{uuid}.jpg`）。表示時は `getPublicUrl()` でURL生成。男性は必須（アプリレイヤーで担保） |
 | occupation | varchar(30) | NULLABLE | 男性のみ使用。女性レコードは NULL |
 | height | smallint | NULLABLE, CHECK 100〜250 | 男性のみ使用。女性レコードは NULL |
-| bio | text | NULLABLE | 男性のみ使用（最大 300 文字はアプリレイヤーで担保）。女性レコードは NULL |
+| bio | text | NULLABLE, CHECK (bio IS NULL OR char_length(bio) BETWEEN 1 AND 300) | 男性のみ使用。女性レコードは NULL |
 | is_onboarding_complete | boolean | NOT NULL DEFAULT false | オンボーディング完了後に true に設定。一度 true になったら false には戻さない |
 | likes_last_read_at | timestamptz | NULLABLE DEFAULT NULL | いいね一覧（S12）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
 | matches_last_read_at | timestamptz | NULLABLE DEFAULT NULL | マッチング一覧（S13）を最後に開いた日時。NULL = 一度も開いていない。バッジ未読数の算出基準として使用 |
@@ -174,6 +174,31 @@ CONSTRAINT profiles_male_fields_required CHECK (
 | profile_id | uuid | PK, FK → profiles.id ON DELETE CASCADE | 男性ユーザーのプロフィール ID |
 | ikemen_type_id | smallint | PK, FK → ikemen_types.id | 選択したタイプ ID |
 
+**男性必須トリガー**
+
+`is_onboarding_complete = true` への更新時点で `profile_ikemen_types` に1件以上存在することを DB レベルで保証する。オンボーディング途中（型を順に挿入する段階）では発火しないため、バッチ挿入の途中でエラーにはならない。
+
+```sql
+CREATE OR REPLACE FUNCTION check_male_ikemen_types()
+RETURNS trigger AS $$
+BEGIN
+  IF NEW.is_onboarding_complete = true AND NEW.gender = 'male' THEN
+    IF NOT EXISTS (
+      SELECT 1 FROM profile_ikemen_types WHERE profile_id = NEW.id
+    ) THEN
+      RAISE EXCEPTION 'Male profile must have at least one ikemen type selected';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_male_ikemen_types
+  BEFORE UPDATE OF is_onboarding_complete ON profiles
+  FOR EACH ROW
+  EXECUTE FUNCTION check_male_ikemen_types();
+```
+
 ---
 
 ### `public.likes`
@@ -233,7 +258,7 @@ user2_id = GREATEST(A.id, B.id)
 | id | uuid | PK DEFAULT gen_random_uuid() | |
 | match_id | uuid | NOT NULL, FK → matches.id ON DELETE CASCADE | 所属するマッチング |
 | sender_id | uuid | **NULLABLE**, FK → profiles.id **ON DELETE SET NULL** | 退会時に NULL 化される。NULL の場合は「退会済みユーザー」として表示する |
-| content | text | NOT NULL | 本文（最大 500 文字はアプリレイヤーで担保） |
+| content | text | NOT NULL, CHECK (char_length(content) BETWEEN 1 AND 500) | 本文 |
 | created_at | timestamptz | NOT NULL DEFAULT now() | 送信日時 |
 
 **インデックス**
@@ -283,9 +308,9 @@ WHERE  (matches.user1_id = :my_profile_id OR matches.user2_id = :my_profile_id)
 | イベント | テーブル | フィルタ | 挙動 |
 |---|---|---|---|
 | いいね受信 | `likes` INSERT | `receiver_id=eq.:my_profile_id` | ローカルのいいねバッジカウントを +1 |
-| マッチング成立 | `matches` INSERT | フィルタ不可（OR 条件のため、全 INSERT を受信） | クライアントで `user1_id` / `user2_id` が自分と一致するか判定し、合致すればマッチングバッジカウントを +1 |
+| マッチング成立 | `matches` INSERT | `user1_id=eq.:me` と `user2_id=eq.:me` の**2チャンネル**に分けてサブスクライブする | どちらかのチャンネルでイベントを受信したらマッチングバッジカウントを +1 |
 
-> **実装上の注意（matches の Realtime フィルタ）**: Supabase Realtime の `filter` オプションは単一カラムの等値比較のみ対応している。`user1_id = me OR user2_id = me` という OR 条件はフィルタで指定できないため、INSERT イベントを全件受信してクライアント側で判定する。RLS の Realtime ポリシーで「自分が関与する matches のみ取得できる」ように設定しておくこと。
+> **実装メモ（matches の2チャンネル方式）**: Supabase Realtime の `filter` は単一カラムの等値比較のみ対応しているため、`user1_id = me OR user2_id = me` を1つのサブスクリプションで表現できない。`channel('matches-as-user1').on('INSERT', { filter: 'user1_id=eq.{me}' }, ...)` と `channel('matches-as-user2').on('INSERT', { filter: 'user2_id=eq.{me}' }, ...)` の2チャンネルを同時に張ることで OR 条件を実現する。
 
 ---
 
@@ -331,4 +356,7 @@ matches の削除は退会処理では発生しない。将来マッチング解
 | U-3 | 退会時の FK 挙動 | matches・messages の FK は ON DELETE SET NULL。レコード保持 |
 | U-4 | is_onboarding_complete のリセット | 一度 true にしたら false には戻さない |
 | U-5 | バッジ未読カウントの管理方式 | 読み既済カーソル（timestamp）を profiles に持たせる方式を採用。別テーブルを作らずに JOIN なしで参照・更新できる |
+| U-6 | bio・content の文字数制限 | アプリレイヤーのみでなく DB レベルの CHECK 制約でも担保する（bio: 1〜300、content: 1〜500） |
+| U-7 | ikemen_type 1件以上の担保 | `is_onboarding_complete = true` への更新時に発火するトリガーで DB レベルでも保証する |
+| U-8 | matches Realtime サブスクリプション方式 | `user1_id` と `user2_id` それぞれ別チャンネルの2サブスクリプションで OR 条件を実現する |
 | M-1 | 退会とチャット履歴の矛盾 | Approach A 採用。メッセージ保持・sender_id を NULL 化 |
