@@ -324,15 +324,15 @@
 ---
 
 #### M-1: マッチング一覧
-- [ ] `lib/queries/matches.ts` に `getMyMatches(currentUserId)` を実装する
+- [x] `lib/queries/matches.ts` に `getMyMatches(currentUserId)` を実装する
   - `user1_id IS NOT NULL AND user2_id IS NOT NULL` で絞り込む
   - `COALESCE(MAX(msg.created_at), m.created_at) DESC` でソート（最終メッセージ降順。メッセージ未送受信はマッチング成立日時を基準に並べる）
   - `messages.is_read = false AND sender_id != 自分 AND sender_id IS NOT NULL` の件数を `unreadCount` として集計して `MatchWithPartner` 型で返す
-- [ ] `app/(app)/matches/page.tsx` を作成する（Server Component）
-- [ ] リスト形式（1 カラム）でカードを表示する
-- [ ] 各カードに `unreadCount > 0` のとき未読件数バッジを表示する（99 件超は「99+」）
-- [ ] 0 件のとき「まだマッチングしていません」を表示する
-- [ ] 各カードをタップすると `/chat/[match_id]` に遷移する
+- [x] `app/(app)/matches/page.tsx` を作成する（Server Component）
+- [x] リスト形式（1 カラム）でカードを表示する
+- [x] 各カードに `unreadCount > 0` のとき未読件数バッジを表示する（99 件超は「99+」）
+- [x] 0 件のとき「まだマッチングしていません」を表示する
+- [x] 各カードをタップすると `/chat/[match_id]` に遷移する
 
 **完了条件**: マッチング成立後、両ユーザーのマッチング一覧に相手が表示される。退会済みユーザー（user_id が NULL）は一覧に表示されない。未読メッセージがあるカードにバッジが表示される
 
