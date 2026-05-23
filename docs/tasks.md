@@ -465,10 +465,10 @@
 ---
 
 #### N-4: レスポンシブ最終確認・デプロイ
-- [ ] Safari（iOS）・Chrome（Android）・Chrome（PC）で主要画面を確認する
-- [ ] 375px 幅（iPhone SE）でレイアウト崩れがないか確認する
-- [ ] `npm run build` がエラーなしで完了する
-- [ ] Vercel にデプロイし、本番 URL で動作確認する
+- [x] Safari（iOS）・Chrome（Android）・Chrome（PC）で主要画面を確認する
+- [x] 375px 幅（iPhone SE）でレイアウト崩れがないか確認する
+- [x] `npm run build` がエラーなしで完了する
+- [x] Vercel にデプロイし、本番 URL で動作確認する
 
 **完了条件**: Vercel 本番 URL で新規登録 → オンボーディング → 一覧 → いいね → マッチング → チャットの一連フローが動作する
 
