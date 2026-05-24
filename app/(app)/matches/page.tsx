@@ -13,7 +13,7 @@ export default async function MatchesPage() {
   const matches = await getMyMatches(user.id)
 
   return (
-    <main className="px-4 py-6">
+    <main className="mx-auto max-w-2xl px-4 py-6">
       <h1 className="mb-6 text-xl font-bold">マッチング</h1>
       {matches.length === 0 ? (
         <p className="text-center text-sm text-gray-400">まだマッチングしていません</p>

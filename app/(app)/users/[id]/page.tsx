@@ -25,7 +25,7 @@ export default async function UserDetailPage({ params }: Props) {
     : 'none'
 
   return (
-    <main className="pb-32">
+    <main className="mx-auto max-w-2xl pb-32">
       {/* full-width avatar */}
       <div className="relative w-full aspect-[3/4] bg-gray-100">
         {profile.avatar_url ? (
@@ -95,8 +95,10 @@ export default async function UserDetailPage({ params }: Props) {
       </div>
 
       {!isSelf && (
-        <div className="fixed bottom-16 inset-x-0 px-4 pb-4">
-          <LikeButton targetUserId={id} initialStatus={likeStatus} />
+        <div className="fixed bottom-16 inset-x-0 z-20 px-4 pb-4">
+          <div className="mx-auto max-w-2xl">
+            <LikeButton targetUserId={id} initialStatus={likeStatus} />
+          </div>
         </div>
       )}
     </main>

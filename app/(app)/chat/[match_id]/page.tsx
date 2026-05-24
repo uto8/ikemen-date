@@ -29,7 +29,7 @@ export default async function ChatPage({ params }: Props) {
   ])
 
   return (
-    <div className="flex h-[calc(100dvh-4rem)]">
+    <div className="mx-auto flex h-[calc(100dvh-4rem)] w-full max-w-2xl">
       <MatchesSidebar matches={matches} currentMatchId={match_id} />
       <main className="flex flex-1 flex-col overflow-hidden">
         <ChatBadgeResetter matchId={match_id} />

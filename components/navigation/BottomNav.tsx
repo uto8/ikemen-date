@@ -55,6 +55,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white">
+      <div className="mx-auto max-w-2xl">
       <ul className="flex">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href)
@@ -86,6 +87,7 @@ export default function BottomNav() {
           )
         })}
       </ul>
+      </div>
     </nav>
   )
 }

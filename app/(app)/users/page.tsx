@@ -19,7 +19,7 @@ export default async function UsersPage() {
   const { users, nextCursor } = await getOppositeUsers(user.id, profile?.gender ?? '')
 
   return (
-    <main className="px-4 py-6">
+    <main className="mx-auto max-w-2xl px-4 py-6">
       <h1 className="mb-6 text-xl font-bold">みんなを探す</h1>
       <UserGrid initialUsers={users} initialNextCursor={nextCursor} />
     </main>

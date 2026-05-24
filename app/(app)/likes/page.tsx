@@ -18,7 +18,7 @@ export default async function LikesPage() {
   ])
 
   return (
-    <main className="px-4 py-6">
+    <main className="mx-auto max-w-2xl px-4 py-6">
       <LikeBadgeResetter />
       <h1 className="mb-6 text-xl font-bold">もらったいいね</h1>
       {likes.length === 0 ? (
