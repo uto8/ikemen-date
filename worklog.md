@@ -32,6 +32,30 @@
 
 ビルド成功・スクリーンショットでフォント変更と背景色固定を確認
 
+## 2026-05-24 DS-09/DS-10 オンボーディングウィザード化
+
+**共通変更:**
+- `AuthHeader.tsx` に `onBack?: () => void` を追加（ウィザード内の戻るボタンに対応）
+
+**DS-09（女性・3 Step）:**
+- `FemaleOnboardingForm.tsx` を全面書き換え（クライアント側ステップ管理）
+- Step1: 破線円カメラボタン（`border-2 border-dashed border-primary-500`）・スキップ可
+- Step2: ニックネーム入力＋リアルタイム文字数カウント（`{len} / 20文字`）
+- Step3: 都道府県 3 カラムグリッド・選択時 `border-primary-500 bg-primary-50 text-primary-500`
+- 最終 submit は FormData を手組みして `completeOnboarding` を直接呼ぶ（Server Action 変更不要）
+
+**DS-10（男性・7 Step）:**
+- `MaleOnboardingForm.tsx` を全面書き換え
+- Step1: カメラボタン（アバター必須・未選択でエラー表示）
+- Step5: 身長入力（`pr-12` ＋ 絶対配置の "cm" ラベル）
+- Step7: イケメンタイプ 2 カラムカードグリッド（タイプ別カラー背景＋チェックアイコン）
+  - 実際の型別画像なし → `bg-rose-100` 等のタイプ別カラーで代替
+- per-step バリデーション（各ステップで前進時に対象フィールドのみチェック）
+
+**その他:**
+- `onboarding/page.tsx` のラッパー `<main>` と h1 を削除（フォームが自前でレンダリング）
+- ビルド成功・モックアップ HTML で 3 画面確認済み
+
 ## 2026-05-24 DS-06/07/08 認証画面レイアウト修正
 
 **DS-06（ログイン・新規登録）:**
