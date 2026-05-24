@@ -46,7 +46,7 @@ export async function registerUser(formData: FormData): Promise<{ error?: string
     return { error: 'アカウントの作成に失敗しました。しばらく経ってから再度お試しください' }
   }
 
-  redirect(`/verify-email?email=${encodeURIComponent(email)}`)
+  redirect('/onboarding')
 }
 
 export async function loginUser(formData: FormData): Promise<{ error?: string }> {
@@ -65,9 +65,6 @@ export async function loginUser(formData: FormData): Promise<{ error?: string }>
   const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    if (error.message.toLowerCase().includes('email not confirmed')) {
-      redirect(`/verify-email?email=${encodeURIComponent(email)}`)
-    }
     return { error: 'メールアドレスまたはパスワードが正しくありません' }
   }
 
