@@ -1,3 +1,4 @@
+import AuthHeader from '@/components/auth/AuthHeader'
 import VerifyEmailForm from '@/components/auth/VerifyEmailForm'
 
 type Props = {
@@ -8,10 +9,11 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
   const { email } = await searchParams
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm">
+    <>
+      <AuthHeader />
+      <main className="mx-auto max-w-md px-4 py-16 text-center">
         <VerifyEmailForm email={email ?? ''} />
-      </div>
-    </main>
+      </main>
+    </>
   )
 }

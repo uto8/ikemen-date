@@ -75,7 +75,7 @@
 
 ### Phase 3 — 認証画面（DS-04 完了後）
 
-- [ ] **DS-06** ログイン・新規登録ページのレイアウトを修正する
+- [x] **DS-06** ログイン・新規登録ページのレイアウトを修正する
   - `app/(auth)/login/page.tsx`, `app/(auth)/register/page.tsx`
   - ページ全体に `bg-gray-50` を適用（現在は `bg-white` 系）
   - カード化: フォームを `bg-white rounded-2xl shadow-sm p-6` で囲む
@@ -84,14 +84,14 @@
   - 参照: `mockups/S02-register.html`, `S04-login.html`
   - **DoD**: ログイン・登録画面がカード型フォームでモックアップ通りに表示される
 
-- [ ] **DS-07** パスワードリセット系画面のレイアウトを修正する
+- [x] **DS-07** パスワードリセット系画面のレイアウトを修正する
   - `app/(auth)/forgot-password/page.tsx`, `app/(auth)/reset-password/page.tsx`
   - DS-06 と同様のカード型レイアウトを適用
   - 「戻る」リンクのスタイル調整（`text-sm text-gray-500 hover:text-gray-700`）
   - 参照: `mockups/S05-pw-reset-input.html`, `S07-pw-reset-new.html`
   - **DoD**: パスワードリセット画面がモックアップのレイアウトと一致する
 
-- [ ] **DS-08** メール確認待ち画面のレイアウトを修正する
+- [x] **DS-08** メール確認待ち画面のレイアウトを修正する
   - `app/(auth)/verify-email/page.tsx`（または `VerifyEmailForm.tsx`）
   - アイコン（封筒 SVG）+ テキスト + 再送信ボタンを中央寄せ縦並び
   - 再送信ボタンのクールダウン表示（残り秒数）を mockup に合わせる

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import AuthHeader from '@/components/auth/AuthHeader'
 import LoginForm from '@/components/auth/LoginForm'
 
 type Props = {
@@ -8,11 +10,19 @@ export default async function LoginPage({ searchParams }: Props) {
   const { error } = await searchParams
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm">
-        <h1 className="mb-8 text-center text-2xl font-bold">ログイン</h1>
+    <>
+      <AuthHeader />
+      <main className="mx-auto w-full max-w-md px-4 py-10">
+        <h1 className="mb-2 text-2xl font-bold text-gray-900">ログイン</h1>
+        <p className="mb-8 text-sm text-gray-500">おかえりなさい</p>
         <LoginForm errorParam={error} />
-      </div>
-    </main>
+        <p className="mt-6 text-center text-sm text-gray-500">
+          アカウントをお持ちでない方は{' '}
+          <Link href="/register" className="font-medium text-primary-500 hover:text-primary-600">
+            新規登録
+          </Link>
+        </p>
+      </main>
+    </>
   )
 }

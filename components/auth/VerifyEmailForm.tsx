@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useTransition } from 'react'
 import { resendConfirmationEmail } from '@/lib/actions/auth'
 
@@ -37,9 +38,9 @@ export default function VerifyEmailForm({ email }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-50">
+      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-50">
         <svg
-          className="h-8 w-8 text-primary-500"
+          className="h-10 w-10 text-primary-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -54,12 +55,9 @@ export default function VerifyEmailForm({ email }: Props) {
       </div>
 
       <div className="text-center">
-        <h1 className="mb-2 text-2xl font-bold">メールを確認してください</h1>
-        <p className="text-sm text-gray-600">
-          <span className="font-medium text-gray-900">{email}</span>{' '}
-          に確認メールを送信しました。
-        </p>
-        <p className="mt-1 text-sm text-gray-600">
+        <h1 className="mb-3 text-2xl font-bold text-gray-900">確認メールを送りました</h1>
+        <p className="text-sm text-primary-500 font-semibold">{email}</p>
+        <p className="mt-2 text-sm text-gray-500">
           メール内のリンクをクリックして登録を完了してください。
         </p>
       </div>
@@ -70,21 +68,25 @@ export default function VerifyEmailForm({ email }: Props) {
         </p>
       )}
 
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex w-full flex-col items-center gap-3">
         <button
           onClick={handleResend}
           disabled={disabled}
-          className="rounded-full bg-primary-500 px-6 py-4 text-base font-semibold text-white shadow-sm transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+          className={`w-full rounded-full border-2 py-3.5 text-sm font-semibold transition-colors ${
+            disabled
+              ? 'cursor-not-allowed border-gray-200 bg-gray-50 text-gray-400'
+              : 'border-primary-500 text-primary-500 hover:bg-primary-50'
+          }`}
         >
           {isPending
             ? '送信中…'
             : countdown > 0
-              ? `再送信まで ${countdown} 秒`
+              ? `あと ${countdown} 秒後に再送信できます`
               : '確認メールを再送信する'}
         </button>
-        {countdown === 0 && !isPending && (
-          <p className="text-xs text-gray-400">メールが届かない場合はご確認ください</p>
-        )}
+        <Link href="/login" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+          ← ログイン画面に戻る
+        </Link>
       </div>
     </div>
   )
