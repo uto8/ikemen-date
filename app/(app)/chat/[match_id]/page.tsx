@@ -32,7 +32,7 @@ export default async function ChatPage({ params }: Props) {
   const partner = matches.find((m) => m.matchId === match_id)?.partner ?? null
 
   return (
-    <div className="mx-auto flex h-[calc(100dvh-4rem)] w-full max-w-2xl">
+    <div className="mx-auto flex h-[calc(100dvh-5rem)] w-full max-w-2xl">
       <MatchesSidebar matches={matches} currentMatchId={match_id} />
       <main className="flex flex-1 flex-col overflow-hidden">
         {/* Header */}
