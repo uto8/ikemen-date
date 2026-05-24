@@ -22,15 +22,24 @@ export async function registerUser(formData: FormData): Promise<{ error?: string
 
   const { email, password, gender, birthDate } = result.data
 
-  const supabaseAdmin = createSupabaseAdminClient()
-  const { error } = await supabaseAdmin.auth.admin.createUser({
+  // const supabaseAdmin = createSupabaseAdminClient()
+  // const { error } = await supabaseAdmin.auth.admin.createUser({
+  //   email,
+  //   password,
+  //   user_metadata: { gender, birth_date: birthDate },
+  //   email_confirm: false,
+  // })
+  const supabase = await createServerSupabaseClient()
+  const { error } = await supabase.auth.signUp({
     email,
     password,
-    user_metadata: { gender, birth_date: birthDate },
-    email_confirm: false,
+    options: {
+      data: { gender, birth_date: birthDate },
+    },
   })
 
   if (error) {
+    console.log("===error", error)
     const msg = error.message.toLowerCase()
     if (msg.includes('already registered') || msg.includes('already been registered')) {
       return { error: 'このメールアドレスはすでに使用されています' }

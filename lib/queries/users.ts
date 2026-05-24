@@ -196,34 +196,42 @@ export function getNextCursor(rows: Array<{ created_at: string }>, pageSize: num
   return rows.length >= pageSize ? rows[rows.length - 1].created_at : null
 }
 
+export function buildProfileSelectClause(ikemenTypeId?: number): string {
+  const joinSuffix = ikemenTypeId !== undefined ? '!inner' : ''
+  return `
+    id,
+    nickname,
+    birth_date,
+    prefecture,
+    avatar_url,
+    gender,
+    created_at,
+    profile_ikemen_types${joinSuffix} (
+      ikemen_type_id
+    )
+  `
+}
+
 export async function getOppositeUsers(
   currentUserId: string,
   currentGender: string,
-  cursor?: string
+  cursor?: string,
+  ikemenTypeId?: number
 ): Promise<PaginatedUsers> {
   const supabase = await createServerSupabaseClient()
 
   let query = supabase
     .from('profiles')
-    .select(
-      `
-      id,
-      nickname,
-      birth_date,
-      prefecture,
-      avatar_url,
-      gender,
-      created_at,
-      profile_ikemen_types (
-        ikemen_type_id
-      )
-    `
-    )
+    .select(buildProfileSelectClause(ikemenTypeId))
     .neq('gender', currentGender)
     .neq('id', currentUserId)
     .eq('is_onboarding_complete', true)
     .order('created_at', { ascending: false })
     .limit(USERS_PAGE_SIZE)
+
+  if (ikemenTypeId !== undefined) {
+    query = query.eq('profile_ikemen_types.ikemen_type_id', ikemenTypeId)
+  }
 
   if (cursor) {
     query = query.lt('created_at', cursor)
@@ -233,7 +241,7 @@ export async function getOppositeUsers(
 
   if (error || !data) return { users: [], nextCursor: null }
 
-  const rows = data as ProfileRow[]
+  const rows = data as unknown as ProfileRow[]
   return {
     users: transformToUserCardData(rows),
     nextCursor: getNextCursor(rows, USERS_PAGE_SIZE),

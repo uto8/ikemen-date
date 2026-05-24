@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { Message } from '@/lib/queries/messages'
+import Link from 'next/link'
 
 type Props = {
   matchId: string
@@ -170,21 +171,23 @@ export default function ChatMessages({
               // Partner message
               return (
                 <div key={msg.id} className="flex items-end gap-2">
-                  <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-gray-100">
-                    {partnerAvatarUrl ? (
-                      <img
-                        src={partnerAvatarUrl}
-                        alt={partnerNickname}
-                        className="h-full w-full object-cover object-top"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center text-gray-300">
-                        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
+                  <Link href={`/users/${partnerId}`}>
+                    <div className="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-gray-100">
+                      {partnerAvatarUrl ? (
+                        <img
+                          src={partnerAvatarUrl}
+                          alt={partnerNickname}
+                          className="h-full w-full object-cover object-top"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-gray-300">
+                          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                  </Link>
                   <div className="max-w-[72%]">
                     <div className="rounded-2xl rounded-bl-sm bg-white px-4 py-3 shadow-sm">
                       <p className="text-sm leading-relaxed text-gray-900">{msg.content}</p>

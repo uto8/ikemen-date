@@ -114,6 +114,7 @@ ikemen-date/
 │   ├── auth/                     # 認証フォーム群
 │   ├── profile/                  # プロフィール表示・編集
 │   ├── user-card/                # ユーザーカード（一覧用）
+│   ├── user-filter/              # イケメンタイプフィルターバー（女性向け）
 │   ├── like-button/              # いいねボタン（Client Component）
 │   ├── chat/                     # チャット関連（メッセージ一覧・入力欄）
 │   └── navigation/               # ボトムナビゲーション
@@ -376,13 +377,35 @@ export type UserCardData = {
   primary_ikemen_type?: string;      // 男性のみ（display_order 最小）
 };
 
+export type PaginatedUsers = {
+  users: UserCardData[];
+  nextCursor: string | null;         // 次ページ取得用 created_at タイムスタンプ
+};
+
 export async function getOppositeUsers(
   currentUserId: string,
-  currentGender: 'male' | 'female'
-): Promise<UserCardData[]>;
+  currentGender: 'male' | 'female',
+  cursor?: string,
+  ikemenTypeId?: number              // 女性向けフィルター。undefined = 全件
+): Promise<PaginatedUsers>;
 ```
 
-クエリ: `profiles` を `gender != currentGender` でフィルタリングし、`created_at DESC`（新着順）でソート。男性の場合は `profile_ikemen_types` を JOIN して `display_order` 最小のタイプを 1 件取得。
+クエリ: `profiles` を `gender != currentGender` でフィルタリングし、`created_at DESC`（新着順）でソート。男性の場合は `profile_ikemen_types` を JOIN して `display_order` 最小のタイプを 1 件取得。`ikemenTypeId` が指定された場合は `profile_ikemen_types` を `INNER JOIN`（`!inner`）し、`ikemen_type_id = ikemenTypeId` で男性を絞り込む。詳細: `docs/features/ikemen-type-filter/design.md`
+
+#### フィルター付き初回取得（`lib/actions/users.ts`）
+
+```typescript
+// フィルター切り替え時のカーソルリセットを伴う先頭ページ取得
+export async function fetchUsersWithFilter(
+  ikemenTypeId?: number
+): Promise<PaginatedUsers>;
+
+// 無限スクロールの追加取得（フィルター状態を引き継ぐ）
+export async function loadMoreUsers(
+  cursor: string,
+  ikemenTypeId?: number
+): Promise<PaginatedUsers>;
+```
 
 #### いいね状態取得
 

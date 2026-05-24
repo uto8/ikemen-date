@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イケメンデート — メール確認</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50: '#e0f7fa', 100: '#b2ebf2', 500: '#00c1d4', 600: '#00a3b3' },
+            gray:    { 50: '#f5f8fa', 100: '#edf0f3', 200: '#d8dde3', 400: '#a0aab4', 500: '#7a8fa6', 900: '#1a1a2e' },
+            error:   { 50: '#fee2e2', 500: '#ef4444' }
+          },
+          fontFamily: { sans: ['Noto Sans JP', 'Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 1s linear infinite; }
+    /* State switcher for preview */
+    .state-btn { cursor: pointer; padding: 4px 12px; border-radius: 9999px; font-size: 12px; border: 1px solid #d8dde3; }
+    .state-btn.active { background: #00c1d4; color: #fff; border-color: #00c1d4; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+
+  <!-- ========= Preview switcher (非本番UI) ========= -->
+  <div class="fixed top-3 right-3 z-50 flex gap-1 bg-white border border-gray-200 rounded-full px-3 py-1.5 shadow-md">
+    <button class="state-btn active" onclick="show('loading')">処理中</button>
+    <button class="state-btn" onclick="show('expired')">期限切れ</button>
+  </div>
+  <!-- ================================================ -->
+
+  <!-- ロゴ -->
+  <header class="flex-shrink-0 pt-8 pb-4 flex justify-center">
+    <span class="text-primary-500 font-bold text-xl tracking-tight">イケメンデート</span>
+  </header>
+
+  <!-- ======== State: 処理中（ローディング） ======== -->
+  <main id="state-loading" class="flex-1 flex flex-col items-center justify-center px-6 pb-24 gap-6">
+    <div class="w-16 h-16 rounded-full border-4 border-primary-100 border-t-primary-500 spinner"></div>
+    <div class="text-center space-y-1">
+      <p class="font-bold text-lg text-gray-900">メールアドレスを確認中...</p>
+      <p class="text-sm text-gray-500">しばらくお待ちください</p>
+    </div>
+  </main>
+
+  <!-- ======== State: 有効期限切れ ======== -->
+  <main id="state-expired" class="flex-1 flex flex-col items-center justify-center px-6 pb-24 gap-6 hidden">
+
+    <!-- エラーアイコン -->
+    <div class="w-16 h-16 rounded-full bg-error-50 flex items-center justify-center flex-shrink-0">
+      <svg class="w-8 h-8 text-error-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/>
+      </svg>
+    </div>
+
+    <!-- メッセージ -->
+    <div class="text-center space-y-2 max-w-xs">
+      <p class="font-bold text-lg text-gray-900 leading-snug">確認リンクの有効期限が切れています</p>
+      <p class="text-sm text-gray-500 leading-relaxed">
+        再度ログインして、確認メールを再送信してください。
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <a href="S04-login.html"
+       class="w-full max-w-xs text-center bg-primary-500 hover:bg-primary-600 active:bg-primary-600 text-white font-bold py-3 rounded-full transition-colors">
+      ログイン画面へ
+    </a>
+  </main>
+
+  <!-- State switcher script -->
+  <script>
+    function show(state) {
+      document.getElementById('state-loading').classList.add('hidden');
+      document.getElementById('state-expired').classList.add('hidden');
+      document.getElementById('state-' + state).classList.remove('hidden');
+      document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

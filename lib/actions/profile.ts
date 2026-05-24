@@ -20,6 +20,7 @@ async function uploadAvatar(
   const { error } = await admin.storage
     .from('avatars')
     .upload(path, file, { upsert: true })
+  console.log("===imageerror", error)
   if (error) return { error: '画像のアップロードに失敗しました' }
 
   const url = admin.storage.from('avatars').getPublicUrl(path).data.publicUrl
@@ -68,6 +69,18 @@ export async function completeOnboarding(formData: FormData): Promise<{ error?: 
     const result = maleOnboardingSchema.safeParse(raw)
     if (!result.success) return { error: result.error.issues[0].message }
 
+    await supabase.from('profile_ikemen_types').delete().eq('profile_id', user.id)
+
+    const { error: insertErr } = await supabase
+      .from('profile_ikemen_types')
+      .insert(
+        result.data.ikemen_type_ids.map((id) => ({
+          profile_id: user.id,
+          ikemen_type_id: id,
+        }))
+      )
+    if (insertErr) return { error: 'イケメンタイプの保存に失敗しました' }
+
     const { error: updateErr } = await supabase
       .from('profiles')
       .update({
@@ -81,18 +94,6 @@ export async function completeOnboarding(formData: FormData): Promise<{ error?: 
       })
       .eq('id', user.id)
     if (updateErr) return { error: 'プロフィールの保存に失敗しました' }
-
-    await supabase.from('profile_ikemen_types').delete().eq('profile_id', user.id)
-
-    const { error: insertErr } = await supabase
-      .from('profile_ikemen_types')
-      .insert(
-        result.data.ikemen_type_ids.map((id) => ({
-          profile_id: user.id,
-          ikemen_type_id: id,
-        }))
-      )
-    if (insertErr) return { error: 'イケメンタイプの保存に失敗しました' }
   } else {
     const result = femaleOnboardingSchema.safeParse(baseFields)
     if (!result.success) return { error: result.error.issues[0].message }

@@ -1,9 +1,38 @@
-import { describe, it, expect, vi } from 'vitest'
-import { transformToUserCardData, transformToUserDetailData, getNextCursor, USERS_PAGE_SIZE } from './users'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import {
+  transformToUserCardData,
+  transformToUserDetailData,
+  getNextCursor,
+  USERS_PAGE_SIZE,
+  buildProfileSelectClause,
+  getOppositeUsers,
+} from './users'
+import { createServerSupabaseClient } from '../supabase/server'
 
 vi.mock('../supabase/server', () => ({
   createServerSupabaseClient: vi.fn(),
 }))
+
+function createMockQueryBuilder(responseData: unknown[] = []) {
+  const mock = {
+    select: vi.fn(),
+    neq: vi.fn(),
+    eq: vi.fn(),
+    lt: vi.fn(),
+    order: vi.fn(),
+    limit: vi.fn(),
+    then(resolve: (val: { data: unknown[]; error: null }) => void) {
+      return resolve({ data: responseData, error: null })
+    },
+  }
+  mock.select.mockReturnValue(mock)
+  mock.neq.mockReturnValue(mock)
+  mock.eq.mockReturnValue(mock)
+  mock.lt.mockReturnValue(mock)
+  mock.order.mockReturnValue(mock)
+  mock.limit.mockReturnValue(mock)
+  return mock
+}
 
 function birthDateYearsAgo(years: number): string {
   const d = new Date()
@@ -125,6 +154,93 @@ describe('transformToUserCardData', () => {
     expect(u.prefecture).toBe('東京都')
     expect(u.avatar_url).toBeNull()
     expect(u.gender).toBe('female')
+  })
+})
+
+describe('buildProfileSelectClause', () => {
+  it('ikemenTypeId が undefined のとき !inner を含まない', () => {
+    expect(buildProfileSelectClause(undefined)).not.toContain('!inner')
+  })
+
+  it('ikemenTypeId が undefined のとき profile_ikemen_types を含む', () => {
+    expect(buildProfileSelectClause(undefined)).toContain('profile_ikemen_types')
+  })
+
+  it('ikemenTypeId が number のとき !inner を含む', () => {
+    expect(buildProfileSelectClause(9)).toContain('!inner')
+  })
+
+  it('ikemenTypeId が 0 のときも !inner を含む', () => {
+    expect(buildProfileSelectClause(0)).toContain('!inner')
+  })
+
+  it('引数なしのとき !inner を含まない', () => {
+    expect(buildProfileSelectClause()).not.toContain('!inner')
+  })
+})
+
+describe('getOppositeUsers', () => {
+  let mockQuery: ReturnType<typeof createMockQueryBuilder>
+
+  beforeEach(() => {
+    mockQuery = createMockQueryBuilder([])
+    vi.mocked(createServerSupabaseClient).mockResolvedValue({
+      from: vi.fn().mockReturnValue(mockQuery),
+    } as unknown as Awaited<ReturnType<typeof createServerSupabaseClient>>)
+  })
+
+  it('ikemenTypeId なしのとき select に !inner を含めない', async () => {
+    await getOppositeUsers('user-1', 'female')
+    expect(mockQuery.select).toHaveBeenCalledWith(
+      expect.not.stringContaining('!inner')
+    )
+  })
+
+  it('ikemenTypeId なしのとき ikemen_type_id フィルターを追加しない', async () => {
+    await getOppositeUsers('user-1', 'female')
+    expect(mockQuery.eq).not.toHaveBeenCalledWith(
+      'profile_ikemen_types.ikemen_type_id',
+      expect.anything()
+    )
+  })
+
+  it('ikemenTypeId ありのとき select に !inner を含める', async () => {
+    await getOppositeUsers('user-1', 'female', undefined, 9)
+    expect(mockQuery.select).toHaveBeenCalledWith(
+      expect.stringContaining('!inner')
+    )
+  })
+
+  it('ikemenTypeId ありのとき ikemen_type_id フィルターを追加する', async () => {
+    await getOppositeUsers('user-1', 'female', undefined, 9)
+    expect(mockQuery.eq).toHaveBeenCalledWith(
+      'profile_ikemen_types.ikemen_type_id',
+      9
+    )
+  })
+
+  it('cursor ありのとき lt フィルターを追加する', async () => {
+    await getOppositeUsers('user-1', 'female', '2024-01-15T00:00:00Z')
+    expect(mockQuery.lt).toHaveBeenCalledWith('created_at', '2024-01-15T00:00:00Z')
+  })
+
+  it('cursor なしのとき lt フィルターを追加しない', async () => {
+    await getOppositeUsers('user-1', 'female')
+    expect(mockQuery.lt).not.toHaveBeenCalled()
+  })
+
+  it('ikemenTypeId と cursor の両方があるとき両フィルターを適用する', async () => {
+    await getOppositeUsers('user-1', 'female', '2024-01-15T00:00:00Z', 9)
+    expect(mockQuery.eq).toHaveBeenCalledWith(
+      'profile_ikemen_types.ikemen_type_id',
+      9
+    )
+    expect(mockQuery.lt).toHaveBeenCalledWith('created_at', '2024-01-15T00:00:00Z')
+  })
+
+  it('data が空配列のとき users:[] nextCursor:null を返す', async () => {
+    const result = await getOppositeUsers('user-1', 'female')
+    expect(result).toEqual({ users: [], nextCursor: null })
   })
 })
 
