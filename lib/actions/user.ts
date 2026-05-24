@@ -4,6 +4,12 @@ import { redirect } from 'next/navigation'
 import { createServerSupabaseClient } from '../supabase/server'
 import { createSupabaseAdminClient } from '../supabase/admin'
 
+export async function logoutUser(): Promise<void> {
+  const supabase = await createServerSupabaseClient()
+  await supabase.auth.signOut()
+  redirect('/')
+}
+
 export async function withdrawUser(): Promise<{ error?: string }> {
   const supabase = await createServerSupabaseClient()
   const {

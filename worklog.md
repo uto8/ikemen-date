@@ -88,3 +88,72 @@
 - `app/(app)/layout.tsx`: pb-16 → pb-20（セーフエリア余白確保）
 
 ビルド成功・スクリーンショットで水色ボタン・テールテーマを確認
+
+## 2026-05-24 DS-11〜DS-16 メインアプリ画面デザイン修正（Phase 5）
+
+**DS-11（UserCard / UserGrid）:**
+- `UserCard.tsx`: 画像比率 `aspect-square` → `aspect-[3/4]`、バッジ `bg-pink-500` → `bg-primary-500`
+- `UserGrid.tsx`: `grid-cols-2` → `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4`
+
+**DS-12（likes/page.tsx）:**
+- カード padding `p-3` → `p-4`、アバター `h-14 w-14` → `h-16 w-16`
+- ハートアイコン（`text-primary-500`）を右端に追加
+
+**DS-13（matches/page.tsx + lib/queries/matches.ts）:**
+- `lib/queries/matches.ts`: `messages` に `content` フィールドを追加、`MatchWithPartner` に `lastMessage: string | null` を追加
+- バッジ色 `bg-pink-500` → `bg-primary-500`
+- 最終メッセージプレビューを追加（未メッセージ時は「まだメッセージがありません」）
+
+**DS-14（users/[id]/page.tsx）:**
+- アバターを全幅 `w-full aspect-[3/4]` に変更（padding なし）
+- いいねボタンを `fixed bottom-16 inset-x-0 px-4 pb-4` に変更
+- イケメンタグ `bg-pink-100 text-pink-600` → `bg-primary-50 text-primary-500`
+- 男性詳細エリアを `bg-white rounded-2xl shadow-sm p-4` の白カードで囲む
+
+**DS-15（ChatMessages.tsx / ChatInput.tsx）:**
+- 自分のバブル `bg-pink-500` → `bg-primary-500 rounded-2xl rounded-br-sm`
+- 相手のバブル `bg-white` → `bg-white rounded-2xl rounded-bl-sm shadow-xs`
+- 日付区切りを追加（横線 + 中央テキスト、日付ごとにグループ化）
+- ChatInput: `border-gray-100` → `border-gray-200`、`ring-pink-300` → `ring-primary-500`、送信ボタン `bg-pink-500` → `bg-primary-500`
+
+**DS-16（settings/page.tsx）:**
+- Server Component を async 化し Supabase でプロフィールを取得
+- ページ上部にプロフィールカード（アバター・ニックネーム・年齢・都道府県）を追加
+- シェブロンを SVG アイコンに変更（`›` テキストを削除）
+- ページタイトルを「設定」→「マイページ」に変更
+
+ビルド成功・スクリーンショットで dev サーバー正常稼働を確認
+
+## 2026-05-24 DS-17〜DS-21 後回しタスク実装
+
+**DS-17（ランディングページ）:**
+- `app/page.tsx` を全面書き換え
+- ログイン済みユーザーは `/users` へリダイレクト
+- Header（スティッキー・ログインリンク）
+- Hero セクション（キャッチコピー・「無料で始める」CTA）
+- Features（3ステップカードグリッド）
+- CTA bottom（bg-primary-50・「無料で始める」）
+- Footer
+- スクリーンショット確認済み
+
+**DS-18（認証コールバックエラー画面）:**
+- `app/(auth)/auth-callback-error/page.tsx` を新規作成（エラーアイコン＋メッセージ＋ログイン画面へボタン）
+- `app/auth/callback/route.ts`: エラー時のリダイレクト先を `/login?error=expired` → `/auth-callback-error` に変更
+- スクリーンショット確認済み
+
+**DS-19（レスポンシブ強化）:**
+- `components/chat/MatchesSidebar.tsx` を新規作成（lg: 以上でチャット左サイドバー表示）
+- `app/(app)/chat/[match_id]/page.tsx`: `getMyMatches` を追加フェッチし `MatchesSidebar` を組み込み
+- ギャラリーグリッド `lg:grid-cols-4` は DS-11 で対応済み
+
+**DS-20（アニメーション）:**
+- `UserCard.tsx`: `hover:shadow-md transition-shadow` 追加
+- `likes/page.tsx`, `matches/page.tsx`: カードリンクに `hover:shadow-md transition-shadow` 追加
+- ボタンは既存の `transition-colors` を確認済み
+
+**DS-21（アクセシビリティ）:**
+- 全認証フォーム（Login / Register / ForgotPassword / ResetPassword / VerifyEmail）のエラー `<p>` に `role="alert"` を追加
+- `RegisterForm.tsx`: email・password・birthDate フィールドに `aria-invalid`・`aria-describedby` を追加
+- `ChatInput.tsx`: エラーメッセージに `role="alert"` 追加
+
+ビルド成功・ランディング・エラーページをスクリーンショット確認済み
