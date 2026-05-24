@@ -27,7 +27,7 @@ export default async function LikesPage() {
         <ul className="space-y-3">
           {likes.map((like) => (
             <li key={like.likeId}>
-              <Link href={`/users/${like.sender.id}`} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
+              <Link href={`/users/${like.sender.id}`} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
                 <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-100">
                   {like.sender.avatar_url ? (
                     <img

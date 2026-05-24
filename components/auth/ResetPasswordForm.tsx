@@ -36,7 +36,7 @@ export default function ResetPasswordForm() {
       </div>
 
       {error && (
-        <p className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">{error}</p>
+        <p role="alert" className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">{error}</p>
       )}
 
       <button

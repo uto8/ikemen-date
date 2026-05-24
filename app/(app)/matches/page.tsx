@@ -23,7 +23,7 @@ export default async function MatchesPage() {
             <li key={match.matchId}>
               <Link
                 href={`/chat/${match.matchId}`}
-                className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm"
+                className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="relative h-14 w-14 shrink-0">
                   <div className="h-full w-full overflow-hidden rounded-full bg-gray-100">

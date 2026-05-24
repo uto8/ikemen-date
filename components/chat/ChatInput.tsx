@@ -60,7 +60,7 @@ export default function ChatInput({ matchId }: Props) {
           送信
         </button>
       </div>
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {error && <p role="alert" className="mt-1 text-xs text-red-500">{error}</p>}
     </form>
   )
 }

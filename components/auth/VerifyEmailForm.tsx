@@ -63,7 +63,7 @@ export default function VerifyEmailForm({ email }: Props) {
       </div>
 
       {serverError && (
-        <p className="w-full rounded-md bg-error-50 px-3 py-2 text-center text-sm text-error-500">
+        <p role="alert" className="w-full rounded-md bg-error-50 px-3 py-2 text-center text-sm text-error-500">
           {serverError}
         </p>
       )}

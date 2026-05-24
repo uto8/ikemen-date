@@ -27,7 +27,7 @@ export default function LoginForm({ errorParam }: Props) {
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {errorParam === 'expired' && (
-        <p className="rounded-md bg-warning-50 px-3 py-2 text-sm text-warning-500">
+        <p role="alert" className="rounded-md bg-warning-50 px-3 py-2 text-sm text-warning-500">
           確認リンクの有効期限が切れました。もう一度メールを確認するか、再送信してください。
         </p>
       )}
@@ -61,7 +61,7 @@ export default function LoginForm({ errorParam }: Props) {
       </div>
 
       {serverError && (
-        <p className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">
+        <p role="alert" className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">
           {serverError}
         </p>
       )}

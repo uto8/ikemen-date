@@ -8,7 +8,7 @@ type Props = {
 export default function UserCard({ user }: Props) {
   return (
     <Link href={`/users/${user.id}`} className="block">
-      <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md">
         {/* image area */}
         <div className="relative aspect-[3/4] bg-gray-100">
           {user.avatar_url ? (
