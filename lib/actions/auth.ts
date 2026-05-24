@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { loginSchema, passwordSchema, registerSchema } from '@/lib/validations/auth'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { headers } from 'next/headers'
 
 export async function registerUser(formData: FormData): Promise<{ error?: string }> {
   const raw = {
