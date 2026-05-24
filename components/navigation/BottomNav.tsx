@@ -54,7 +54,7 @@ export default function BottomNav() {
   const onMatchesPage = pathname === '/matches'
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-100 bg-white">
+    <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white">
       <ul className="flex">
         {tabs.map((tab) => {
           const isActive = pathname.startsWith(tab.href)
@@ -69,7 +69,7 @@ export default function BottomNav() {
               <Link
                 href={tab.href}
                 className={`relative flex flex-col items-center gap-0.5 py-2 text-xs ${
-                  isActive ? 'text-pink-500' : 'text-gray-400'
+                  isActive ? 'text-primary-500' : 'text-gray-400'
                 }`}
               >
                 <span className="relative">

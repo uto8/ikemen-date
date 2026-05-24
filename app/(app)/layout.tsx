@@ -22,7 +22,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <LikeBadgeProvider userId={user.id} initialCount={initialLikeCount}>
       <MessageBadgeProvider userId={user.id} initialMatches={initialMatches}>
-        <div className="pb-16">{children}</div>
+        <div className="pb-20">{children}</div>
         <BottomNav />
       </MessageBadgeProvider>
     </LikeBadgeProvider>

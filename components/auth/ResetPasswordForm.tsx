@@ -31,18 +31,18 @@ export default function ResetPasswordForm() {
           type="password"
           autoComplete="new-password"
           placeholder="英数字を含む8文字以上"
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full rounded-md border border-gray-200 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
 
       {error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+        <p className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">{error}</p>
       )}
 
       <button
         type="submit"
         disabled={isPending}
-        className="mt-2 rounded-full bg-pink-500 py-3 text-sm font-semibold text-white transition hover:bg-pink-600 disabled:opacity-50"
+        className="w-full rounded-full bg-primary-500 py-4 text-base font-semibold text-white shadow-sm transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
       >
         {isPending ? '更新中…' : 'パスワードを更新する'}
       </button>

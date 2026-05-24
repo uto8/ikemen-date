@@ -53,7 +53,7 @@
 
 ### Phase 2 — 基盤コンポーネント（DS-01〜03 完了後）
 
-- [ ] **DS-04** フォーム部品（入力・ボタン）の共通スタイルを修正する
+- [x] **DS-04** フォーム部品（入力・ボタン）の共通スタイルを修正する
   - 対象ファイル: `components/auth/LoginForm.tsx`, `RegisterForm.tsx`, `ForgotPasswordForm.tsx`, `ResetPasswordForm.tsx`, `VerifyEmailForm.tsx`
   - `focus:ring-pink-*` → `focus:ring-primary-500`
   - `border-gray-300` → `border-gray-200`
@@ -63,7 +63,7 @@
   - 参照: `mockups/S02-register.html`, `S04-login.html`
   - **DoD**: 全認証フォームのボタン・入力フィールドが水色テーマで表示される
 
-- [ ] **DS-05** ボトムナビのカラーを修正する
+- [x] **DS-05** ボトムナビのカラーを修正する
   - `components/navigation/BottomNav.tsx`
   - アクティブ色 `text-pink-500` → `text-primary-500`
   - セーフエリア対応: `pb-safe` または `pb-4` を追加（モバイル下部余白）

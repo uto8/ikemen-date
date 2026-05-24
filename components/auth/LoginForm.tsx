@@ -27,7 +27,7 @@ export default function LoginForm({ errorParam }: Props) {
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       {errorParam === 'expired' && (
-        <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-700">
+        <p className="rounded-md bg-warning-50 px-3 py-2 text-sm text-warning-500">
           確認リンクの有効期限が切れました。もう一度メールを確認するか、再送信してください。
         </p>
       )}
@@ -42,7 +42,7 @@ export default function LoginForm({ errorParam }: Props) {
           name="email"
           type="email"
           autoComplete="email"
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full rounded-md border border-gray-200 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
 
@@ -56,12 +56,12 @@ export default function LoginForm({ errorParam }: Props) {
           name="password"
           type="password"
           autoComplete="current-password"
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full rounded-md border border-gray-200 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
 
       {serverError && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+        <p className="rounded-md bg-error-50 px-3 py-2 text-sm text-error-500">
           {serverError}
         </p>
       )}
@@ -69,7 +69,7 @@ export default function LoginForm({ errorParam }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-2 rounded-full bg-pink-500 py-3 text-sm font-semibold text-white transition hover:bg-pink-600 disabled:opacity-50"
+        className="w-full rounded-full bg-primary-500 py-4 text-base font-semibold text-white shadow-sm transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
       >
         {isPending ? 'ログイン中…' : 'ログインする'}
       </button>
