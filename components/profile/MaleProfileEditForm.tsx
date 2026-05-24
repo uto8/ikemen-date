@@ -103,7 +103,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
             </svg>
           </div>
         )}
-        <label className="cursor-pointer text-sm font-medium text-pink-500">
+        <label className="cursor-pointer text-sm font-medium text-primary-500">
           画像を変更（任意）
           <input
             name="avatar"
@@ -126,7 +126,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
           type="text"
           maxLength={20}
           defaultValue={initialData.nickname}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         {state.errors.nickname && (
           <p className="text-xs text-red-500">{state.errors.nickname}</p>
@@ -142,7 +142,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
           id="prefecture"
           name="prefecture"
           defaultValue={initialData.prefecture}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
           {PREFECTURES.map((p) => (
             <option key={p} value={p}>
@@ -166,7 +166,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
           type="text"
           maxLength={30}
           defaultValue={initialData.occupation ?? ''}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         {state.errors.occupation && (
           <p className="text-xs text-red-500">{state.errors.occupation}</p>
@@ -185,7 +185,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
           min={100}
           max={250}
           defaultValue={initialData.height ?? ''}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         {state.errors.height && (
           <p className="text-xs text-red-500">{state.errors.height}</p>
@@ -203,7 +203,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
           maxLength={300}
           rows={4}
           defaultValue={initialData.bio ?? ''}
-          className="resize-none rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="resize-none rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         {state.errors.bio && (
           <p className="text-xs text-red-500">{state.errors.bio}</p>
@@ -224,7 +224,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
                 name="ikemen_type_ids"
                 value={type.id}
                 defaultChecked={initialData.ikemenTypeIds.includes(type.id)}
-                className="accent-pink-500"
+                className="accent-primary-500"
               />
               {type.name}
             </label>
@@ -250,7 +250,7 @@ export default function MaleProfileEditForm({ initialData }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-2 rounded-full bg-pink-500 py-3 text-sm font-semibold text-white transition hover:bg-pink-600 disabled:opacity-50"
+        className="mt-2 rounded-full bg-primary-500 py-3 text-sm font-semibold text-white transition hover:bg-primary-600 disabled:opacity-50"
       >
         {isPending ? '保存中…' : '保存する'}
       </button>

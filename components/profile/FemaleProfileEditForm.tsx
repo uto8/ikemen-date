@@ -94,7 +94,7 @@ export default function FemaleProfileEditForm({ initialData }: Props) {
             </svg>
           </div>
         )}
-        <label className="cursor-pointer text-sm font-medium text-pink-500">
+        <label className="cursor-pointer text-sm font-medium text-primary-500">
           画像を変更（任意）
           <input
             name="avatar"
@@ -117,7 +117,7 @@ export default function FemaleProfileEditForm({ initialData }: Props) {
           type="text"
           maxLength={20}
           defaultValue={initialData.nickname}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         {state.errors.nickname && (
           <p className="text-xs text-red-500">{state.errors.nickname}</p>
@@ -133,7 +133,7 @@ export default function FemaleProfileEditForm({ initialData }: Props) {
           id="prefecture"
           name="prefecture"
           defaultValue={initialData.prefecture}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
           {PREFECTURES.map((p) => (
             <option key={p} value={p}>
@@ -161,7 +161,7 @@ export default function FemaleProfileEditForm({ initialData }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-2 rounded-full bg-pink-500 py-3 text-sm font-semibold text-white transition hover:bg-pink-600 disabled:opacity-50"
+        className="mt-2 rounded-full bg-primary-500 py-3 text-sm font-semibold text-white transition hover:bg-primary-600 disabled:opacity-50"
       >
         {isPending ? '保存中…' : '保存する'}
       </button>
