@@ -22,19 +22,18 @@ export async function registerUser(formData: FormData): Promise<{ error?: string
 
   const { email, password, gender, birthDate } = result.data
 
-  // const supabaseAdmin = createSupabaseAdminClient()
-  // const { error } = await supabaseAdmin.auth.admin.createUser({
-  //   email,
-  //   password,
-  //   user_metadata: { gender, birth_date: birthDate },
-  //   email_confirm: false,
-  // })
+  const headersList = await headers()
+  const host = headersList.get('host') ?? 'localhost:3000'
+  const protocol = host.includes('localhost') ? 'http' : 'https'
+  const origin = `${protocol}://${host}`
+
   const supabase = await createServerSupabaseClient()
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { gender, birth_date: birthDate },
+      emailRedirectTo: `${origin}/auth/callback`,
     },
   })
 
@@ -128,10 +127,16 @@ export async function resetPassword(formData: FormData): Promise<{ error?: strin
 export async function resendConfirmationEmail(
   email: string
 ): Promise<{ error?: string }> {
+  const headersList = await headers()
+  const host = headersList.get('host') ?? 'localhost:3000'
+  const protocol = host.includes('localhost') ? 'http' : 'https'
+  const origin = `${protocol}://${host}`
+
   const supabase = await createServerSupabaseClient()
   const { error } = await supabase.auth.resend({
     type: 'signup',
     email,
+    options: { emailRedirectTo: `${origin}/auth/callback` },
   })
 
   if (error) {
