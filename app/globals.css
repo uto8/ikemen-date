@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f8fa;
+  --foreground: #1a1a2e;
 }
 
 @theme inline {
@@ -10,6 +10,36 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* プライマリ（水色 — ブランドカラー） */
+  --color-primary-50: #e0f7fa;
+  --color-primary-100: #b2ebf2;
+  --color-primary-400: #26d4e8;
+  --color-primary-500: #00c1d4;
+  --color-primary-600: #00a3b3;
+  --color-primary-700: #007f8c;
+
+  /* グレースケール */
+  --color-gray-0: #ffffff;
+  --color-gray-50: #f5f8fa;
+  --color-gray-100: #edf0f3;
+  --color-gray-200: #d8dde3;
+  --color-gray-400: #a0aab4;
+  --color-gray-500: #7a8fa6;
+  --color-gray-700: #3d4f61;
+  --color-gray-900: #1a1a2e;
+
+  /* 状態色 */
+  --color-success-50: #dcfce7;
+  --color-success-500: #22c55e;
+  --color-warning-50: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-error-50: #fee2e2;
+  --color-error-500: #ef4444;
+  --color-info-50: #eff6ff;
+  --color-info-500: #3b82f6;
 }
 
 @media (prefers-color-scheme: dark) {
