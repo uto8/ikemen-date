@@ -419,9 +419,13 @@ export default function MaleOnboardingForm() {
                           : 'border-gray-200 bg-white hover:border-primary-500'
                       }`}
                     >
-                      <div
-                        className={`aspect-square w-full ${TYPE_COLORS[index % TYPE_COLORS.length]} flex items-center justify-center`}
-                      />
+                      <div className="aspect-square w-full overflow-hidden">
+                        <img
+                          src={type.image}
+                          alt={type.name}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
                       <div className="flex items-center justify-between px-3 py-2">
                         <span
                           className={`text-xs font-semibold ${isSelected ? 'text-primary-500' : 'text-gray-700'}`}
