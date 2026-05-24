@@ -122,7 +122,7 @@
 
 ### Phase 5 — メインアプリ画面（DS-01〜05 完了後）
 
-- [ ] **DS-11** ユーザー一覧のカード・グリッドデザインを修正する
+- [x] **DS-11** ユーザー一覧のカード・グリッドデザインを修正する
   - `components/user-card/UserCard.tsx`・`UserGrid.tsx`
   - 画像比率: `aspect-square` → `aspect-[3/4]`
   - バッジ色: `bg-pink-500` → `bg-primary-500`（イケメンタイプバッジ）
@@ -131,7 +131,7 @@
   - 参照: `mockups/S10-gallery.html`
   - **DoD**: ユーザー一覧が 3:4 比率カード・水色バッジで表示される
 
-- [ ] **DS-12** いいね一覧のリストデザインを修正する
+- [x] **DS-12** いいね一覧のリストデザインを修正する
   - `app/(app)/likes/page.tsx`
   - ハートアイコンを追加（各カード右側・`text-primary-500`）
   - カードスタイル確認: `rounded-2xl bg-white shadow-sm p-4`（現在 p-3 → p-4 に）
@@ -139,14 +139,14 @@
   - 参照: `mockups/S12-likes-received.html`
   - **DoD**: いいね一覧のカードレイアウトがモックアップと一致する
 
-- [ ] **DS-13** マッチング一覧のリストデザインを修正する
+- [x] **DS-13** マッチング一覧のリストデザインを修正する
   - `app/(app)/matches/page.tsx`
   - 未読バッジ色: `bg-pink-500` → `bg-primary-500`
   - 最終メッセージのプレビューテキスト追加（現在未実装・mockup にあり）
   - 参照: `mockups/S13-matches.html`
   - **DoD**: マッチング一覧の未読バッジが水色で表示される
 
-- [ ] **DS-14** ユーザー詳細ページのレイアウトを修正する
+- [x] **DS-14** ユーザー詳細ページのレイアウトを修正する
   - `app/(app)/users/[id]/page.tsx`
   - アバター: `mx-auto w-40` → 全幅 `w-full aspect-[3/4]` 画像（上部に配置）
   - いいねボタン: ページ下部に固定エリア（`fixed bottom-16 inset-x-0 px-4 pb-4`）
@@ -155,7 +155,7 @@
   - 参照: `mockups/S11-user-detail.html`
   - **DoD**: ユーザー詳細が全幅プロフィール画像 + 固定いいねボタンのレイアウトで表示される
 
-- [ ] **DS-15** チャット画面のメッセージバブルを修正する
+- [x] **DS-15** チャット画面のメッセージバブルを修正する
   - `components/chat/ChatMessages.tsx`・`ChatInput.tsx`
   - 自分のバブル: `bg-primary-500 text-white rounded-2xl rounded-br-sm`
   - 相手のバブル: `bg-white text-gray-900 rounded-2xl rounded-bl-sm shadow-xs`
@@ -164,7 +164,7 @@
   - 参照: `mockups/S14-chat.html`
   - **DoD**: チャット画面のメッセージが水色テーマのバブルで表示される
 
-- [ ] **DS-16** マイページのデザインを修正する
+- [x] **DS-16** マイページのデザインを修正する
   - `app/(app)/settings/page.tsx`
   - プロフィールカード追加: アバター(大)・ニックネーム・年齢・都道府県を上部に表示
   - 設定リストのアイテムスタイル調整（chevron アイコン追加・mockup に合わせる）

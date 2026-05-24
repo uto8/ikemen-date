@@ -10,7 +10,7 @@ export default function UserCard({ user }: Props) {
     <Link href={`/users/${user.id}`} className="block">
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
         {/* image area */}
-        <div className="relative aspect-square bg-gray-100">
+        <div className="relative aspect-[3/4] bg-gray-100">
           {user.avatar_url ? (
             <img
               src={user.avatar_url}
@@ -31,7 +31,7 @@ export default function UserCard({ user }: Props) {
 
           {/* ikemen type badge — male only */}
           {user.primaryIkemenType && (
-            <span className="absolute bottom-2 left-2 rounded-full bg-pink-500 px-2 py-0.5 text-xs font-medium text-white">
+            <span className="absolute bottom-2 left-2 rounded-full bg-primary-500 px-2 py-0.5 text-xs font-medium text-white">
               {user.primaryIkemenType}
             </span>
           )}

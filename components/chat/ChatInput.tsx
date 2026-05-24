@@ -33,7 +33,7 @@ export default function ChatInput({ matchId }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-gray-100 bg-white px-4 py-3">
+    <form onSubmit={handleSubmit} className="border-t border-gray-200 bg-white px-4 py-3">
       <div className="flex items-end gap-2">
         <div className="flex-1">
           <textarea
@@ -42,7 +42,7 @@ export default function ChatInput({ matchId }: Props) {
             maxLength={MAX_LENGTH}
             rows={1}
             placeholder="メッセージを入力"
-            className="w-full resize-none rounded-2xl border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+            className="w-full resize-none rounded-2xl border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
           <p
             className={`mt-0.5 text-right text-xs ${
@@ -55,7 +55,7 @@ export default function ChatInput({ matchId }: Props) {
         <button
           type="submit"
           disabled={isDisabled}
-          className="mb-5 rounded-full bg-pink-500 px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="mb-5 rounded-full bg-primary-500 px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           送信
         </button>

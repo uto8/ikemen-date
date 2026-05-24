@@ -42,16 +42,18 @@ export default async function MatchesPage() {
                     )}
                   </div>
                   {match.unreadCount > 0 && (
-                    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-pink-500 px-1 text-xs font-bold text-white">
+                    <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-500 px-1 text-xs font-bold text-white">
                       {match.unreadCount > 99 ? '99+' : match.unreadCount}
                     </span>
                   )}
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{match.partner.nickname}</p>
-                  <p className="text-xs text-gray-500">
-                    {match.partner.age}歳・{match.partner.prefecture}
-                  </p>
+                  {match.lastMessage ? (
+                    <p className="truncate text-xs text-gray-500">{match.lastMessage}</p>
+                  ) : (
+                    <p className="text-xs text-gray-400">まだメッセージがありません</p>
+                  )}
                 </div>
               </Link>
             </li>

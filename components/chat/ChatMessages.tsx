@@ -96,6 +96,22 @@ export default function ChatMessages({
     }
   }, [matchId, partnerId])
 
+  const groupedMessages = messages.reduce<{ date: string; msgs: Message[] }[]>((acc, msg) => {
+    const d = msg.createdAt.slice(0, 10)
+    const last = acc.at(-1)
+    if (last && last.date === d) {
+      last.msgs.push(msg)
+    } else {
+      acc.push({ date: d, msgs: [msg] })
+    }
+    return acc
+  }, [])
+
+  function formatDateLabel(iso: string) {
+    const [y, m, d] = iso.split('-')
+    return `${y}年${Number(m)}月${Number(d)}日`
+  }
+
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       {!partnerActive && (
@@ -103,24 +119,36 @@ export default function ChatMessages({
           相手のアカウントは退会済みです
         </div>
       )}
-      <div className="flex-1 space-y-2 overflow-y-auto px-4 py-4">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex ${msg.senderId === currentUserId ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-[70%] rounded-2xl px-3 py-2 text-sm ${
-                msg.senderId === currentUserId
-                  ? 'bg-pink-500 text-white'
-                  : 'bg-white text-gray-900'
-              }`}
-            >
-              {msg.senderId === null ? (
-                <span className="italic text-gray-400">退会済みユーザー</span>
-              ) : (
-                msg.content
-              )}
+      <div className="flex-1 overflow-y-auto px-4 py-4">
+        {groupedMessages.map(({ date, msgs }) => (
+          <div key={date}>
+            {/* date separator */}
+            <div className="flex items-center gap-3 py-3">
+              <div className="flex-1 border-t border-gray-200" />
+              <span className="text-xs text-gray-400">{formatDateLabel(date)}</span>
+              <div className="flex-1 border-t border-gray-200" />
+            </div>
+            <div className="space-y-2">
+              {msgs.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex ${msg.senderId === currentUserId ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[70%] px-3 py-2 text-sm ${
+                      msg.senderId === currentUserId
+                        ? 'rounded-2xl rounded-br-sm bg-primary-500 text-white'
+                        : 'rounded-2xl rounded-bl-sm bg-white text-gray-900 shadow-xs'
+                    }`}
+                  >
+                    {msg.senderId === null ? (
+                      <span className="italic text-gray-400">退会済みユーザー</span>
+                    ) : (
+                      msg.content
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}

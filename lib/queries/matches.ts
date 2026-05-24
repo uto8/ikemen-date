@@ -11,6 +11,7 @@ type PartnerProfileRow = {
 }
 
 type MessageRow = {
+  content: string
   created_at: string
   is_read: boolean
   sender_id: string | null
@@ -38,6 +39,7 @@ export type MatchWithPartner = {
   }
   unreadCount: number
   lastActivityAt: string
+  lastMessage: string | null
 }
 
 export function transformToMatchWithPartner(
@@ -54,10 +56,10 @@ export function transformToMatchWithPartner(
     (msg) => !msg.is_read && msg.sender_id !== null && msg.sender_id !== currentUserId
   ).length
 
-  const lastMessageAt = match.messages
-    .map((msg) => msg.created_at)
-    .sort()
-    .at(-1)
+  const sortedMessages = [...match.messages].sort((a, b) =>
+    a.created_at.localeCompare(b.created_at)
+  )
+  const lastMsg = sortedMessages.at(-1)
 
   return {
     matchId: match.id,
@@ -70,7 +72,8 @@ export function transformToMatchWithPartner(
       gender: partnerProfile.gender,
     },
     unreadCount,
-    lastActivityAt: lastMessageAt ?? match.created_at,
+    lastActivityAt: lastMsg?.created_at ?? match.created_at,
+    lastMessage: lastMsg?.content ?? null,
   }
 }
 
@@ -123,7 +126,7 @@ export async function getMyMatches(currentUserId: string): Promise<MatchWithPart
       created_at,
       user1:profiles!user1_id(id, nickname, birth_date, prefecture, avatar_url, gender),
       user2:profiles!user2_id(id, nickname, birth_date, prefecture, avatar_url, gender),
-      messages(created_at, is_read, sender_id)
+      messages(content, created_at, is_read, sender_id)
     `
     )
     .or(`user1_id.eq.${currentUserId},user2_id.eq.${currentUserId}`)
