@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getUserById } from '@/lib/queries/users'
 import { getLikeStatus } from '@/lib/queries/likes'
+import { IKEMEN_TYPES } from '@/lib/utils/ikemen-types'
 import LikeButton from '@/components/like-button/LikeButton'
 
 type Props = { params: Promise<{ id: string }> }
@@ -69,17 +70,27 @@ export default async function UserDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Ikemen type badges */}
+          {/* Ikemen type cards with images */}
           {isMale && profile.ikemenTypes.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {profile.ikemenTypes.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-primary-100 bg-primary-50 px-3 py-1.5 text-xs font-semibold text-primary-500"
-                >
-                  {t}
-                </span>
-              ))}
+            <div>
+              <h2 className="mb-3 text-sm font-bold text-gray-900">タイプ</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {profile.ikemenTypes.map((typeName) => {
+                  const type = IKEMEN_TYPES.find((t) => t.name === typeName)
+                  return (
+                    <div key={typeName} className="overflow-hidden rounded-2xl border border-primary-100 bg-primary-50 shadow-sm">
+                      {type && (
+                        <div className="aspect-[4/3] overflow-hidden">
+                          <img src={type.image} alt={typeName} className="h-full w-full object-cover object-top" />
+                        </div>
+                      )}
+                      <div className="px-3 py-2 text-center">
+                        <span className="text-xs font-semibold text-primary-500">{typeName}</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           )}
 
