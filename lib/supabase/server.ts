@@ -11,9 +11,13 @@ export async function createServerSupabaseClient() {
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: (cookiesToSet) => {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options)
-          })
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options)
+            })
+          } catch {
+            // Server Component から呼ばれた場合は無視（ミドルウェアがセッション更新を担う）
+          }
         },
       },
     }

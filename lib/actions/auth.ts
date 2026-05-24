@@ -1,6 +1,5 @@
 'use server'
 
-import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 import { loginSchema, passwordSchema, registerSchema } from '@/lib/validations/auth'
@@ -22,27 +21,26 @@ export async function registerUser(formData: FormData): Promise<{ error?: string
 
   const { email, password, gender, birthDate } = result.data
 
-  const headersList = await headers()
-  const host = headersList.get('host') ?? 'localhost:3000'
-  const protocol = host.includes('localhost') ? 'http' : 'https'
-  const origin = `${protocol}://${host}`
-
-  const supabase = await createServerSupabaseClient()
-  const { error } = await supabase.auth.signUp({
+  const supabaseAdmin = createSupabaseAdminClient()
+  const { error: createError } = await supabaseAdmin.auth.admin.createUser({
     email,
     password,
-    options: {
-      data: { gender, birth_date: birthDate },
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
+    user_metadata: { gender, birth_date: birthDate },
+    email_confirm: true,
   })
 
-  if (error) {
-    console.log("===error", error)
-    const msg = error.message.toLowerCase()
+  if (createError) {
+    const msg = createError.message.toLowerCase()
     if (msg.includes('already registered') || msg.includes('already been registered')) {
       return { error: 'このメールアドレスはすでに使用されています' }
     }
+    return { error: 'アカウントの作成に失敗しました。しばらく経ってから再度お試しください' }
+  }
+
+  const supabase = await createServerSupabaseClient()
+  const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+
+  if (signInError) {
     return { error: 'アカウントの作成に失敗しました。しばらく経ってから再度お試しください' }
   }
 
