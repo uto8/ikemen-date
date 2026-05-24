@@ -37,13 +37,13 @@
   - 参照: `docs/design/design-system.md` § カラーパレット、`mockups/S10-gallery.html`（inline Tailwind config）
   - **DoD**: `bg-primary-500` が水色 `#00c1d4` でレンダリングされる
 
-- [ ] **DS-02** フォントを Noto Sans JP + Inter に変更する
+- [x] **DS-02** フォントを Noto Sans JP + Inter に変更する
   - `app/layout.tsx` の `Geist` 読み込みを削除し `next/font/google` で `Noto_Sans_JP`・`Inter` を読み込む
   - `globals.css` の `--font-sans` を新フォント変数に更新
   - 参照: `docs/design/design-system.md` § タイポグラフィ、`mockups/S01-top.html`
   - **DoD**: ページテキストが日本語 Noto Sans JP・英数字 Inter で表示される
 
-- [ ] **DS-03** ダークモードを削除しページ背景色・本文色を統一する
+- [x] **DS-03** ダークモードを削除しページ背景色・本文色を統一する
   - `globals.css` から `@media (prefers-color-scheme: dark)` ブロックを削除
   - `body` の背景色を `bg-gray-50 (#f5f8fa)`・テキスト色を `gray-900 (#1a1a2e)` に固定
   - `app/layout.tsx` の `<html>` から `dark:` クラスが混入していないか確認
