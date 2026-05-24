@@ -133,13 +133,13 @@ export default function MaleOnboardingForm() {
   }
 
   function toggleType(id: number) {
-    setSelectedTypes((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]))
+    setSelectedTypes((prev) => (prev.includes(id) ? [] : [id]))
     setTypesError('')
   }
 
   function handleSubmit() {
     if (selectedTypes.length === 0) {
-      setTypesError('1つ以上選択してください')
+      setTypesError('タイプを1つ選択してください')
       return
     }
     setTypesError('')

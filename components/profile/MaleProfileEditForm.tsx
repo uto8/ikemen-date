@@ -215,15 +215,15 @@ export default function MaleProfileEditForm({ initialData }: Props) {
         <span className="text-sm font-medium">
           イケメンタイプ <span className="text-red-500">*</span>
         </span>
-        <p className="text-xs text-gray-400">当てはまるタイプをすべて選択してください</p>
+        <p className="text-xs text-gray-400">タイプを1つ選んでください</p>
         <div className="grid grid-cols-2 gap-y-2">
           {IKEMEN_TYPES.map((type) => (
             <label key={type.id} className="flex items-center gap-2 text-sm">
               <input
-                type="checkbox"
+                type="radio"
                 name="ikemen_type_ids"
                 value={type.id}
-                defaultChecked={initialData.ikemenTypeIds.includes(type.id)}
+                defaultChecked={initialData.ikemenTypeIds[0] === type.id}
                 className="accent-primary-500"
               />
               {type.name}
