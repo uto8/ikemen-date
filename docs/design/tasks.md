@@ -102,7 +102,7 @@
 
 ### Phase 4 — オンボーディング（DS-04 完了後）
 
-- [ ] **DS-09** 女性オンボーディングのデザインを修正する（3 Step）
+- [x] **DS-09** 女性オンボーディングのデザインを修正する（3 Step）
   - `components/profile/FemaleOnboardingForm.tsx`
   - プログレスバー: `h-1 flex gap-1.5`・完了分 `bg-primary-500`・未完了 `bg-gray-200`
   - アバターアップロードボタン: 円形・破線ボーダー・プラスアイコン（mockup S08）
@@ -110,7 +110,7 @@
   - 参照: `mockups/S08-onboarding-female.html`, `S08-onboarding-female-step2.html`, `S08-onboarding-female-step3.html`
   - **DoD**: 3 Step すべてがモックアップのレイアウト・カラーで表示される
 
-- [ ] **DS-10** 男性オンボーディングのデザインを修正する（7 Step）
+- [x] **DS-10** 男性オンボーディングのデザインを修正する（7 Step）
   - `components/profile/MaleOnboardingForm.tsx`
   - プログレスバー: `h-1 flex gap-1`・7 分割・DS-09 と同様
   - イケメンタイプ選択: 2 カラムグリッド・カード型（画像 + テキスト + チェックマーク）
