@@ -1,15 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { getSupabaseBrowserClient } from '@/lib/supabase/client'
+import { useEffect, useRef } from 'react'
 import type { Message } from '@/lib/queries/messages'
 import Link from 'next/link'
 
 type Props = {
-  matchId: string
   currentUserId: string
-  initialMessages: Message[]
-  isPartnerActive: boolean
+  messages: Message[]
+  partnerActive: boolean
   partnerId: string | null
   partnerAvatarUrl: string | null
   partnerNickname: string
@@ -29,76 +27,18 @@ function formatMsgTime(isoStr: string): string {
 }
 
 export default function ChatMessages({
-  matchId,
   currentUserId,
-  initialMessages,
-  isPartnerActive,
+  messages,
+  partnerActive,
   partnerId,
   partnerAvatarUrl,
   partnerNickname,
 }: Props) {
-  const [messages, setMessages] = useState<Message[]>(initialMessages)
-  const [partnerActive, setPartnerActive] = useState(isPartnerActive)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView()
   }, [messages])
-
-  useEffect(() => {
-    const supabase = getSupabaseBrowserClient()
-    const channel = supabase
-      .channel(`chat-${matchId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `match_id=eq.${matchId}`,
-        },
-        (payload) => {
-          const row = payload.new as {
-            id: string
-            sender_id: string | null
-            content: string
-            is_read: boolean
-            created_at: string
-          }
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: row.id,
-              senderId: row.sender_id,
-              content: row.content,
-              isRead: row.is_read,
-              createdAt: row.created_at,
-            },
-          ])
-        }
-      )
-      .subscribe()
-    return () => { supabase.removeChannel(channel) }
-  }, [matchId])
-
-  useEffect(() => {
-    if (!partnerId) return
-    const supabase = getSupabaseBrowserClient()
-    const channel = supabase
-      .channel(`partner-withdraw-${matchId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'DELETE',
-          schema: 'public',
-          table: 'profiles',
-          filter: `id=eq.${partnerId}`,
-        },
-        () => { setPartnerActive(false) }
-      )
-      .subscribe()
-    return () => { supabase.removeChannel(channel) }
-  }, [matchId, partnerId])
 
   const groupedMessages = messages.reduce<{ date: string; msgs: Message[] }[]>((acc, msg) => {
     const d = msg.createdAt.slice(0, 10)
@@ -202,7 +142,7 @@ export default function ChatMessages({
         <div ref={bottomRef} />
       </div>
 
-      {/* Withdrawn banner — shown below messages, above input */}
+      {/* Withdrawn banner */}
       {!partnerActive && (
         <div className="flex-shrink-0 px-4 py-2">
           <div className="rounded-md border border-yellow-200 bg-warning-50 px-4 py-2.5 text-center text-xs text-warning-500">

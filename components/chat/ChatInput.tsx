@@ -1,17 +1,16 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { sendMessage } from '@/lib/actions/chat'
 
 type Props = {
-  matchId: string
   isPartnerActive: boolean
+  onSend: (content: string) => Promise<{ error?: string }>
 }
 
 const MAX_LENGTH = 500
 const WARN_LENGTH = 450
 
-export default function ChatInput({ matchId, isPartnerActive }: Props) {
+export default function ChatInput({ isPartnerActive, onSend }: Props) {
   const [value, setValue] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -24,7 +23,7 @@ export default function ChatInput({ matchId, isPartnerActive }: Props) {
     const content = value.trim()
     setError(null)
     startTransition(async () => {
-      const result = await sendMessage(matchId, content)
+      const result = await onSend(content)
       if (result?.error) {
         setError(result.error)
       } else {

@@ -4,8 +4,7 @@ import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getMatchParticipants, getMyMatches } from '@/lib/queries/matches'
 import { getMessages } from '@/lib/queries/messages'
 import { markMessagesAsRead } from '@/lib/actions/chat'
-import ChatMessages from '@/components/chat/ChatMessages'
-import ChatInput from '@/components/chat/ChatInput'
+import ChatContainer from '@/components/chat/ChatContainer'
 import ChatBadgeResetter from '@/components/navigation/ChatBadgeResetter'
 import MatchesSidebar from '@/components/chat/MatchesSidebar'
 
@@ -75,7 +74,7 @@ export default async function ChatPage({ params }: Props) {
         </header>
 
         <ChatBadgeResetter matchId={match_id} />
-        <ChatMessages
+        <ChatContainer
           matchId={match_id}
           currentUserId={user.id}
           initialMessages={messages}
@@ -84,7 +83,6 @@ export default async function ChatPage({ params }: Props) {
           partnerAvatarUrl={partner?.avatar_url ?? null}
           partnerNickname={partner?.nickname ?? ''}
         />
-        <ChatInput matchId={match_id} isPartnerActive={participants.isPartnerActive} />
       </main>
     </div>
   )
